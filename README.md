@@ -15,8 +15,9 @@
 - TS
 - Gatsby
 - Vercel
-- Styled-Component
+- Recoil
 - React-Query (Tanstack-Query)
+- Styled-Component
 - Framer-Motion
 - Contentful
 

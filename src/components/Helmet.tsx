@@ -5,8 +5,6 @@ interface IHelmet {
   title?: string;
 }
 export default function Helmet({ title }: IHelmet) {
-  // This query will executed when build !
-  // It's literally "Static" query
   const titleQueryResponse = useStaticQuery<Queries.getTitleQuery>(graphql`
     query getTitle {
       site {

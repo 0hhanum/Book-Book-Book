@@ -1,8 +1,13 @@
 import * as React from "react";
-import { Link, HeadFC, PageProps } from "gatsby";
+import { HeadFC, PageProps } from "gatsby";
+import Layout from "../components/Layout";
 
 const NotFoundPage: React.FC<PageProps> = () => {
-  return <h1>404</h1>;
+  return (
+    <Layout>
+      <h1>404</h1>
+    </Layout>
+  );
 };
 
 export default NotFoundPage;
