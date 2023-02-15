@@ -3,7 +3,7 @@ import type { GatsbyConfig } from "gatsby";
 
 const config: GatsbyConfig = {
   siteMetadata: {
-    title: `BookBookBook`,
+    title: "책책책, 책을 읽읍시다!",
     siteUrl: `https://www.yourdomain.tld`,
     description: "Contact Me! - rntls123@naver.com",
   },
