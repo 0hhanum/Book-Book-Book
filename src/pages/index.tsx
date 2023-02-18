@@ -3,7 +3,7 @@ import type { PageProps } from "gatsby";
 import Helmet from "../components/Helmet";
 import Layout from "../components/Layout";
 
-const IndexPage: React.FC<PageProps> = () => {
+const IndexPage = () => {
   return (
     <Layout>
       <main> HELLO </main>

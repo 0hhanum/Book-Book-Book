@@ -2,7 +2,7 @@ import * as React from "react";
 import { HeadFC, PageProps } from "gatsby";
 import Layout from "../components/Layout";
 
-const NotFoundPage: React.FC<PageProps> = () => {
+const NotFoundPage = () => {
   return (
     <Layout>
       <h1>404</h1>
