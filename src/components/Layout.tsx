@@ -11,12 +11,7 @@ interface ILayout {
 }
 
 const Layout = ({ children }: ILayout) => {
-  // const isDefaultTheme = useRecoilValue(isDefaultThemeAtom);
-  const [isDefaultTheme, setTheme] = useRecoilState(isDefaultThemeAtom);
-  setTimeout(() => {
-    setTheme(false);
-    console.log("exec");
-  }, 5000);
+  const isDefaultTheme = useRecoilValue(isDefaultThemeAtom);
   return (
     <ThemeProvider theme={isDefaultTheme ? defaultTheme : lighterTheme}>
       <GlobalStyle />
