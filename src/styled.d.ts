@@ -1,14 +1,7 @@
 import "styled-components";
 
 declare module "styled-components" {
-  export interface DefaultTheme {
-    backgroundColor: string;
-    fontColor: string;
-    accentColor: string;
-    normalColor: string;
-    warningColor: string;
-  }
-  export interface LighterTheme {
+  export interface Theme {
     backgroundColor: string;
     fontColor: string;
     accentColor: string;
