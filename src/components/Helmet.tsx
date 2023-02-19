@@ -15,9 +15,12 @@ export default function Helmet({ title }: IHelmet) {
     }
   `);
   return (
-    <title>
-      {title ? `${title} | ` : ""}
-      {titleQueryResponse?.site?.siteMetadata?.title}
-    </title>
+    <>
+      <title>
+        {title ? `${title} | ` : ""}
+        {titleQueryResponse?.site?.siteMetadata?.title}
+      </title>
+      <link rel="icon" type="image/x-icon" href={"../../favicon.png"}></link>
+    </>
   );
 }
