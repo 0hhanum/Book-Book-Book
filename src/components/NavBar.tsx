@@ -14,6 +14,10 @@ const NavBox = styled.div`
   display: flex;
   align-items: center;
 `;
+const Contact = styled.div`
+  cursor: pointer;
+  margin-right: 20px;
+`;
 const Icon = styled.img`
   margin-right: 10px;
 `;
@@ -37,7 +41,7 @@ const NavBar = () => {
           </NavBox>
         </Link>
         <NavBox>
-          <span>Contact</span>
+          <Contact>Contact</Contact>
           <ThemeToggle />
         </NavBox>
       </Nav>

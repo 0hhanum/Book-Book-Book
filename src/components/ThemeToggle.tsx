@@ -8,18 +8,14 @@ const ToggleContainer = styled(motion.div)<{ isDefaultTheme: boolean }>`
   width: 50px;
   height: 80%;
   display: flex;
-  border: 1px solid
-    ${(props) =>
-      props.isDefaultTheme
-        ? props.theme.fontColor
-        : props.theme.backgroundColor};
+  border: 1px solid ${(props) => props.theme.fontColor};
   border-radius: 20px;
-  background-color: ${(props) =>
-    props.isDefaultTheme ? props.theme.backgroundColor : props.theme.fontColor};
+  background-color: ${(props) => props.theme.backgroundColor};
   align-items: center;
   justify-content: ${(props) =>
     props.isDefaultTheme ? "flex-end" : "flex-start"};
   cursor: pointer;
+  padding: 0px 1px;
 `;
 const ToggleCircle = styled(motion.div)<{ isDefaultTheme: boolean }>`
   width: 20px;
@@ -41,7 +37,7 @@ const ThemeToggle = () => {
   };
   return (
     <ToggleContainer isDefaultTheme={isDefaultTheme} onClick={toggleTheme}>
-      <ToggleCircle isDefaultTheme={isDefaultTheme} />
+      <ToggleCircle isDefaultTheme={isDefaultTheme} layout />
     </ToggleContainer>
   );
 };
