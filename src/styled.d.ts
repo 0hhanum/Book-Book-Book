@@ -1,4 +1,5 @@
 import "styled-components";
+import { EColors } from "./colors";
 
 declare module "styled-components" {
   export interface DefaultTheme {
@@ -7,5 +8,6 @@ declare module "styled-components" {
     accentColor: string;
     normalColor: string;
     warningColor: string;
+    colors: typeof EColors;
   }
 }

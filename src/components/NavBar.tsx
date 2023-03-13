@@ -1,13 +1,14 @@
 import { Link } from "gatsby";
 import React from "react";
 import styled from "styled-components";
+import ThemeToggle from "./ThemeToggle";
 
 const Nav = styled.nav`
-  padding: 10px;
+  padding: 15px;
   display: flex;
   justify-content: space-between;
 `;
-const SiteTitle = styled.div`
+const NavBox = styled.div`
   display: flex;
   align-items: center;
 `;
@@ -19,16 +20,15 @@ const NavBar = () => {
     <header>
       <Nav>
         <Link to="/">
-          <SiteTitle>
+          <NavBox>
             <Icon src="../../favicon.svg" width="30" height="30" />
             <h1>책책책, 책을 읽읍시다!</h1>
-          </SiteTitle>
+          </NavBox>
         </Link>
-        <div>
-          <ul>
-            <li></li>
-          </ul>
-        </div>
+        <NavBox>
+          <span>Contact</span>
+          <ThemeToggle />
+        </NavBox>
       </Nav>
     </header>
   );
