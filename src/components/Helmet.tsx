@@ -20,7 +20,11 @@ export default function Helmet({ title }: IHelmet) {
         {title ? `${title} | ` : ""}
         {titleQueryResponse?.site?.siteMetadata?.title}
       </title>
-      <link rel="icon" type="image/x-icon" href={"../../favicon.png"}></link>
+      <link
+        rel="shortcut icon"
+        type="image/svg+xml"
+        href={"../../favicon.svg"}
+      ></link>
     </>
   );
 }

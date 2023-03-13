@@ -6,7 +6,7 @@ import { useRecoilValue } from "recoil";
 import { isDefaultThemeAtom } from "../atoms";
 import { defaultTheme, lighterTheme } from "../theme";
 import Sidebar from "./Sidebar";
-import Nav from "./Nav";
+import NavBar from "./NavBar";
 
 interface ILayout {
   children: any;
@@ -17,7 +17,7 @@ const Layout = ({ children }: ILayout) => {
   return (
     <ThemeProvider theme={isDefaultTheme ? defaultTheme : lighterTheme}>
       <GlobalStyle />
-      <Nav />
+      <NavBar />
       <Sidebar />
       {children}
     </ThemeProvider>

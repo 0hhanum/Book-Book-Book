@@ -20,6 +20,10 @@ time, mark, audio, video {
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
+	box-sizing: border-box;
+	text-decoration: none;
+	background-color: ${(props) => props.theme.backgroundColor};
+    color: ${(props) => props.theme.fontColor}
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 

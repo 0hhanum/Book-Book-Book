@@ -2,13 +2,13 @@ import * as React from "react";
 import Helmet from "../components/Helmet";
 import Layout from "../components/Layout";
 
-const IndexPage = () => {
+const Home = () => {
   return (
     <Layout>
-      <main> HELLO </main>
+      <main>Home</main>
     </Layout>
   );
 };
 
-export default IndexPage;
+export default Home;
 export const Head = () => <Helmet />;

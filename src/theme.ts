@@ -1,15 +1,15 @@
-import { Theme } from "styled-components";
+import { DefaultTheme } from "styled-components";
 
-export const defaultTheme: Theme = {
-  backgroundColor: "#06060A",
-  fontColor: "#FFFFFF",
+export const defaultTheme: DefaultTheme = {
+  backgroundColor: "#0c0f13",
+  fontColor: "#ffffff",
   accentColor: "#004DFD",
   normalColor: "#767475",
   warningColor: "#FF3548",
 };
-export const lighterTheme: Theme = {
-  backgroundColor: "#FFFFFF",
-  fontColor: "#06060A",
+export const lighterTheme: DefaultTheme = {
+  backgroundColor: "#ffffff",
+  fontColor: "#0c0f13",
   accentColor: "#004DFD",
   normalColor: "#767475",
   warningColor: "#FF3548",

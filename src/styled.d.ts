@@ -1,7 +1,7 @@
 import "styled-components";
 
 declare module "styled-components" {
-  export interface Theme {
+  export interface DefaultTheme {
     backgroundColor: string;
     fontColor: string;
     accentColor: string;
