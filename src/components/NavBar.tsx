@@ -1,6 +1,8 @@
 import { Link } from "gatsby";
 import React from "react";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { isDefaultThemeAtom } from "../atoms";
 import ThemeToggle from "./ThemeToggle";
 
 const Nav = styled.nav`
@@ -16,12 +18,21 @@ const Icon = styled.img`
   margin-right: 10px;
 `;
 const NavBar = () => {
+  const isDefaultTheme = useRecoilValue(isDefaultThemeAtom);
   return (
     <header>
       <Nav>
         <Link to="/">
           <NavBox>
-            <Icon src="../../favicon.svg" width="30" height="30" />
+            <Icon
+              src={
+                isDefaultTheme
+                  ? "../../favicon.svg"
+                  : "../../favicon_lighter.svg"
+              }
+              width="30"
+              height="30"
+            />
             <h1>책책책, 책을 읽읍시다!</h1>
           </NavBox>
         </Link>
