@@ -10,25 +10,46 @@ const ToggleContainer = styled(motion.div)<{ isDefaultTheme: boolean }>`
   display: flex;
   border: 1px solid ${(props) => props.theme.fontColor};
   border-radius: 20px;
-  background-color: ${(props) => props.theme.backgroundColor};
+  background-color: ${(props) => props.theme.colors.white};
   align-items: center;
   justify-content: ${(props) =>
     props.isDefaultTheme ? "flex-end" : "flex-start"};
   cursor: pointer;
   padding: 0px 1px;
+  position: relative;
+  overflow: hidden;
 `;
-const ToggleCircle = styled(motion.div)<{ isDefaultTheme: boolean }>`
+const ToggleLayer = styled(motion.div)`
+  background-color: ${(props) => props.theme.colors.black};
+  width: 110%;
+  height: 110%;
+  position: absolute;
+  left: -5px;
+  border-radius: 20px;
+`;
+const ToggleCircle = styled(motion.div)`
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  border: 1px solid
-    ${(props) =>
-      props.isDefaultTheme
-        ? props.theme.backgroundColor
-        : props.theme.fontColor};
-  background-color: ${(props) =>
-    props.isDefaultTheme ? props.theme.fontColor : props.theme.backgroundColor};
+  border: 1px solid ${(props) => props.theme.colors.black};
+  background-color: ${(props) => props.theme.colors.white};
+  z-index: 2;
 `;
+const ToggleLayerVariants = {
+  defaultTheme: {
+    width: "110%",
+    transition: {
+      duration: 0.8,
+    },
+  },
+  lightTheme: {
+    width: 0,
+    transition: {
+      duration: 0.4,
+      delay: 0.5,
+    },
+  },
+};
 const ThemeToggle = () => {
   const [isDefaultTheme, setIsDefaultTheme] =
     useRecoilState(isDefaultThemeAtom);
@@ -37,7 +58,11 @@ const ThemeToggle = () => {
   };
   return (
     <ToggleContainer isDefaultTheme={isDefaultTheme} onClick={toggleTheme}>
-      <ToggleCircle isDefaultTheme={isDefaultTheme} layout />
+      <ToggleLayer
+        variants={ToggleLayerVariants}
+        animate={isDefaultTheme ? "defaultTheme" : "lightTheme"}
+      />
+      <ToggleCircle layout />
     </ToggleContainer>
   );
 };
