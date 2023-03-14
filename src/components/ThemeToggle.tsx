@@ -46,7 +46,6 @@ const ToggleLayerVariants = {
     width: 0,
     transition: {
       duration: 0.4,
-      delay: 0.5,
     },
   },
 };
