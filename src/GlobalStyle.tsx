@@ -22,7 +22,6 @@ time, mark, audio, video {
 	vertical-align: baseline;
 	box-sizing: border-box;
 	text-decoration: none;
-	/* background-color: ${(props) => props.theme.backgroundColor}; */
     color: ${(props) => props.theme.fontColor}
 }
 /* HTML5 display-role reset for older browsers */
@@ -49,7 +48,8 @@ table {
 	border-spacing: 0;
 }
 body {
-    /* background-color: ${(props) => props.theme.backgroundColor}; */
-    color: ${(props) => props.theme.fontColor}
+    color: ${(props) => props.theme.fontColor};
+	margin-top: ${(props) => props.theme.variables.headerHeight};
+	height: 200vh;
 }
 `;

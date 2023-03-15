@@ -5,6 +5,11 @@ import styled from "styled-components";
 import { isDefaultThemeAtom } from "../atoms";
 import ThemeToggle from "./ThemeToggle";
 
+const Header = styled.header`
+  position: fixed;
+  top: 0;
+  width: 100%;
+`;
 const Nav = styled.nav`
   padding: 15px;
   display: flex;
@@ -24,7 +29,7 @@ const Icon = styled.img`
 const NavBar = () => {
   const isDefaultTheme = useRecoilValue(isDefaultThemeAtom);
   return (
-    <header>
+    <Header>
       <Nav>
         <Link to="/">
           <NavBox>
@@ -45,7 +50,7 @@ const NavBar = () => {
           <ThemeToggle />
         </NavBox>
       </Nav>
-    </header>
+    </Header>
   );
 };
 
