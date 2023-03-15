@@ -11,15 +11,18 @@ import NavBar from "./NavBar";
 interface ILayout {
   children: any;
 }
-const Layer = styled.div<{ isDefaultTheme: boolean }>`
+export interface IThemeProp {
+  $isDefaultTheme: boolean;
+}
+const ThemeLayer = styled.div<IThemeProp>`
   position: fixed;
   top: 0;
   left: 0;
-  bottom: 0;
+  bottom: ${(props) => (props.$isDefaultTheme ? 0 : "100vh")};
   right: 0;
   z-index: -1;
-  background-color: ${(props) => (props.isDefaultTheme ? "black" : "white")};
-  transition: background-color 0.5s ease-in-out;
+  background-color: ${(props) => props.theme.colors.black};
+  transition: all 0.5s ease-in-out;
 `;
 const Layout = ({ children }: ILayout) => {
   const isDefaultTheme = useRecoilValue(isDefaultThemeAtom);
@@ -29,7 +32,7 @@ const Layout = ({ children }: ILayout) => {
       <NavBar />
       <Sidebar />
       {children}
-      <Layer isDefaultTheme={isDefaultTheme} />
+      <ThemeLayer $isDefaultTheme={isDefaultTheme} />
     </ThemeProvider>
   );
 };

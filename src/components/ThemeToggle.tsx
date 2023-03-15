@@ -3,8 +3,9 @@ import React from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { isDefaultThemeAtom } from "../atoms";
+import { IThemeProp } from "./Layout";
 
-const ToggleContainer = styled(motion.div)<{ isDefaultTheme: boolean }>`
+const ToggleContainer = styled(motion.div)<IThemeProp>`
   width: 50px;
   height: 80%;
   display: flex;
@@ -13,7 +14,7 @@ const ToggleContainer = styled(motion.div)<{ isDefaultTheme: boolean }>`
   background-color: ${(props) => props.theme.colors.white};
   align-items: center;
   justify-content: ${(props) =>
-    props.isDefaultTheme ? "flex-end" : "flex-start"};
+    props.$isDefaultTheme ? "flex-end" : "flex-start"};
   cursor: pointer;
   padding: 0px 1px;
   position: relative;
@@ -56,7 +57,7 @@ const ThemeToggle = () => {
     setIsDefaultTheme((current) => !current);
   };
   return (
-    <ToggleContainer isDefaultTheme={isDefaultTheme} onClick={toggleTheme}>
+    <ToggleContainer $isDefaultTheme={isDefaultTheme} onClick={toggleTheme}>
       <ToggleLayer
         variants={ToggleLayerVariants}
         animate={isDefaultTheme ? "defaultTheme" : "lightTheme"}
