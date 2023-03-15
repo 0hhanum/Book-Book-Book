@@ -7,6 +7,7 @@ import { isDefaultThemeAtom } from "../atoms";
 import { defaultTheme, lighterTheme } from "../theme";
 import Sidebar from "./Sidebar";
 import NavBar from "./NavBar";
+import { motion } from "framer-motion";
 
 interface ILayout {
   children: any;
@@ -14,7 +15,25 @@ interface ILayout {
 export interface IThemeProp {
   $isDefaultTheme: boolean;
 }
-const ThemeLayer = styled.div<IThemeProp>`
+const LayerVariants = {
+  defaultTheme: {
+    bottom: 0,
+    transition: {
+      duration: 0.8,
+      type: "spring",
+      bounce: 0,
+    },
+  },
+  lightTheme: {
+    bottom: "100vh",
+    transition: {
+      duration: 0.8,
+      type: "spring",
+      bounce: 0,
+    },
+  },
+};
+const ThemeLayer = styled(motion.div)<IThemeProp>`
   position: fixed;
   top: 0;
   left: 0;
@@ -22,7 +41,7 @@ const ThemeLayer = styled.div<IThemeProp>`
   right: 0;
   z-index: -1;
   background-color: ${(props) => props.theme.colors.black};
-  transition: all 0.5s ease-in-out;
+  /* transition: all 0.5s ease-in-out; */
 `;
 const Layout = ({ children }: ILayout) => {
   const isDefaultTheme = useRecoilValue(isDefaultThemeAtom);
@@ -32,7 +51,11 @@ const Layout = ({ children }: ILayout) => {
       <NavBar />
       <Sidebar />
       {children}
-      <ThemeLayer $isDefaultTheme={isDefaultTheme} />
+      <ThemeLayer
+        $isDefaultTheme={isDefaultTheme}
+        variants={LayerVariants}
+        animate={isDefaultTheme ? "defaultTheme" : "lightTheme"}
+      />
     </ThemeProvider>
   );
 };
