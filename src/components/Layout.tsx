@@ -21,7 +21,6 @@ const LayerVariants = {
     transition: {
       duration: 0.8,
       type: "spring",
-      bounce: 0,
     },
   },
   lightTheme: {
@@ -29,7 +28,6 @@ const LayerVariants = {
     transition: {
       duration: 0.8,
       type: "spring",
-      bounce: 0,
     },
   },
 };
@@ -41,7 +39,6 @@ const ThemeLayer = styled(motion.div)<IThemeProp>`
   right: 0;
   z-index: -1;
   background-color: ${(props) => props.theme.colors.black};
-  /* transition: all 0.5s ease-in-out; */
 `;
 const Layout = ({ children }: ILayout) => {
   const isDefaultTheme = useRecoilValue(isDefaultThemeAtom);

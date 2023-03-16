@@ -49,7 +49,7 @@ table {
 }
 body {
     color: ${(props) => props.theme.fontColor};
-	margin-top: ${(props) => props.theme.variables.headerHeight};
 	height: 200vh;
+	padding-top: 100px;
 }
 `;

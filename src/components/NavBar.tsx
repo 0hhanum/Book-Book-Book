@@ -3,12 +3,14 @@ import React from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { isDefaultThemeAtom } from "../atoms";
+import { IThemeProp } from "./Layout";
 import ThemeToggle from "./ThemeToggle";
 
-const Header = styled.header`
+const Header = styled.header<IThemeProp>`
   position: fixed;
   top: 0;
   width: 100%;
+  background-color: ${(props) => props.theme.backgroundColor};
 `;
 const Nav = styled.nav`
   padding: 15px;
@@ -29,7 +31,7 @@ const Icon = styled.img`
 const NavBar = () => {
   const isDefaultTheme = useRecoilValue(isDefaultThemeAtom);
   return (
-    <Header>
+    <Header $isDefaultTheme={isDefaultTheme}>
       <Nav>
         <Link to="/">
           <NavBox>
