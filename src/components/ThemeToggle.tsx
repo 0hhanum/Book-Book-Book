@@ -5,8 +5,6 @@ import styled from "styled-components";
 import { isDefaultThemeAtom } from "../atoms";
 import { IThemeProp } from "./Layout";
 
-let toggleThrottler: boolean = false;
-
 const ToggleContainer = styled(motion.div)<IThemeProp>`
   width: 50px;
   height: 80%;
@@ -57,14 +55,7 @@ const ThemeToggle = () => {
   const [isDefaultTheme, setIsDefaultTheme] =
     useRecoilState(isDefaultThemeAtom);
   const toggleTheme = () => {
-    // 0.5s debouncing (handle framer motion bug)
-    if (!toggleThrottler) {
-      setIsDefaultTheme((current) => !current);
-      toggleThrottler = true;
-      setTimeout(() => {
-        toggleThrottler = false;
-      }, 500);
-    }
+    setIsDefaultTheme((current) => !current);
   };
   return (
     <ToggleContainer $isDefaultTheme={isDefaultTheme} onClick={toggleTheme}>

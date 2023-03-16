@@ -20,6 +20,7 @@ const LayerVariants = {
     bottom: 0,
     transition: {
       duration: 0.8,
+      bounce: 0,
       type: "spring",
     },
   },
@@ -27,6 +28,7 @@ const LayerVariants = {
     bottom: "100vh",
     transition: {
       duration: 0.8,
+      bounce: 0,
       type: "spring",
     },
   },

@@ -8,6 +8,7 @@ declare module "styled-components" {
     accentColor: string;
     normalColor: string;
     warningColor: string;
+    headerColor: string;
     colors: typeof EColors;
     variables: typeof EVariables;
   }

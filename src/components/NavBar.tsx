@@ -10,7 +10,7 @@ const Header = styled.header<IThemeProp>`
   position: fixed;
   top: 0;
   width: 100%;
-  background-color: ${(props) => props.theme.backgroundColor};
+  background-color: ${(props) => props.theme.headerColor};
 `;
 const Nav = styled.nav`
   padding: 15px;
