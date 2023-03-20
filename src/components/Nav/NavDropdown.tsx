@@ -1,5 +1,5 @@
 import React from "react";
-import Dropdown, { IDropDown } from "./Dropdown";
+import Dropdown, { IDropDown } from "../Dropdown";
 
 interface INavDropdown extends Omit<IDropDown, "position"> {}
 

@@ -2,8 +2,8 @@ import { Link } from "gatsby";
 import React, { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { isDefaultThemeAtom } from "../atoms";
-import { IThemeProp } from "./Layout";
+import { isDefaultThemeAtom } from "../../atoms";
+import { IThemeProp } from "../Layout";
 import NavDropdown from "./NavDropdown";
 import ThemeToggle from "./ThemeToggle";
 

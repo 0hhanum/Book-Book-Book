@@ -2,8 +2,8 @@ import { motion } from "framer-motion";
 import React from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { isDefaultThemeAtom } from "../atoms";
-import { IThemeProp } from "./Layout";
+import { isDefaultThemeAtom } from "../../atoms";
+import { IThemeProp } from "../Layout";
 
 const ToggleContainer = styled(motion.div)<IThemeProp>`
   width: 50px;

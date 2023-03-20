@@ -6,7 +6,7 @@ import { useRecoilValue } from "recoil";
 import { isDefaultThemeAtom } from "../atoms";
 import { defaultTheme, lighterTheme } from "../theme";
 import Sidebar from "./Sidebar";
-import NavBar from "./NavBar";
+import NavBar from "./Nav/NavBar";
 import { motion } from "framer-motion";
 
 interface ILayout {
