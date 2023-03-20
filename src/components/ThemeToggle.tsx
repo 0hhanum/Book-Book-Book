@@ -9,7 +9,7 @@ const ToggleContainer = styled(motion.div)<IThemeProp>`
   width: 50px;
   height: 80%;
   display: flex;
-  border: 1px solid ${(props) => props.theme.fontColor};
+  border: 1px solid ${(props) => props.theme.colors.black};
   border-radius: 20px;
   background-color: ${(props) => props.theme.colors.white};
   align-items: center;
