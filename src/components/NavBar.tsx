@@ -3,8 +3,8 @@ import React, { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { isDefaultThemeAtom } from "../atoms";
-import Dropdown from "./Dropdown";
 import { IThemeProp } from "./Layout";
+import NavDropdown from "./NavDropdown";
 import ThemeToggle from "./ThemeToggle";
 
 const Header = styled.header<IThemeProp>`
@@ -32,6 +32,7 @@ const NavBox = styled.div`
 const Contact = styled.div`
   cursor: pointer;
   margin-right: 20px;
+  position: relative;
 `;
 const Icon = styled.img`
   margin-right: 10px;
@@ -55,8 +56,8 @@ const NavBar = () => {
           </NavBox>
         </Link>
         <NavBox>
-          {true && <Dropdown />}
           <Contact onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+            {isHover && <NavDropdown items={[]} />}
             Contact
           </Contact>
           <ThemeToggle />
