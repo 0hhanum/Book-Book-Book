@@ -5,7 +5,7 @@ import Layout from "../components/Layout";
 const Home = () => {
   return (
     <Layout>
-      <h1>HOME</h1>
+      <h1 style={{ height: "200vh" }}>HOME</h1>
     </Layout>
   );
 };

@@ -55,7 +55,7 @@ const NavBar = () => {
           </NavBox>
         </Link>
         <NavBox>
-          {isHover && <Dropdown />}
+          {true && <Dropdown />}
           <Contact onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
             Contact
           </Contact>

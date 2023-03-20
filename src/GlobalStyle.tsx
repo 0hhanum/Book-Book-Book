@@ -49,7 +49,13 @@ table {
 }
 body {
     color: ${(props) => props.theme.fontColor};
-	height: 200vh;
 	padding-top: 100px;
 }
+::-webkit-scrollbar {
+    background: ${(props) => props.theme.backgroundColor};
+    width: 5px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: ${(props) => props.theme.fontColor};
+  }
 `;
