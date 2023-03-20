@@ -50,10 +50,12 @@ table {
 body {
     color: ${(props) => props.theme.fontColor};
 	padding-top: 100px;
+	min-width: 1200px;
 }
 ::-webkit-scrollbar {
     background: ${(props) => props.theme.backgroundColor};
     width: 5px;
+	height: 5px;
   }
   ::-webkit-scrollbar-thumb {
     background: ${(props) => props.theme.fontColor};

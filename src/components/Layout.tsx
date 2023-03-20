@@ -42,6 +42,27 @@ const ThemeLayer = styled(motion.div)<IThemeProp>`
   z-index: -1;
   background-color: ${(props) => props.theme.colors.black};
 `;
+// for minimum device size
+const NoticeScreen = styled.div`
+  display: none;
+  /* Styles for the notice screen */
+
+  @media (max-width: 991.98px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: ${(props) => props.theme.backgroundColor};
+    font-size: 24px;
+    font-weight: bold;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    font-size: 36px;
+    z-index: 9999;
+  }
+`;
 const Layout = ({ children }: ILayout) => {
   const isDefaultTheme = useRecoilValue(isDefaultThemeAtom);
   return (
@@ -55,6 +76,9 @@ const Layout = ({ children }: ILayout) => {
         variants={LayerVariants}
         animate={isDefaultTheme ? "defaultTheme" : "lightTheme"}
       />
+      <NoticeScreen>
+        Sorry, this content is only available on larger screens.
+      </NoticeScreen>
     </ThemeProvider>
   );
 };
