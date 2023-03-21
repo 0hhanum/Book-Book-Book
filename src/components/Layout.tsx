@@ -51,6 +51,8 @@ const NoticeScreen = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
+    padding: 40px;
     background-color: ${(props) => props.theme.backgroundColor};
     font-size: 24px;
     font-weight: bold;

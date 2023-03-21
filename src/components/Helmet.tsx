@@ -23,7 +23,7 @@ export default function Helmet({ title }: IHelmet) {
       <link
         rel="shortcut icon"
         type="image/svg+xml"
-        href={"../../favicon.svg"}
+        href={"/favicon.svg"}
       ></link>
     </>
   );

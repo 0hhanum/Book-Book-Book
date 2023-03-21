@@ -51,7 +51,7 @@ const NavBar = () => {
       <Nav>
         <Link to="/">
           <NavBox>
-            <Icon src={"../../favicon_lighter.svg"} width="30" height="30" />
+            <Icon src={"/favicon_lighter.svg"} width="30" height="30" />
             <h1>책책책, 책을 읽읍시다!</h1>
           </NavBox>
         </Link>
