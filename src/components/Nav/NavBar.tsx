@@ -45,16 +45,19 @@ const dropdownItems: IDropDown["items"] = [
     name: "Github",
     icon: "/github_ico.svg",
     link: "https://github.com/0hhanum",
+    type: "external",
   },
   {
     name: "Mail",
     icon: "/mail_ico.svg",
     link: "rntls123@naver.com",
+    type: "mail",
   },
   {
     name: "Hotline",
     icon: "/hotline_ico.svg",
     link: "#",
+    type: "internal",
   },
 ];
 const NavBar = () => {

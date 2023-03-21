@@ -9,7 +9,7 @@ const NavDropdown = (props: INavDropdown) => {
   return (
     <Dropdown
       {...props}
-      position="top: 25px; right: -85px"
+      position="top:25px; right: -85px"
       onMouseLeave={props.onMouseLeave}
     />
   );

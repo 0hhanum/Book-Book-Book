@@ -1,3 +1,4 @@
+import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "gatsby";
 import React from "react";
 import styled from "styled-components";
@@ -6,6 +7,7 @@ interface IItem {
   name: string;
   icon: string;
   link: string;
+  type: "mail" | "internal" | "external";
 }
 export interface IDropDown {
   items: IItem[];
@@ -15,7 +17,7 @@ export interface IDropDown {
 interface IContainer {
   position: string;
 }
-const Container = styled.div<IContainer>`
+const Container = styled(motion.div)<IContainer>`
   &:after {
     background: ${(
       props
@@ -34,7 +36,6 @@ const Container = styled.div<IContainer>`
   width: 192px;
   height: 155px;
   position: absolute;
-
   ${(props) => props.position}
 `;
 const Ul = styled.ul`
@@ -64,18 +65,33 @@ const Li = styled.li`
 `;
 const Dropdown = ({ position, items, onMouseLeave }: IDropDown) => {
   return (
-    <Container position={position} onMouseLeave={onMouseLeave}>
-      <Ul>
-        {items.map((item) => (
-          <Link to={item.link} key={item.name}>
-            <Li>
-              <img src={item.icon} />
-              <span>{item.name}</span>
-            </Li>
-          </Link>
-        ))}
-      </Ul>
-    </Container>
+    <AnimatePresence>
+      <Container position={position} onMouseLeave={onMouseLeave}>
+        <Ul>
+          {items.map((item) =>
+            item.type === "internal" ? (
+              <Link to={item.link} key={item.name}>
+                <Li>
+                  <img src={item.icon} />
+                  <span>{item.name}</span>
+                </Li>
+              </Link>
+            ) : (
+              <a
+                href={item.type === "mail" ? `mailto:${item.link}` : item.link}
+                key={item.name}
+                target="_blank"
+              >
+                <Li>
+                  <img src={item.icon} />
+                  <span>{item.name}</span>
+                </Li>
+              </a>
+            )
+          )}
+        </Ul>
+      </Container>
+    </AnimatePresence>
   );
 };
 
