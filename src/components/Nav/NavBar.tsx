@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { isDefaultThemeAtom } from "../../atoms";
+import { IDropDown } from "../Dropdown";
 import { IThemeProp } from "../Layout";
 import NavDropdown from "./NavDropdown";
 import ThemeToggle from "./ThemeToggle";
@@ -36,7 +37,26 @@ const Contact = styled.div`
 `;
 const Icon = styled.img`
   margin-right: 10px;
+  width: 30px;
+  height: 30px;
 `;
+const dropdownItems: IDropDown["items"] = [
+  {
+    name: "Github",
+    icon: "/github_ico.svg",
+    link: "https://github.com/0hhanum",
+  },
+  {
+    name: "Mail",
+    icon: "/mail_ico.svg",
+    link: "rntls123@naver.com",
+  },
+  {
+    name: "Hotline",
+    icon: "/hotline_ico.svg",
+    link: "#",
+  },
+];
 const NavBar = () => {
   const isDefaultTheme = useRecoilValue(isDefaultThemeAtom);
   const [isHover, setIsHover] = useState(false);
@@ -51,13 +71,15 @@ const NavBar = () => {
       <Nav>
         <Link to="/">
           <NavBox>
-            <Icon src={"/favicon_lighter.svg"} width="30" height="30" />
+            <Icon src={"/favicon_lighter.svg"} />
             <h1>책책책, 책을 읽읍시다!</h1>
           </NavBox>
         </Link>
         <NavBox>
-          <Contact onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-            {isHover && <NavDropdown items={[]} />}
+          <Contact onMouseEnter={onMouseEnter}>
+            {isHover && (
+              <NavDropdown onMouseLeave={onMouseLeave} items={dropdownItems} />
+            )}
             Contact
           </Contact>
           <ThemeToggle />
