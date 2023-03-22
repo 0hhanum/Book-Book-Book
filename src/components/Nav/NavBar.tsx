@@ -13,12 +13,8 @@ const Header = styled.header<IThemeProp>`
   top: 0;
   width: 100%;
   background-color: ${(props) => props.theme.headerColor};
-  h1,
-  div {
-    color: ${(props) =>
-      props.$isDefaultTheme
-        ? props.theme.backgroundColor
-        : props.theme.fontColor};
+  h1 {
+    color: ${(props) => props.theme.backgroundColor};
   }
 `;
 const Nav = styled.nav`
@@ -34,6 +30,10 @@ const Contact = styled.div`
   cursor: pointer;
   margin-right: 20px;
   position: relative;
+  span {
+    color: ${(props) => props.theme.backgroundColor};
+    position: relative;
+  }
 `;
 const Icon = styled.img`
   margin-right: 10px;
@@ -83,7 +83,7 @@ const NavBar = () => {
             {isHover && (
               <NavDropdown onMouseLeave={onMouseLeave} items={dropdownItems} />
             )}
-            Contact
+            <span>Contact</span>
           </Contact>
           <ThemeToggle />
         </NavBox>

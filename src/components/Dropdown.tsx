@@ -28,18 +28,18 @@ const Container = styled(motion.div)<IContainer>`
     content: " ";
     display: flex;
     height: 30px;
-    top: 15px;
+    top: 10px;
     position: relative;
   }
   background-size: 16px 16px;
   background-color: ${(props) => props.theme.headerColor};
   width: 192px;
-  height: 155px;
+  height: 180px;
   position: absolute;
   ${(props) => props.position}
 `;
 const Ul = styled.ul`
-  padding-top: 25px;
+  padding-top: 55px;
   width: 100%;
   display: grid;
   grid-template-rows: repeat(3, 1fr);
@@ -59,7 +59,7 @@ const Li = styled.li`
     height: 28px;
   }
   span {
-    font-size: 18px;
+    font-size: 17px;
     color: ${(props) => props.theme.colors.black};
   }
 `;
