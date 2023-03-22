@@ -11,10 +11,11 @@ import ThemeToggle from "./ThemeToggle";
 const Header = styled.header<IThemeProp>`
   position: fixed;
   top: 0;
+  left: 0;
   width: 100%;
   background-color: ${(props) => props.theme.headerColor};
   h1 {
-    color: ${(props) => props.theme.backgroundColor};
+    color: ${(props) => props.theme.colors.black};
   }
 `;
 const Nav = styled.nav`
@@ -31,7 +32,7 @@ const Contact = styled.div`
   margin-right: 20px;
   position: relative;
   span {
-    color: ${(props) => props.theme.backgroundColor};
+    color: ${(props) => props.theme.colors.black};
     position: relative;
   }
 `;

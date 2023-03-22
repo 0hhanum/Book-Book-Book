@@ -5,4 +5,5 @@ export enum EColors {
 
 export enum EVariables {
   headerHeight = "60px",
+  sidebarWidth = "300px",
 }

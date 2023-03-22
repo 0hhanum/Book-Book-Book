@@ -49,7 +49,8 @@ table {
 }
 body {
     color: ${(props) => props.theme.fontColor};
-	padding-top: 100px;
+	padding-top: ${(props) => props.theme.variables.headerHeight};
+	padding-left:${(props) => props.theme.variables.sidebarWidth};
 	min-width: 1200px;
 }
 ::-webkit-scrollbar {
