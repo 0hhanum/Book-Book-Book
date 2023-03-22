@@ -1,5 +1,9 @@
 import React from "react";
 import styled from "styled-components";
+import Filters, { IFilter } from "./Filters";
+
+const COLOR_SET_NUM = 18;
+const ROW_NUM = 17;
 
 const filterColorSet = [
   "#CC4C48",
@@ -22,6 +26,17 @@ const filterColorSet = [
   "#8C9F7B",
   "#108689",
 ];
+const getRandomFilters = (): IFilter[] => {
+  const randomFilterItemNum = Math.floor(Math.random() * 2) + 1; // 1 or 2
+  const randomColorItemIndexes = [];
+  for (let i = 0; i < randomFilterItemNum; i++) {
+    randomColorItemIndexes.push(Math.round(Math.random() * COLOR_SET_NUM));
+  }
+  return randomColorItemIndexes.map((index) => ({
+    author: `test ${index}`,
+    bgColor: filterColorSet[index],
+  }));
+};
 const Aside = styled.aside`
   position: fixed;
   width: ${(props) => props.theme.variables.sidebarWidth};
@@ -31,9 +46,17 @@ const Aside = styled.aside`
   border: 1px solid white;
 `;
 const Ul = styled.ul``;
-
 const Sidebar = () => {
-  return <Aside></Aside>;
+  return (
+    <Aside>
+      <Ul>
+        <Filters filters={[{ author: "hanum", bgColor: "red" }]} />
+        {[...Array(ROW_NUM)].map((_, index) => (
+          <Filters key={index} filters={getRandomFilters()} />
+        ))}
+      </Ul>
+    </Aside>
+  );
 };
 
 export default Sidebar;

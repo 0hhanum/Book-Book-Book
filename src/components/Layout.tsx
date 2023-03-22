@@ -71,7 +71,6 @@ const Layout = ({ children }: ILayout) => {
     <ThemeProvider theme={isDefaultTheme ? defaultTheme : lighterTheme}>
       <GlobalStyle />
       <NavBar />
-      <Sidebar />
       {children}
       <ThemeLayer
         $isDefaultTheme={isDefaultTheme}
