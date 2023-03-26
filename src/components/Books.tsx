@@ -1,8 +1,9 @@
 import * as React from "react";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { filteredAuthorAtom } from "../atoms";
 import books from "../data/books";
 
-const Container = styled.div``;
 const BookList = styled.ul`
   cursor: pointer;
 `;
@@ -16,16 +17,19 @@ const Book = styled.li`
   border-bottom: ${(props) => `1px solid ${props.theme.normalColor}`};
 `;
 const Books = () => {
+  const authorFilter = useRecoilValue(filteredAuthorAtom);
   return (
-    <Container>
+    <div>
       <BookList>
-        {books.map((book) => (
-          <Book key={book.title}>
-            {book.title} - {book.author}
-          </Book>
-        ))}
+        {books.map((book) =>
+          authorFilter && authorFilter !== book.author ? null : (
+            <Book key={book.id}>
+              {book.title} - {book.author}
+            </Book>
+          )
+        )}
       </BookList>
-    </Container>
+    </div>
   );
 };
 

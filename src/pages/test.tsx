@@ -10,7 +10,6 @@ const Container = styled.div`
 const Test = () => {
   return (
     <Layout>
-      <Sidebar />
       <Container>
         <h1>test</h1>
       </Container>

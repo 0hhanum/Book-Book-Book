@@ -5,7 +5,6 @@ import styled, { ThemeProvider } from "styled-components";
 import { useRecoilValue } from "recoil";
 import { isDefaultThemeAtom } from "../atoms";
 import { defaultTheme, lighterTheme } from "../theme";
-import Sidebar from "./Sidebar/Sidebar";
 import NavBar from "./Nav/NavBar";
 import { motion } from "framer-motion";
 
