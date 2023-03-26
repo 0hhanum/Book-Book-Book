@@ -7,8 +7,8 @@ import { filteredAuthorAtom } from "../../atoms";
 
 const Aside = styled.aside`
   position: fixed;
-  width: ${(props) => props.theme.variables.sidebarWidth};
-  top: ${(props) => props.theme.variables.headerHeight};
+  width: ${(props) => `${props.theme.variables.sidebarWidth}px`};
+  top: ${(props) => `${props.theme.variables.headerHeight}px`};
   bottom: 0;
   left: 0;
   border-right: ${(props) => `1px solid ${props.theme.normalColor}`};

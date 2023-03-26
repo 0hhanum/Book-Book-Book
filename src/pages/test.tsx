@@ -5,7 +5,7 @@ import Layout from "../components/Layout";
 import Sidebar from "../components/Sidebar/Sidebar";
 
 const Container = styled.div`
-  padding-left: ${(props) => props.theme.variables.sidebarWidth};
+  padding-left: ${(props) => `${props.theme.variables.sidebarWidth}px`};
 `;
 const Test = () => {
   return (

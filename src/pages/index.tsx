@@ -5,14 +5,25 @@ import Layout from "../components/Layout";
 import Sidebar from "../components/Sidebar/Sidebar";
 
 const Container = styled.div`
-  padding-left: ${(props) => props.theme.variables.sidebarWidth};
+  padding-left: ${(props) => `${props.theme.variables.sidebarWidth}px`};
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+const Bookshelf = styled.div`
+  width: 90%;
+  height: 35vh;
+  border-bottom: ${(props) =>
+    `10px solid ${props.theme.colors.bookshelfColor}`};
+  border-radius: 10px;
 `;
 const Home = () => {
   return (
     <Layout>
       <Sidebar />
       <Container>
-        <h1 style={{ height: "200vh" }}>HOME</h1>
+        <Bookshelf />
+        <Bookshelf />
       </Container>
     </Layout>
   );
