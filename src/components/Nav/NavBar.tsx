@@ -57,7 +57,7 @@ const dropdownItems: IDropDown["items"] = [
   {
     name: "Hotline",
     icon: "/hotline_ico.svg",
-    link: "#",
+    link: "/test",
     type: "internal",
   },
 ];

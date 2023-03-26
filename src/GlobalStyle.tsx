@@ -22,7 +22,9 @@ time, mark, audio, video {
 	vertical-align: baseline;
 	box-sizing: border-box;
 	text-decoration: none;
-    color: ${(props) => props.theme.fontColor}
+    color: ${(props) => props.theme.fontColor};
+	font-family: 'Iowan Old Style', 'Palatino Linotype', 'URW Palladio L', P052, 'Apple SD Gothic Neo', 'Apple SD 산돌고딕 Neo', Helvetica, 		   
+		'맑은 고딕', 'malgun gothic', 'Microsoft NeoGothic', 'Droid sans', sans-serif,  serif;
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
