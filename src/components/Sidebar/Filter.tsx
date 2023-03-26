@@ -4,11 +4,16 @@ import styled from "styled-components";
 
 export interface IFilter {
   author: string;
+  isFilteredAuthor: boolean;
+  onClick: () => void;
 }
-const Li = styled.li`
+interface IFilterDiv {
+  isActive: boolean;
+}
+const FilterLi = styled.li`
   cursor: pointer;
 `;
-const FilterDiv = styled(motion.div)`
+const FilterDiv = styled(motion.div)<IFilterDiv>`
   height: 45px;
   width: 100%;
   text-align: center;
@@ -16,12 +21,14 @@ const FilterDiv = styled(motion.div)`
   font-size: 28px;
   padding-top: 20px;
   border-bottom: ${(props) => `1px solid ${props.theme.normalColor}`};
+  color: ${(props) =>
+    props.isActive ? props.theme.headerColor : props.theme.fontColor};
 `;
-const Filters = ({ author }: IFilter) => {
+const Filters = ({ author, isFilteredAuthor, onClick }: IFilter) => {
   return (
-    <Li>
-      <FilterDiv>{author}</FilterDiv>
-    </Li>
+    <FilterLi onClick={onClick}>
+      <FilterDiv isActive={isFilteredAuthor}>{author}</FilterDiv>
+    </FilterLi>
   );
 };
 

@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import Filter from "./Filter";
 import filtersObject from "../../data/filters";
+import { useRecoilState } from "recoil";
+import { filteredAuthorAtom } from "../../atoms";
 
 const Aside = styled.aside`
   position: fixed;
@@ -14,11 +16,25 @@ const Aside = styled.aside`
 const Ul = styled.ul``;
 
 const Sidebar = () => {
+  const [filteredAuthor, setFilteredAuthor] =
+    useRecoilState(filteredAuthorAtom);
+  const handleClickFilter = (author: string) => {
+    if (author === filteredAuthor) {
+      setFilteredAuthor("");
+    } else {
+      setFilteredAuthor(author);
+    }
+  };
   return (
     <Aside>
       <Ul>
-        {filtersObject.filters.map(({ author }, index) => (
-          <Filter key={index} author={author} />
+        {filtersObject.filters.map(({ author }) => (
+          <Filter
+            key={author}
+            author={author}
+            isFilteredAuthor={filteredAuthor === author}
+            onClick={() => handleClickFilter(author)}
+          />
         ))}
       </Ul>
     </Aside>
