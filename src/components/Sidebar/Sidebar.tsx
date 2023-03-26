@@ -9,7 +9,7 @@ const Aside = styled.aside`
   top: ${(props) => props.theme.variables.headerHeight};
   bottom: 0;
   left: 0;
-  border-right: 1px solid white;
+  border-right: ${(props) => `1px solid ${props.theme.normalColor}`};
 `;
 const Ul = styled.ul``;
 

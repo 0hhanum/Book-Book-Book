@@ -5,7 +5,9 @@ import styled from "styled-components";
 export interface IFilter {
   author: string;
 }
-const Li = styled.li``;
+const Li = styled.li`
+  cursor: pointer;
+`;
 const FilterDiv = styled(motion.div)`
   height: 45px;
   width: 100%;
@@ -13,7 +15,7 @@ const FilterDiv = styled(motion.div)`
   font-weight: bold;
   font-size: 28px;
   padding-top: 20px;
-  overflow-y: hidden;
+  border-bottom: ${(props) => `1px solid ${props.theme.normalColor}`};
 `;
 const Filters = ({ author }: IFilter) => {
   return (
