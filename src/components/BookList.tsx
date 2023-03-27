@@ -1,8 +1,9 @@
-import * as React from "react";
-import { useRecoilValue } from "recoil";
+import React from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { filteredAuthorAtom } from "../atoms";
-import books from "../data/books";
+import { filteredAuthorAtom, selectedBookAtom } from "../atoms";
+import books, { IBook } from "../data/books";
+import BookPreview from "./Books/BookPreview";
 
 const BookLi = styled.ul`
   cursor: pointer;
@@ -18,17 +19,22 @@ const Book = styled.li`
 `;
 const BookList = () => {
   const authorFilter = useRecoilValue(filteredAuthorAtom);
+  const [selectedBook, setSelectedBook] = useRecoilState(selectedBookAtom);
+  const openBookPreview = (book: IBook) => {
+    setSelectedBook((current) => (current?.id === book.id ? null : book));
+  };
   return (
     <div>
       <BookLi>
         {books.map((book) =>
           authorFilter && authorFilter !== book.author ? null : (
-            <Book key={book.title}>
+            <Book key={book.title} onClick={() => openBookPreview(book)}>
               {book.title} - {book.author}
             </Book>
           )
         )}
       </BookLi>
+      {selectedBook ? <BookPreview {...selectedBook} /> : null}
     </div>
   );
 };

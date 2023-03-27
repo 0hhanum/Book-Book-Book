@@ -59,7 +59,7 @@ body {
     width: 5px;
 	height: 5px;
   }
-  ::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
     background: ${(props) => props.theme.fontColor};
   }
 `;
