@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { isDefaultThemeAtom } from "../../atoms";
@@ -52,16 +52,23 @@ const ToggleLayerVariants = {
   },
 };
 const ThemeToggle = () => {
+  const toggleLayerRef = useRef<HTMLDivElement>(null);
   const [isDefaultTheme, setIsDefaultTheme] =
     useRecoilState(isDefaultThemeAtom);
   const toggleTheme = () => {
     setIsDefaultTheme((current) => !current);
   };
+  useEffect(() => {
+    if (toggleLayerRef.current) {
+      toggleLayerRef.current.style.width = isDefaultTheme ? "110%" : "0px";
+    }
+  }, [toggleLayerRef]);
   return (
     <ToggleContainer $isDefaultTheme={isDefaultTheme} onClick={toggleTheme}>
       <ToggleLayer
         variants={ToggleLayerVariants}
         animate={isDefaultTheme ? "defaultTheme" : "lightTheme"}
+        ref={toggleLayerRef}
       />
       <ToggleCircle layout />
     </ToggleContainer>

@@ -8,7 +8,7 @@ export interface IFilter {
   onClick: () => void;
 }
 interface IFilterDiv {
-  isActive: boolean;
+  $isActive: boolean;
 }
 const FilterLi = styled.li`
   cursor: pointer;
@@ -22,12 +22,12 @@ const FilterDiv = styled(motion.div)<IFilterDiv>`
   padding-top: 20px;
   border-bottom: ${(props) => `1px solid ${props.theme.normalColor}`};
   color: ${(props) =>
-    props.isActive ? props.theme.headerColor : props.theme.fontColor};
+    props.$isActive ? props.theme.headerColor : props.theme.fontColor};
 `;
 const Filters = ({ author, isFilteredAuthor, onClick }: IFilter) => {
   return (
     <FilterLi onClick={onClick}>
-      <FilterDiv isActive={isFilteredAuthor}>{author}</FilterDiv>
+      <FilterDiv $isActive={isFilteredAuthor}>{author}</FilterDiv>
     </FilterLi>
   );
 };

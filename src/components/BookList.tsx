@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { filteredAuthorAtom } from "../atoms";
 import books from "../data/books";
 
-const BookList = styled.ul`
+const BookLi = styled.ul`
   cursor: pointer;
 `;
 const Book = styled.li`
@@ -16,21 +16,21 @@ const Book = styled.li`
   padding-top: 20px;
   border-bottom: ${(props) => `1px solid ${props.theme.normalColor}`};
 `;
-const Books = () => {
+const BookList = () => {
   const authorFilter = useRecoilValue(filteredAuthorAtom);
   return (
     <div>
-      <BookList>
+      <BookLi>
         {books.map((book) =>
           authorFilter && authorFilter !== book.author ? null : (
-            <Book key={book.id}>
+            <Book key={book.title}>
               {book.title} - {book.author}
             </Book>
           )
         )}
-      </BookList>
+      </BookLi>
     </div>
   );
 };
 
-export default Books;
+export default BookList;

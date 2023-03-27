@@ -1,8 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 import Helmet from "../components/Helmet";
-import Layout from "../components/Layout";
-import Books from "../components/Books";
+import BookList from "../components/BookList";
 import Sidebar from "../components/Sidebar/Sidebar";
 
 const Container = styled.div`
@@ -10,12 +9,12 @@ const Container = styled.div`
 `;
 const Home = () => {
   return (
-    <Layout>
+    <>
       <Sidebar />
       <Container>
-        <Books />
+        <BookList />
       </Container>
-    </Layout>
+    </>
   );
 };
 

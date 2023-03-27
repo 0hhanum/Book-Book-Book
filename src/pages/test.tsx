@@ -9,11 +9,11 @@ const Container = styled.div`
 `;
 const Test = () => {
   return (
-    <Layout>
+    <>
       <Container>
         <h1>test</h1>
       </Container>
-    </Layout>
+    </>
   );
 };
 
