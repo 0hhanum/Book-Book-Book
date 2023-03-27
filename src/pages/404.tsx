@@ -1,6 +1,5 @@
 import * as React from "react";
-import { HeadFC, PageProps } from "gatsby";
-import Layout from "../components/Layout";
+import Helmet from "../components/Helmet";
 
 const NotFoundPage = () => {
   return (
@@ -12,4 +11,4 @@ const NotFoundPage = () => {
 
 export default NotFoundPage;
 
-export const Head: HeadFC = () => <title>Not found</title>;
+export const Head = () => <Helmet title="404" />;
