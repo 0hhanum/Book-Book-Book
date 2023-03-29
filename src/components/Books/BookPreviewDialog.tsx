@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { selectedBookAtom } from "../../atoms";
 import { IBook } from "../../data/books";
@@ -13,34 +13,39 @@ const Dimmed = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: red;
 `;
 const Header = styled.header`
   height: 45px;
   border-bottom: ${(props) => `0.5px solid ${props.theme.normalColor}`};
   width: 100%;
+  text-align: center;
+  font-weight: bold;
+  font-size: 28px;
+  padding-top: 20px;
 `;
 const Dialog = styled.dialog`
   padding: 0;
-  width: 70vw;
-  height: 75vh;
+  width: 80vw;
+  height: 85vh;
   background-color: ${(props) => props.theme.backgroundColor};
   color: ${(props) => props.theme.fontColor};
   border: ${(props) => `0.5px solid ${props.theme.normalColor}`};
 `;
-const BookPreview = (book: IBook) => {
+const BookPreviewDialog = (book: IBook) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
-  const [selectedBook, setSelectedBook] = useRecoilState(selectedBookAtom);
+  const setSelectedBook = useSetRecoilState(selectedBookAtom);
   const closeDialog = () => {
     dialogRef.current?.close();
     setSelectedBook(null);
   };
   return (
     <Dimmed onClick={closeDialog}>
-      <Dialog open ref={dialogRef}>
+      <Dialog open ref={dialogRef} onClick={(e) => e.stopPropagation()}>
         <Header>{book.title}</Header>
       </Dialog>
     </Dimmed>
   );
 };
 
-export default BookPreview;
+export default BookPreviewDialog;

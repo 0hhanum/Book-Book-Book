@@ -3,7 +3,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { filteredAuthorAtom, selectedBookAtom } from "../atoms";
 import books, { IBook } from "../data/books";
-import BookPreview from "./Books/BookPreview";
+import BookPreviewDialog from "./Books/BookPreviewDialog";
 
 const BookLi = styled.ul`
   cursor: pointer;
@@ -34,7 +34,7 @@ const BookList = () => {
           )
         )}
       </BookLi>
-      {selectedBook ? <BookPreview {...selectedBook} /> : null}
+      {selectedBook ? <BookPreviewDialog {...selectedBook} /> : null}
     </div>
   );
 };
