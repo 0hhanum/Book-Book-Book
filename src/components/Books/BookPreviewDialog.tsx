@@ -13,7 +13,6 @@ const Dimmed = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: red;
 `;
 const Header = styled.header`
   height: 45px;
@@ -22,12 +21,14 @@ const Header = styled.header`
   text-align: center;
   font-weight: bold;
   font-size: 28px;
-  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 25px 0 25px;
 `;
 const Dialog = styled.dialog`
   padding: 0;
   width: 80vw;
-  height: 85vh;
+  height: 95vh;
   background-color: ${(props) => props.theme.backgroundColor};
   color: ${(props) => props.theme.fontColor};
   border: ${(props) => `0.5px solid ${props.theme.normalColor}`};
@@ -42,7 +43,12 @@ const BookPreviewDialog = (book: IBook) => {
   return (
     <Dimmed onClick={closeDialog}>
       <Dialog open ref={dialogRef} onClick={(e) => e.stopPropagation()}>
-        <Header>{book.title}</Header>
+        <Header>
+          <span>
+            {book.title} - {book.author}
+          </span>
+          <span>{book.rating} / 5</span>
+        </Header>
       </Dialog>
     </Dimmed>
   );
