@@ -15,7 +15,7 @@ const books: IBook[] = [
   {
     author: "Charles Bukowski",
     title: "The Secret Garden",
-    rating: 3.5,
+    rating: 3,
     id: "1",
   },
   {
@@ -27,7 +27,7 @@ const books: IBook[] = [
   {
     author: "Charles Bukowski",
     title: "The Lost City",
-    rating: 4.5,
+    rating: 4,
     id: "3",
   },
   {
@@ -45,7 +45,7 @@ const books: IBook[] = [
   {
     author: "Charles Bukowski",
     title: "The Dark Forest",
-    rating: 2.5,
+    rating: 2,
     id: "6",
   },
   {
@@ -57,13 +57,13 @@ const books: IBook[] = [
   {
     author: "Charles Bukowski",
     title: "The Final Hour",
-    rating: 3.5,
+    rating: 3,
     id: "8",
   },
   {
     author: "Park Mingyu",
     title: "The Red Door",
-    rating: 4.5,
+    rating: 4,
     id: "9",
   },
   {
@@ -81,19 +81,19 @@ const books: IBook[] = [
   {
     author: "Park Mingyu",
     title: "The Enchanted Forest",
-    rating: 2.5,
+    rating: 2,
     id: "12",
   },
   {
     author: "Park Mingyu",
     title: "The Secret Passage",
-    rating: 4.5,
+    rating: 4,
     id: "13",
   },
   {
     author: "Park Mingyu",
     title: "The Last Chance",
-    rating: 3.5,
+    rating: 3,
     id: "14",
   },
   {
@@ -123,13 +123,13 @@ const books: IBook[] = [
   {
     author: "Lily Zhang",
     title: "The Forgotten Kingdom",
-    rating: 4.5,
+    rating: 4,
     id: "19",
   },
   {
     author: "Sophia Wang",
     title: "The Secret Society",
-    rating: 3.5,
+    rating: 3,
     id: "20",
   },
   {
@@ -147,13 +147,13 @@ const books: IBook[] = [
   {
     author: "Samuel Kim",
     title: "The Hidden Realm",
-    rating: 4.5,
+    rating: 4,
     id: "23",
   },
   {
     author: "Victoria Lee",
     title: "The Midnight Garden",
-    rating: 2.5,
+    rating: 2,
     id: "24",
   },
   {
@@ -165,13 +165,13 @@ const books: IBook[] = [
   {
     author: "Emma Smith",
     title: "The Secret Sanctuary",
-    rating: 3.5,
+    rating: 3,
     id: "26",
   },
   {
     author: "Jacob Lee",
     title: "The Final Battle",
-    rating: 4.5,
+    rating: 4,
     id: "27",
   },
 ];

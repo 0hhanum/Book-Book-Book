@@ -8,6 +8,9 @@ export const defaultTheme: DefaultTheme = {
   normalColor: "#767475",
   warningColor: "#FF3548",
   headerColor: "#ff7400",
+  assets: {
+    starIcon: "/star.svg",
+  },
   colors: EColors,
   variables: EVariables,
 };
@@ -19,6 +22,9 @@ export const lighterTheme: DefaultTheme = {
   normalColor: "#767475",
   warningColor: "#FF3548",
   headerColor: "#41f934",
+  assets: {
+    starIcon: "/star_lighter.svg",
+  },
   colors: EColors,
   variables: EVariables,
 };

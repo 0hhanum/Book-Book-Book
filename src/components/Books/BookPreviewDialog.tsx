@@ -23,7 +23,8 @@ const Header = styled.header`
   font-size: 28px;
   display: flex;
   justify-content: space-between;
-  padding: 20px 25px 0 25px;
+  align-items: center;
+  padding: 0 25px;
 `;
 const Dialog = styled.dialog`
   padding: 0;
@@ -33,6 +34,13 @@ const Dialog = styled.dialog`
   color: ${(props) => props.theme.fontColor};
   border: ${(props) => `0.5px solid ${props.theme.normalColor}`};
 `;
+const Star = styled.img.attrs((props) => ({
+  src: props.theme.assets.starIcon,
+}))`
+  height: 30px;
+  width: 30px;
+`;
+
 const BookPreviewDialog = (book: IBook) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const setSelectedBook = useSetRecoilState(selectedBookAtom);
@@ -47,7 +55,9 @@ const BookPreviewDialog = (book: IBook) => {
           <span>
             {book.title} - {book.author}
           </span>
-          <span>{book.rating} / 5</span>
+          <span>
+            <Star></Star>
+          </span>
         </Header>
       </Dialog>
     </Dimmed>
