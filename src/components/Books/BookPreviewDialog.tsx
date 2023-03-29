@@ -22,7 +22,6 @@ const Header = styled.header`
   font-weight: bold;
   font-size: 28px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   padding: 0 25px;
 `;
@@ -34,11 +33,16 @@ const Dialog = styled.dialog`
   color: ${(props) => props.theme.fontColor};
   border: ${(props) => `0.5px solid ${props.theme.normalColor}`};
 `;
+const Stars = styled.div`
+  display: flex;
+  margin-left: 10px;
+`;
 const Star = styled.img.attrs((props) => ({
   src: props.theme.assets.starIcon,
 }))`
   height: 30px;
   width: 30px;
+  align-self: center;
 `;
 
 const BookPreviewDialog = (book: IBook) => {
@@ -55,9 +59,13 @@ const BookPreviewDialog = (book: IBook) => {
           <span>
             {book.title} - {book.author}
           </span>
-          <span>
-            <Star></Star>
-          </span>
+          <Stars>
+            {Array(book.rating)
+              .fill(null)
+              .map((_, i) => (
+                <Star />
+              ))}
+          </Stars>
         </Header>
       </Dialog>
     </Dimmed>
