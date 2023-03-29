@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { selectedBookAtom } from "../../atoms";
+import BookCoverLayout from "../../covers/BookCoverLayout";
 import { IBook } from "../../data/books";
 
 const Dimmed = styled.div`
@@ -15,15 +16,15 @@ const Dimmed = styled.div`
   align-items: center;
 `;
 const Header = styled.header`
-  height: 45px;
-  border-bottom: ${(props) => `0.5px solid ${props.theme.normalColor}`};
+  height: 55px;
+  border-bottom: ${(props) => `2.5px solid ${props.theme.normalColor}`};
   width: 100%;
   text-align: center;
   font-weight: bold;
   font-size: 28px;
   display: flex;
   align-items: center;
-  padding: 0 25px;
+  padding: 0 20px;
 `;
 const Dialog = styled.dialog`
   padding: 0;
@@ -44,7 +45,13 @@ const Star = styled.img.attrs((props) => ({
   width: 30px;
   align-self: center;
 `;
-
+const Content = styled.article`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 const BookPreviewDialog = (book: IBook) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const setSelectedBook = useSetRecoilState(selectedBookAtom);
@@ -67,6 +74,9 @@ const BookPreviewDialog = (book: IBook) => {
               ))}
           </Stars>
         </Header>
+        <Content>
+          <BookCoverLayout {...book} />
+        </Content>
       </Dialog>
     </Dimmed>
   );
