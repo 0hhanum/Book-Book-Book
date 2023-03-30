@@ -47,7 +47,7 @@ const Star = styled.img.attrs((props) => ({
 `;
 const Content = styled.article`
   width: 100%;
-  height: 100%;
+  height: calc(100% - 55px);
   display: flex;
   align-items: center;
   justify-content: center;
