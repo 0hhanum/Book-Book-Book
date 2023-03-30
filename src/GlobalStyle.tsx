@@ -54,6 +54,9 @@ body {
 	padding-top: ${(props) => `${props.theme.variables.headerHeight}px`};
 	min-width: 1200px;
 }
+canvas{
+	background-color: ${(props) => props.theme.backgroundColor};
+}
 ::-webkit-scrollbar {
     background: ${(props) => props.theme.backgroundColor};
     width: 5px;
