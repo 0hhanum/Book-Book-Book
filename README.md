@@ -16,12 +16,10 @@
 
 - TS
 - Gatsby
-- Vercel
 - Recoil
-- React-Query (Tanstack-Query)
 - Styled-Component
 - Framer-Motion
-- Contentful
+- React-three-fiber
 
 <hr>
 

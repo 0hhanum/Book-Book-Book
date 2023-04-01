@@ -70,7 +70,7 @@ const BookPreviewDialog = (book: IBook) => {
             {Array(book.rating)
               .fill(null)
               .map((_, i) => (
-                <Star />
+                <Star key={i} />
               ))}
           </Stars>
         </Header>
