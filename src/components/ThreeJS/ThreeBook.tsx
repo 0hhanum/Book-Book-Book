@@ -21,6 +21,8 @@ function BookObject(props: IBookObject) {
 
   return (
     <mesh {...props} scale={1} ref={meshRef}>
+      <spotLight position={[-5, 10, 10]} angle={0.5} penumbra={0.5} />
+
       <boxGeometry args={[0.6, 0.8, 0.15]} attach="geometry" />
       <meshStandardMaterial color="white" attach="material-0" />
       <meshStandardMaterial color="green" attach="material-1" />
@@ -35,7 +37,6 @@ const ThreeBook = ({ children }: IThreeBook) => {
   return (
     <ThreeLayout>
       <ambientLight intensity={0.8} />
-      <spotLight position={[-5, 10, 10]} angle={0.5} penumbra={0.5} />
       <BookObject position={[0, 0, 0]} />
       <OrbitControls />
     </ThreeLayout>
