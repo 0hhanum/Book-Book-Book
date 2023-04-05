@@ -1,7 +1,12 @@
-import { OrbitControls, Stars, useGLTF } from "@react-three/drei";
+import {
+  OrbitControls,
+  Stars,
+  useGLTF,
+  useAnimations,
+} from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import React, { useEffect, useRef } from "react";
-import { BoxGeometry, Material, Mesh, MeshStandardMaterial } from "three";
+import { Mesh } from "three";
 import ThreeLayout from "./ThreeLayout";
 import { GLTF } from "three/examples/jsm/loaders/GLTFLoader";
 
@@ -17,12 +22,16 @@ interface CustomGLTF extends GLTF {
 }
 const BookObject = React.memo((props: IBookObject) => {
   const bookMeshRef = useRef<Mesh>(null);
-  const { nodes, scene } = useGLTF("/bookModel/scene.gltf") as CustomGLTF;
+  const { nodes, animations, scene } = useGLTF(
+    "/bookModel/scene.gltf"
+  ) as CustomGLTF;
   // const targetMesh = scene.getObjectByName("Book_0") as Mesh;
-  console.log(nodes);
   // const newMaterial = new MeshStandardMaterial({ color: "red" });
   // targetMesh.material = newMaterial;
-
+  const { ref, actions, names } = useAnimations(animations);
+  console.log(ref, actions, names);
+  const animation = animations[0];
+  console.log(animation);
   const cleanup = useRef(() => {
     bookMeshRef.current?.geometry.dispose();
   });
@@ -33,6 +42,12 @@ const BookObject = React.memo((props: IBookObject) => {
       cleanup.current();
     };
   }, []);
+  useEffect(() => {
+    // Reset and fade in animation after an index has been changed
+    if (actions) {
+      actions["Demo"]?.play();
+    }
+  }, [actions, names]);
   useFrame((_, delta) => {
     // if (bookMeshRef.current) {
     //   bookMeshRef.current.rotation.y -= delta * 0.3;
@@ -44,14 +59,17 @@ const BookObject = React.memo((props: IBookObject) => {
     <group>
       <spotLight position={[-5, 10, 10]} angle={0.5} penumbra={0.5} />
       {/* <primitive object={scene} /> */}
-      <mesh
-        {...props}
-        scale={1}
-        ref={bookMeshRef}
-        geometry={nodes["Book_0"].geometry}
-      >
-        <meshStandardMaterial color="red" />
-      </mesh>
+      {/* <object3D ref={() => ref}>
+        <mesh
+          {...props}
+          scale={0.5}
+          ref={bookMeshRef}
+          geometry={nodes["Book_0"].geometry}
+        >
+          <meshStandardMaterial color="red" />
+        </mesh>
+      </object3D> */}
+      <primitive object={scene} ref={ref} />
       <Stars />
     </group>
   );
