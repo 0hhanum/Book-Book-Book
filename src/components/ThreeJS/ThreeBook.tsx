@@ -13,20 +13,21 @@ interface IBookObject {
 }
 
 interface CustomGLTF extends GLTF {
-  materials: { [key: string]: Material };
+  nodes: { [key: string]: Mesh };
 }
 const BookObject = React.memo((props: IBookObject) => {
   const meshRef = useRef<Mesh>(null);
+  const meshRef2 = useRef<Mesh>(null);
   const boxRef = useRef<BoxGeometry>(null);
   const materialRefs = useRef<MeshStandardMaterial[]>([]);
-  const { materials, scene } = useGLTF("/bookModel/scene.gltf") as CustomGLTF;
+  const { nodes, scene } = useGLTF("/bookModel/scene.gltf") as CustomGLTF;
   // Get the mesh you want to modify
-  const targetMesh = scene.getObjectByName("Book_0") as Mesh;
-
+  // const targetMesh = scene.getObjectByName("Book_0") as Mesh;
+  console.log(nodes);
   // Create a new material with the desired color
-  const newMaterial = new MeshStandardMaterial({ color: "red" });
+  // const newMaterial = new MeshStandardMaterial({ color: "red" });
   // Apply the new material to the mesh
-  targetMesh.material = newMaterial;
+  // targetMesh.material = newMaterial;
 
   // dispose all objects to avoid memory leaking
   useEffect(() => {
@@ -49,7 +50,10 @@ const BookObject = React.memo((props: IBookObject) => {
       <mesh {...props} scale={1} ref={meshRef}>
         <spotLight position={[-5, 10, 10]} angle={0.5} penumbra={0.5} />
         <bufferGeometry attach="geometry" />
-        <primitive object={scene} />
+        {/* <primitive object={scene} /> */}
+        <mesh ref={meshRef2} geometry={nodes["Book_0"].geometry}>
+          <meshStandardMaterial color="red" />
+        </mesh>
       </mesh>
       <Stars />
     </group>
