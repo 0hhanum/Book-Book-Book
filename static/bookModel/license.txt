@@ -1,11 +1,11 @@
 Model Information:
-* title:	Book
-* source:	https://sketchfab.com/3d-models/book-fc1b43e332d147edb7dca8f89cffa4d7
-* author:	Eric Fan (https://sketchfab.com/ericfan1992)
+* title:	Simple animated book
+* source:	https://sketchfab.com/3d-models/simple-animated-book-ed83e749b47c4703be85d56539ee9f2e
+* author:	Zayfert1999 (https://sketchfab.com/Zayfert1999)
 
 Model License:
 * license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
 * requirements:	Author must be credited. Commercial use is allowed.
 
 If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
-This work is based on "Book" (https://sketchfab.com/3d-models/book-fc1b43e332d147edb7dca8f89cffa4d7) by Eric Fan (https://sketchfab.com/ericfan1992) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+This work is based on "Simple animated book" (https://sketchfab.com/3d-models/simple-animated-book-ed83e749b47c4703be85d56539ee9f2e) by Zayfert1999 (https://sketchfab.com/Zayfert1999) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

@@ -1,4 +1,4 @@
-import { Html, OrbitControls, Stars, useGLTF } from "@react-three/drei";
+import { OrbitControls, Stars, useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import React, { useEffect, useRef } from "react";
 import { BoxGeometry, Material, Mesh, MeshStandardMaterial } from "three";
@@ -15,12 +15,19 @@ interface IBookObject {
 interface CustomGLTF extends GLTF {
   materials: { [key: string]: Material };
 }
-function BookObject(props: IBookObject) {
+const BookObject = React.memo((props: IBookObject) => {
   const meshRef = useRef<Mesh>(null);
   const boxRef = useRef<BoxGeometry>(null);
   const materialRefs = useRef<MeshStandardMaterial[]>([]);
-  const scene = useGLTF("/anibook/scene.gltf") as CustomGLTF;
-  console.log(scene);
+  const { materials, scene } = useGLTF("/bookModel/scene.gltf") as CustomGLTF;
+  // Get the mesh you want to modify
+  const targetMesh = scene.getObjectByName("Book_0") as Mesh;
+
+  // Create a new material with the desired color
+  const newMaterial = new MeshStandardMaterial({ color: "red" });
+  // Apply the new material to the mesh
+  targetMesh.material = newMaterial;
+
   // dispose all objects to avoid memory leaking
   useEffect(() => {
     return () => {
@@ -42,12 +49,12 @@ function BookObject(props: IBookObject) {
       <mesh {...props} scale={1} ref={meshRef}>
         <spotLight position={[-5, 10, 10]} angle={0.5} penumbra={0.5} />
         <bufferGeometry attach="geometry" />
-        <primitive object={scene.scene} />
+        <primitive object={scene} />
       </mesh>
       <Stars />
     </group>
   );
-}
+});
 const ThreeBook = ({ children }: IThreeBook) => {
   return (
     <ThreeLayout>
