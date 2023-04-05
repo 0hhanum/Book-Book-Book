@@ -16,44 +16,41 @@ interface CustomGLTF extends GLTF {
   nodes: { [key: string]: Mesh };
 }
 const BookObject = React.memo((props: IBookObject) => {
-  const meshRef = useRef<Mesh>(null);
-  const meshRef2 = useRef<Mesh>(null);
-  const boxRef = useRef<BoxGeometry>(null);
-  const materialRefs = useRef<MeshStandardMaterial[]>([]);
+  const bookMeshRef = useRef<Mesh>(null);
   const { nodes, scene } = useGLTF("/bookModel/scene.gltf") as CustomGLTF;
-  // Get the mesh you want to modify
   // const targetMesh = scene.getObjectByName("Book_0") as Mesh;
   console.log(nodes);
-  // Create a new material with the desired color
   // const newMaterial = new MeshStandardMaterial({ color: "red" });
-  // Apply the new material to the mesh
   // targetMesh.material = newMaterial;
+
+  const cleanup = useRef(() => {
+    bookMeshRef.current?.geometry.dispose();
+  });
 
   // dispose all objects to avoid memory leaking
   useEffect(() => {
     return () => {
-      boxRef.current?.dispose();
-      materialRefs.current.forEach((materialRef) => {
-        materialRef?.dispose();
-      });
+      cleanup.current();
     };
   }, []);
   useFrame((_, delta) => {
-    // if (meshRef.current) {
-    //   meshRef.current.rotation.y -= delta * 0.3;
-    //   meshRef.current.rotation.z += delta * 0.125;
+    // if (bookMeshRef.current) {
+    //   bookMeshRef.current.rotation.y -= delta * 0.3;
+    //   bookMeshRef.current.rotation.z += delta * 0.125;
     // }
   });
 
   return (
     <group>
-      <mesh {...props} scale={1} ref={meshRef}>
-        <spotLight position={[-5, 10, 10]} angle={0.5} penumbra={0.5} />
-        <bufferGeometry attach="geometry" />
-        {/* <primitive object={scene} /> */}
-        <mesh ref={meshRef2} geometry={nodes["Book_0"].geometry}>
-          <meshStandardMaterial color="red" />
-        </mesh>
+      <spotLight position={[-5, 10, 10]} angle={0.5} penumbra={0.5} />
+      {/* <primitive object={scene} /> */}
+      <mesh
+        {...props}
+        scale={1}
+        ref={bookMeshRef}
+        geometry={nodes["Book_0"].geometry}
+      >
+        <meshStandardMaterial color="red" />
       </mesh>
       <Stars />
     </group>
