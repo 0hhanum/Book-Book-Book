@@ -11,7 +11,9 @@ const ThreeCanvas = ({ children }: IThreeCanvas) => {
       gl={{ antialias: false, alpha: false }}
       camera={{
         position: [0, 0, 1],
+        focus: 5,
       }}
+      dpr={[1, 2]}
     >
       {children}
     </Canvas>
