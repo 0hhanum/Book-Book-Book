@@ -42,7 +42,12 @@ const BookObject = React.memo((props: IBookObject) => {
   return (
     <group ref={groupRef}>
       <spotLight position={[-5, 10, 10]} angle={0.5} penumbra={0.5} />
-      <primitive object={scene} {...props} ref={bookSceneRef}></primitive>
+      <primitive
+        object={scene}
+        {...props}
+        ref={bookSceneRef}
+        rotation={[Math.PI / 2, 0, -Math.PI / 2]}
+      />
       <Stars />
     </group>
   );
@@ -51,12 +56,10 @@ const ThreeBook = ({ children }: IThreeBook) => {
   return (
     <ThreeLayout>
       <ambientLight intensity={0.8} />
-      <mesh position={[0, 1, 0]}>
-        <boxGeometry>
-          <meshStandardMaterial color="green" />
-        </boxGeometry>
+      <mesh>
+        <boxGeometry />
       </mesh>
-      <BookObject position={[0, 0, 0]} />
+      <BookObject position={[-1, 0, 0]} />
       <OrbitControls />
     </ThreeLayout>
   );
