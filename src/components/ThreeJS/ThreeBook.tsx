@@ -3,12 +3,12 @@ import {
   Stars,
   useGLTF,
   useAnimations,
-  useTexture,
 } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
-import React, { useEffect, useRef, useState } from "react";
+import React, { Suspense, useEffect, useRef, useState } from "react";
 import {
   Group,
+  LinearFilter,
   Mesh,
   MeshStandardMaterial,
   TextureLoader,
@@ -29,6 +29,7 @@ const BookObject = React.memo((props: IBookObject) => {
   const { scene, animations } = useGLTF("/bookModel/scene.gltf");
   const { actions, ref: bookSceneRef } = useAnimations(animations, groupRef);
   const [isZoomedIn, setIsZoomedIn] = useState(false);
+  const [isLoadingTexture, setIsLoadingTexture] = useState(false);
   const { camera } = useThree();
 
   useEffect(() => {
@@ -44,13 +45,18 @@ const BookObject = React.memo((props: IBookObject) => {
     textureLoader.load(
       "/bookModel/textures/Base_metallicRoughness.png",
       (texture) => {
+        // to create high quality texture
+        texture.generateMipmaps = false;
+        texture.minFilter = LinearFilter;
+        texture.needsUpdate = true;
         bookCoverMaterial.map = texture;
         mesh.material = bookCoverMaterial;
+        setIsLoadingTexture(true);
       }
     );
   }, [bookSceneRef]);
   useFrame((_, delta) => {
-    if (!isZoomedIn) {
+    if (!isZoomedIn && isLoadingTexture) {
       // Zoom in
       const targetPosition = new Vector3(0, 0, 7);
       const currentPosition = camera.position;
@@ -71,7 +77,12 @@ const BookObject = React.memo((props: IBookObject) => {
   return (
     <group ref={groupRef}>
       <spotLight position={[-5, 10, 10]} angle={0.5} penumbra={0.5} />
-      <primitive object={scene} {...props} ref={bookSceneRef} />
+      <primitive
+        object={scene}
+        {...props}
+        ref={bookSceneRef}
+        visible={isLoadingTexture}
+      />
       <Stars />
     </group>
   );
