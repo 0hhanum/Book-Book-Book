@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from "react";
-import ThreeBook from "../components/ThreeJS/ThreeBook";
+import ThreeBookScene from "../components/ThreeJS/ThreeBookScene";
 import { IBook } from "../data/books";
 import { toPascalCase } from "./coverUtils";
 
@@ -13,8 +13,8 @@ const BookCoverLayout = (book: IBook) => {
   );
   return (
     <Suspense fallback={<h1>Loading Book Covers...</h1>}>
-      <BookPreview />
-      <ThreeBook>11</ThreeBook>
+      {/* <BookPreview /> */}
+      <ThreeBookScene />
     </Suspense>
   );
 };

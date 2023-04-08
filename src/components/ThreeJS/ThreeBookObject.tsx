@@ -1,29 +1,19 @@
-import {
-  OrbitControls,
-  Stars,
-  useGLTF,
-  useAnimations,
-} from "@react-three/drei";
+import { Stars, useGLTF, useAnimations } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
-import React, { Suspense, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Group,
   LinearFilter,
   Mesh,
+  MeshBasicMaterial,
   MeshStandardMaterial,
   TextureLoader,
   Vector3,
 } from "three";
-import ThreeLayout from "./ThreeLayout";
-
-interface IThreeBook {
-  children: any;
-}
 interface IBookObject {
   position: [number, number, number];
   rotation: [number, number, number];
 }
-
 const BookObject = React.memo((props: IBookObject) => {
   const groupRef = useRef<Group>(null);
   const { scene, animations } = useGLTF("/bookModel/scene.gltf");
@@ -36,24 +26,37 @@ const BookObject = React.memo((props: IBookObject) => {
     camera?.position.set(0, 0, 20);
   }, [camera]);
   useEffect(() => {
-    // actions["Demo"]?.play();
+    actions["Demo"]?.play();
   }, [actions]);
   useEffect(() => {
     const mesh = bookSceneRef.current?.getObjectByName("Book_0") as Mesh;
-    const bookCoverMaterial = new MeshStandardMaterial({ color: "wheat" });
+    const bookCoverMaterial = new MeshStandardMaterial({
+      roughness: 0.5,
+      metalness: 0.5,
+    });
+    // const textureLoader2 = new TextureLoader();
+    // textureLoader2.load(
+    //   "/bookModel/textures/Base_metallicRoughness.png",
+    //   (texture) => {
+    //     // to create high quality texture
+    //     texture.generateMipmaps = false;
+    //     texture.minFilter = LinearFilter;
+    //     texture.needsUpdate = true;
+    //     bookCoverMaterial.map = texture;
+    //     mesh.material = bookCoverMaterial;
+    //     setIsLoadingTexture(true);
+    //   }
+    // );
     const textureLoader = new TextureLoader();
-    textureLoader.load(
-      "/bookModel/textures/Base_metallicRoughness.png",
-      (texture) => {
-        // to create high quality texture
-        texture.generateMipmaps = false;
-        texture.minFilter = LinearFilter;
-        texture.needsUpdate = true;
-        bookCoverMaterial.map = texture;
-        mesh.material = bookCoverMaterial;
-        setIsLoadingTexture(true);
-      }
-    );
+    textureLoader.load("/bookModel/textures/Base_normal.png", (texture) => {
+      // to create high quality texture
+      texture.generateMipmaps = false;
+      texture.minFilter = LinearFilter;
+      texture.needsUpdate = true;
+      bookCoverMaterial.map = texture;
+      mesh.material = bookCoverMaterial;
+      setIsLoadingTexture(true);
+    });
   }, [bookSceneRef]);
   useFrame((_, delta) => {
     if (!isZoomedIn && isLoadingTexture) {
@@ -73,7 +76,6 @@ const BookObject = React.memo((props: IBookObject) => {
       }
     }
   });
-
   return (
     <group ref={groupRef}>
       <spotLight position={[-5, 10, 10]} angle={0.5} penumbra={0.5} />
@@ -87,17 +89,4 @@ const BookObject = React.memo((props: IBookObject) => {
     </group>
   );
 });
-const ThreeBook = ({ children }: IThreeBook) => {
-  return (
-    <ThreeLayout>
-      <ambientLight intensity={0.8} />
-      <BookObject
-        position={[-1, 0, 0]}
-        rotation={[Math.PI / 2, 0, -Math.PI / 2]}
-      />
-      <OrbitControls />
-    </ThreeLayout>
-  );
-};
-
-export default ThreeBook;
+export default BookObject;
