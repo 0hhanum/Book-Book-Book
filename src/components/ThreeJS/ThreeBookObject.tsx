@@ -31,30 +31,24 @@ const BookObject = React.memo((props: IBookObject) => {
   useEffect(() => {
     const mesh = bookSceneRef.current?.getObjectByName("Book_0") as Mesh;
     const bookCoverMaterial = new MeshStandardMaterial({
-      roughness: 0.5,
-      metalness: 0.5,
+      // roughness: 0.5,
+      // metalness: 0.9,
     });
-    // const textureLoader2 = new TextureLoader();
-    // textureLoader2.load(
-    //   "/bookModel/textures/Base_metallicRoughness.png",
-    //   (texture) => {
-    //     // to create high quality texture
-    //     texture.generateMipmaps = false;
-    //     texture.minFilter = LinearFilter;
-    //     texture.needsUpdate = true;
-    //     bookCoverMaterial.map = texture;
-    //     mesh.material = bookCoverMaterial;
-    //     setIsLoadingTexture(true);
-    //   }
-    // );
     const textureLoader = new TextureLoader();
-    textureLoader.load("/bookModel/textures/Base_normal.png", (texture) => {
+    textureLoader.load("/bookModel/textures/cover.jpeg", (texture) => {
       // to create high quality texture
-      texture.generateMipmaps = false;
+      texture.generateMipmaps = true;
+      texture.repeat.set(1, 1);
+      texture.offset.set(0, 0);
+      texture.center.set(0, 0);
+      texture.rotation = 0;
       texture.minFilter = LinearFilter;
       texture.needsUpdate = true;
-      bookCoverMaterial.map = texture;
-      mesh.material = bookCoverMaterial;
+      texture.anisotropy = 1;
+      texture.flipY = false;
+      // bookCoverMaterial.map = texture;
+      (mesh.material as MeshStandardMaterial).map = texture;
+      console.log(mesh);
       setIsLoadingTexture(true);
     });
   }, [bookSceneRef]);
