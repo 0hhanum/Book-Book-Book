@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { selectedBookAtom } from "../../atoms";
-import BookCoverLayout from "../../covers/BookCoverLayout";
+import BookCoverLayout from "./Covers/BookCoverLayout";
 import { IBook } from "../../data/books";
 
 const Dimmed = styled.div`

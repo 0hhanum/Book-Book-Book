@@ -14,6 +14,7 @@ import {
   sRGBEncoding,
 } from "three";
 import { IBook } from "../../data/books";
+import { loadTexture } from "./ThreeUtils";
 
 interface IBookObject {
   position: [number, number, number];
@@ -26,6 +27,7 @@ const BookObject = React.memo(({ book, ...props }: IBookObject) => {
   const { actions, ref: bookSceneRef } = useAnimations(animations, groupRef);
   const [isZoomedIn, setIsZoomedIn] = useState(false);
   const [isLoadingTexture, setIsLoadingTexture] = useState(false);
+  const [isHover, setIsHover] = useState(false);
   const { camera } = useThree();
   useEffect(() => {
     camera?.position.set(0, 0, 20);
@@ -35,28 +37,11 @@ const BookObject = React.memo(({ book, ...props }: IBookObject) => {
   }, [actions]);
   useEffect(() => {
     const bookMesh = bookSceneRef.current?.getObjectByName("Book_0") as Mesh;
-    const textureLoader = new TextureLoader();
-    textureLoader.load("/bookModel/textures/cover.jpeg", (texture) => {
-      // to create high quality texture
-      texture.generateMipmaps = true;
-      texture.repeat.set(1, 1);
-      texture.offset.set(0, 0);
-      texture.center.set(0, 0);
-      texture.rotation = 0;
-      texture.minFilter = LinearFilter;
-      texture.needsUpdate = true;
-      texture.anisotropy = 1;
-      texture.flipY = false;
-      texture.wrapS = RepeatWrapping;
-      texture.wrapT = RepeatWrapping;
-      texture.format = RGBAFormat;
-      texture.type = UnsignedByteType;
-      texture.encoding = sRGBEncoding;
-      texture.minFilter = LinearFilter;
-      texture.magFilter = LinearFilter;
-      // change book cover
-      (bookMesh.material as MeshStandardMaterial).map = texture;
-      setIsLoadingTexture(true);
+    const bookMaterial = bookMesh.material as MeshStandardMaterial;
+    loadTexture({
+      bookId: "cover",
+      material: bookMaterial,
+      callback: () => setIsLoadingTexture(true),
     });
   }, [bookSceneRef]);
 
