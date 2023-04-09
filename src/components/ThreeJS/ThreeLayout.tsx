@@ -8,7 +8,7 @@ const ThreeCanvas = lazy(() => import("./ThreeCanvas"));
 
 const ThreeLayout = ({ children }: IThreeLayout) => {
   return (
-    <Suspense fallback={<strong>Almost Done...!</strong>}>
+    <Suspense>
       <ThreeCanvas>{children}</ThreeCanvas>
     </Suspense>
   );

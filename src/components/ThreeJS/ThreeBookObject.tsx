@@ -5,35 +5,36 @@ import {
   Group,
   LinearFilter,
   Mesh,
-  MeshBasicMaterial,
   MeshStandardMaterial,
+  RGBAFormat,
+  RepeatWrapping,
   TextureLoader,
+  UnsignedByteType,
   Vector3,
+  sRGBEncoding,
 } from "three";
+import { IBook } from "../../data/books";
+
 interface IBookObject {
   position: [number, number, number];
   rotation: [number, number, number];
+  book: IBook;
 }
-const BookObject = React.memo((props: IBookObject) => {
+const BookObject = React.memo(({ book, ...props }: IBookObject) => {
   const groupRef = useRef<Group>(null);
   const { scene, animations } = useGLTF("/bookModel/scene.gltf");
   const { actions, ref: bookSceneRef } = useAnimations(animations, groupRef);
   const [isZoomedIn, setIsZoomedIn] = useState(false);
   const [isLoadingTexture, setIsLoadingTexture] = useState(false);
   const { camera } = useThree();
-
   useEffect(() => {
     camera?.position.set(0, 0, 20);
   }, [camera]);
   useEffect(() => {
-    actions["Demo"]?.play();
+    // actions["Demo"]?.play();
   }, [actions]);
   useEffect(() => {
-    const mesh = bookSceneRef.current?.getObjectByName("Book_0") as Mesh;
-    const bookCoverMaterial = new MeshStandardMaterial({
-      // roughness: 0.5,
-      // metalness: 0.9,
-    });
+    const bookMesh = bookSceneRef.current?.getObjectByName("Book_0") as Mesh;
     const textureLoader = new TextureLoader();
     textureLoader.load("/bookModel/textures/cover.jpeg", (texture) => {
       // to create high quality texture
@@ -46,12 +47,19 @@ const BookObject = React.memo((props: IBookObject) => {
       texture.needsUpdate = true;
       texture.anisotropy = 1;
       texture.flipY = false;
-      // bookCoverMaterial.map = texture;
-      (mesh.material as MeshStandardMaterial).map = texture;
-      console.log(mesh);
+      texture.wrapS = RepeatWrapping;
+      texture.wrapT = RepeatWrapping;
+      texture.format = RGBAFormat;
+      texture.type = UnsignedByteType;
+      texture.encoding = sRGBEncoding;
+      texture.minFilter = LinearFilter;
+      texture.magFilter = LinearFilter;
+      // change book cover
+      (bookMesh.material as MeshStandardMaterial).map = texture;
       setIsLoadingTexture(true);
     });
   }, [bookSceneRef]);
+
   useFrame((_, delta) => {
     if (!isZoomedIn && isLoadingTexture) {
       // Zoom in
