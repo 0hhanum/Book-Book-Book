@@ -1,18 +1,7 @@
 import { Stars, useGLTF, useAnimations } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
 import React, { useEffect, useRef, useState } from "react";
-import {
-  Group,
-  LinearFilter,
-  Mesh,
-  MeshStandardMaterial,
-  RGBAFormat,
-  RepeatWrapping,
-  TextureLoader,
-  UnsignedByteType,
-  Vector3,
-  sRGBEncoding,
-} from "three";
+import { Group, Mesh, MeshStandardMaterial, Vector3 } from "three";
 import { IBook } from "../../data/books";
 import { loadTexture } from "./ThreeUtils";
 
@@ -67,6 +56,11 @@ const BookObject = React.memo(({ book, ...props }: IBookObject) => {
       }
     }
   });
+  const onClick = () => {
+    if (actions["Demo"]) {
+      actions["Demo"].play();
+    }
+  };
   return (
     <group ref={groupRef}>
       <spotLight position={[0, 10, 20]} angle={0.4} penumbra={0.2} />
@@ -82,6 +76,7 @@ const BookObject = React.memo(({ book, ...props }: IBookObject) => {
         onPointerOut={() => {
           setIsHover(false);
         }}
+        onClick={onClick}
       />
       <Stars />
     </group>
