@@ -4,6 +4,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { Group, Mesh, MeshStandardMaterial, Vector3 } from "three";
 import { IBook } from "../../data/books";
 import { loadTexture } from "./ThreeUtils";
+import { useSetRecoilState } from "recoil";
+import { cursorStyleAtom } from "../../atoms";
 
 interface IBookObject {
   position: [number, number, number];
@@ -13,12 +15,11 @@ interface IBookObject {
 const BookObject = React.memo(({ book, ...props }: IBookObject) => {
   const groupRef = useRef<Group>(null);
   const bookMaterialRef = useRef<MeshStandardMaterial>();
-
   const { scene, animations } = useGLTF("/bookModel/scene.gltf");
   const { actions, ref: bookSceneRef } = useAnimations(animations, groupRef);
   const [isZoomedIn, setIsZoomedIn] = useState(false);
   const [isLoadingTexture, setIsLoadingTexture] = useState(false);
-  const [isHover, setIsHover] = useState(false);
+  const setIsHover = useSetRecoilState(cursorStyleAtom);
   const { camera } = useThree();
   useEffect(() => {
     camera?.position.set(0, 0, 20);
@@ -56,6 +57,7 @@ const BookObject = React.memo(({ book, ...props }: IBookObject) => {
       }
     }
   });
+
   const onClick = () => {
     if (actions["Demo"]) {
       actions["Demo"].play();
@@ -70,12 +72,8 @@ const BookObject = React.memo(({ book, ...props }: IBookObject) => {
         {...props}
         ref={bookSceneRef}
         visible={isLoadingTexture}
-        onPointOver={() => {
-          setIsHover(true);
-        }}
-        onPointerOut={() => {
-          setIsHover(false);
-        }}
+        onPointerOver={() => setIsHover(true)}
+        onPointerOut={() => setIsHover(false)}
         onClick={onClick}
       />
       <Stars />

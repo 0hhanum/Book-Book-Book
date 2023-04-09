@@ -1,4 +1,4 @@
-import { atom } from "recoil";
+import { atom, selector } from "recoil";
 import { IBook } from "./data/books";
 
 export const isDefaultThemeAtom = atom<boolean>({
@@ -12,4 +12,21 @@ export const filteredAuthorAtom = atom<string>({
 export const selectedBookAtom = atom<IBook | null>({
   key: "selectedBook",
   default: null,
+});
+export const isThreeObjectHoverAtom = atom<boolean>({
+  key: "isThreeObjectHover",
+  default: false,
+});
+// threeJS doesn't support css style
+export const cursorStyleAtom = selector({
+  key: "cursorStyleAtom",
+  get({ get }) {
+    return get(isThreeObjectHoverAtom);
+  },
+  set({ set }, isHover) {
+    const body = document.querySelector("body");
+    if (!body) return;
+    body.style.cursor = isHover ? "pointer" : "default";
+    set(isThreeObjectHoverAtom, isHover);
+  },
 });
