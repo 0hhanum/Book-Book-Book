@@ -23,6 +23,8 @@ interface IBookObject {
 }
 const BookObject = React.memo(({ book, ...props }: IBookObject) => {
   const groupRef = useRef<Group>(null);
+  const bookMaterialRef = useRef<MeshStandardMaterial>();
+
   const { scene, animations } = useGLTF("/bookModel/scene.gltf");
   const { actions, ref: bookSceneRef } = useAnimations(animations, groupRef);
   const [isZoomedIn, setIsZoomedIn] = useState(false);
@@ -38,13 +40,15 @@ const BookObject = React.memo(({ book, ...props }: IBookObject) => {
   useEffect(() => {
     const bookMesh = bookSceneRef.current?.getObjectByName("Book_0") as Mesh;
     const bookMaterial = bookMesh.material as MeshStandardMaterial;
+    bookMaterialRef.current = bookMaterial;
+    bookMaterial.metalness = 0.5;
+    bookMaterial.roughness = 0.2;
     loadTexture({
       bookId: "cover",
       material: bookMaterial,
       callback: () => setIsLoadingTexture(true),
     });
   }, [bookSceneRef]);
-
   useFrame((_, delta) => {
     if (!isZoomedIn && isLoadingTexture) {
       // Zoom in
@@ -65,12 +69,19 @@ const BookObject = React.memo(({ book, ...props }: IBookObject) => {
   });
   return (
     <group ref={groupRef}>
-      <spotLight position={[-5, 10, 10]} angle={0.5} penumbra={0.5} />
+      <spotLight position={[0, 10, 20]} angle={0.4} penumbra={0.2} />
+      <spotLight position={[0, 10, -20]} angle={0.4} penumbra={0.2} />
       <primitive
         object={scene}
         {...props}
         ref={bookSceneRef}
         visible={isLoadingTexture}
+        onPointOver={() => {
+          setIsHover(true);
+        }}
+        onPointerOut={() => {
+          setIsHover(false);
+        }}
       />
       <Stars />
     </group>
