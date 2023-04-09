@@ -1,7 +1,14 @@
 import { Stars, useGLTF, useAnimations } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
 import React, { useEffect, useRef, useState } from "react";
-import { Group, Mesh, MeshStandardMaterial, Vector3 } from "three";
+import {
+  Euler,
+  Group,
+  Mesh,
+  MeshStandardMaterial,
+  Quaternion,
+  Vector3,
+} from "three";
 import { IBook } from "../../data/books";
 import { loadTexture } from "./ThreeUtils";
 import { useSetRecoilState } from "recoil";
@@ -19,14 +26,13 @@ const BookObject = React.memo(({ book, ...props }: IBookObject) => {
   const { actions, ref: bookSceneRef } = useAnimations(animations, groupRef);
   const [isZoomedIn, setIsZoomedIn] = useState(false);
   const [isLoadingTexture, setIsLoadingTexture] = useState(false);
+  const [clickAnimation, setClickAnimation] = useState([false, false]);
+  const [animationToggle, setAnimationToggle] = useState(false);
   const setIsHover = useSetRecoilState(cursorStyleAtom);
   const { camera } = useThree();
   useEffect(() => {
     camera?.position.set(0, 0, 20);
   }, [camera]);
-  useEffect(() => {
-    // actions["Demo"]?.play();
-  }, [actions]);
   useEffect(() => {
     const bookMesh = bookSceneRef.current?.getObjectByName("Book_0") as Mesh;
     const bookMaterial = bookMesh.material as MeshStandardMaterial;
@@ -42,25 +48,64 @@ const BookObject = React.memo(({ book, ...props }: IBookObject) => {
   useFrame((_, delta) => {
     if (!isZoomedIn && isLoadingTexture) {
       // Zoom in
-      const targetPosition = new Vector3(0, 0, 7);
+      const targetCameraPosition = new Vector3(0, 0, 7);
       const currentPosition = camera.position;
-      camera.position.lerp(targetPosition, 0.05);
-      const dist = currentPosition.distanceTo(targetPosition);
+      camera.position.lerp(targetCameraPosition, 0.05);
+      const dist = currentPosition.distanceTo(targetCameraPosition);
       if (dist < 0.1) {
         setIsZoomedIn(true);
       }
     } else {
-      // Rotate the book
       if (bookSceneRef.current) {
-        bookSceneRef.current.rotation.y += delta * 0.3;
-        bookSceneRef.current.rotation.z += delta * 0.125;
+        // book opening animation
+        if (clickAnimation[0]) {
+          if (!animationToggle) {
+            // before zoom
+            const targetCameraPosition = new Vector3(0, 0, 10);
+            camera.position.lerp(targetCameraPosition, 0.04);
+            const currentPosition = camera.position;
+            const targetRotation = new Quaternion();
+            targetRotation.setFromEuler(new Euler(0, -Math.PI / 2, 0));
+            bookSceneRef.current.quaternion.slerp(targetRotation, 0.05);
+            const cameraDistance =
+              currentPosition.distanceTo(targetCameraPosition);
+            const rotationDifference =
+              bookSceneRef.current.quaternion.angleTo(targetRotation);
+            if (cameraDistance < 0.5 && rotationDifference === 0) {
+              setAnimationToggle(true);
+            }
+          } else if (clickAnimation[1]) {
+            // after zoom
+            const targetCameraPosition = new Vector3(5, 0, 5);
+            camera.position.lerp(targetCameraPosition, 0.04);
+          }
+        } else {
+          // Rotate the book
+          bookSceneRef.current.rotation.y += delta * 0.4;
+          bookSceneRef.current.rotation.z += delta * 0.225;
+        }
       }
     }
   });
-
+  useEffect(() => {
+    if (animationToggle) {
+      actions["Demo"]?.play();
+      setTimeout(() => {
+        actions["Demo"]?.stop();
+        setClickAnimation([true, true]);
+      }, 2000);
+    }
+  }, [animationToggle]);
   const onClick = () => {
-    if (actions["Demo"]) {
-      actions["Demo"].play();
+    if (isZoomedIn) {
+      // bookSceneRef.current!.rotation.y = -Math.PI / 2;
+      // bookSceneRef.current!.rotation.z = 0;
+      // const targetRotation = new Quaternion();
+      // targetRotation.setFromEuler(new Euler(-Math.PI / 2, 0, 0));
+      // setInterval(() => {
+      //   bookSceneRef.current!.quaternion.slerp(targetRotation, 0.05);
+      // });
+      setClickAnimation([true, false]);
     }
   };
   return (
