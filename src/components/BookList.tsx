@@ -5,10 +5,11 @@ import { filteredAuthorAtom, selectedBookAtom } from "../atoms";
 import books, { IBook } from "../data/books";
 import BookPreviewDialog from "./Books/BookPreviewDialog";
 
-const BookLi = styled.ul`
+const Books = styled.ul`
   cursor: pointer;
 `;
-const Book = styled.li`
+const Book = styled.a`
+  display: block;
   height: 45px;
   width: 100%;
   text-align: center;
@@ -25,15 +26,17 @@ const BookList = () => {
   };
   return (
     <div>
-      <BookLi>
+      <Books>
         {books.map((book) =>
           authorFilter && authorFilter !== book.author ? null : (
-            <Book key={book.title} onClick={() => openBookPreview(book)}>
-              {book.title} - {book.author}
-            </Book>
+            <li key={book.title}>
+              <Book onClick={() => openBookPreview(book)}>
+                {book.title} - {book.author}
+              </Book>
+            </li>
           )
         )}
-      </BookLi>
+      </Books>
       {selectedBook ? <BookPreviewDialog {...selectedBook} /> : null}
     </div>
   );
