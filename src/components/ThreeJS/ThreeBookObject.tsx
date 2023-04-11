@@ -105,9 +105,7 @@ const BookObject = React.memo(({ book, ...props }: IBookObject) => {
     }
   }, [openAnimation]);
   const onClick = () => {
-    if (isZoomedIn) {
-      setClickAnimation([true, false]);
-    }
+    setClickAnimation([true, false]);
   };
   return (
     <group ref={groupRef}>
