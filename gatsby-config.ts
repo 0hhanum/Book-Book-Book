@@ -14,6 +14,7 @@ const config: GatsbyConfig = {
       options: {
         accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
         spaceId: "drmlgrx4rnh5",
+        contentTypeFilter: (contentType: any) => contentType.sys.id === "books",
       },
     },
     "gatsby-plugin-image",
