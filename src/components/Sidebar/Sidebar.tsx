@@ -4,6 +4,7 @@ import Filter from "./Filter";
 import filtersObject from "../../data/filters";
 import { useRecoilState } from "recoil";
 import { filteredAuthorAtom } from "../../atoms";
+import { graphql, useStaticQuery } from "gatsby";
 
 const Aside = styled.aside`
   position: fixed;
@@ -16,6 +17,17 @@ const Aside = styled.aside`
 const Ul = styled.ul``;
 
 const Sidebar = () => {
+  const {
+    allContentfulBooks: { nodes: authors },
+  } = useStaticQuery<Queries.getAuthorQuery>(graphql`
+    query getAuthor {
+      allContentfulBooks {
+        nodes {
+          author
+        }
+      }
+    }
+  `);
   const [filteredAuthor, setFilteredAuthor] =
     useRecoilState(filteredAuthorAtom);
   const handleClickFilter = (author: string) => {
@@ -28,12 +40,12 @@ const Sidebar = () => {
   return (
     <Aside>
       <Ul>
-        {filtersObject.filters.map(({ author }) => (
+        {authors.map(({ author }) => (
           <Filter
             key={author}
-            author={author}
+            author={author!}
             isFilteredAuthor={filteredAuthor === author}
-            onClick={() => handleClickFilter(author)}
+            onClick={() => handleClickFilter(author!)}
           />
         ))}
       </Ul>
