@@ -2,8 +2,9 @@ import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { filteredAuthorAtom, selectedBookAtom } from "../atoms";
-import books, { IBook } from "../data/books";
+import { IBook } from "../data/books";
 import BookPreviewDialog from "./Books/BookPreviewDialog";
+import { graphql, useStaticQuery } from "gatsby";
 
 const Books = styled.ul`
   cursor: pointer;
@@ -19,6 +20,20 @@ const Book = styled.a`
   border-bottom: ${(props) => `1px solid ${props.theme.normalColor}`};
 `;
 const BookList = () => {
+  const {
+    allContentfulBooks: { nodes: books },
+  } = useStaticQuery<Queries.getBooksQuery>(graphql`
+    query getBooks {
+      allContentfulBooks {
+        nodes {
+          id
+          author
+          title
+          rating
+        }
+      }
+    }
+  `);
   const authorFilter = useRecoilValue(filteredAuthorAtom);
   const [selectedBook, setSelectedBook] = useRecoilState(selectedBookAtom);
   const openBookPreview = (book: IBook) => {
@@ -30,7 +45,7 @@ const BookList = () => {
         {books.map((book) =>
           authorFilter && authorFilter !== book.author ? null : (
             <li key={book.title}>
-              <Book onClick={() => openBookPreview(book)}>
+              <Book onClick={() => openBookPreview(book as IBook)}>
                 {book.title} - {book.author}
               </Book>
             </li>
