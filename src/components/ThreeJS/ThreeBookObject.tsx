@@ -9,21 +9,20 @@ import {
   Quaternion,
   Vector3,
 } from "three";
-import { IBook } from "../../data/books";
+import { IBook } from "../../types/book";
 import { loadTexture } from "./ThreeUtils";
 import { useSetRecoilState } from "recoil";
 import { cursorStyleAtom } from "../../atoms";
-import { graphql, useStaticQuery } from "gatsby";
-import { getImage } from "gatsby-plugin-image";
 
 interface IBookObject {
   position: [number, number, number];
   rotation: [number, number, number];
   book: IBook;
+  data: any;
 }
 
 const BookObject = React.memo(
-  ({ book: { id: bookId }, ...props }: IBookObject) => {
+  ({ book: { id: bookId }, data, ...props }: IBookObject) => {
     const groupRef = useRef<Group>(null);
     const bookMaterialRef = useRef<MeshStandardMaterial>();
     const { scene, animations } = useGLTF("/bookModel/scene.gltf");
@@ -46,8 +45,7 @@ const BookObject = React.memo(
       bookMaterial.metalness = 0.5;
       bookMaterial.roughness = 0.2;
       loadTexture({
-        bookId:
-          contentfulBooks?.coverImage?.gatsbyImage?.images.sources![1].srcSet!,
+        bookId: "test",
         material: bookMaterial,
         callback: () => {
           setIsLoadingTexture(true);
@@ -136,4 +134,5 @@ const BookObject = React.memo(
     );
   }
 );
+
 export default BookObject;

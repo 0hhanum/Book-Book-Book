@@ -3,7 +3,7 @@ import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { selectedBookAtom } from "../../atoms";
 import BookCoverLayout from "./Covers/BookCoverLayout";
-import { IBook } from "../../data/books";
+import { IBook } from "../../types/book";
 
 const Dimmed = styled.div`
   position: fixed;

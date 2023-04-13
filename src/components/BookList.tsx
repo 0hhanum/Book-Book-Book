@@ -2,7 +2,7 @@ import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { filteredAuthorAtom, selectedBookAtom } from "../atoms";
-import { IBook } from "../data/books";
+import { IBook } from "../types/book";
 import BookPreviewDialog from "./Books/BookPreviewDialog";
 import { graphql, useStaticQuery } from "gatsby";
 
@@ -30,6 +30,11 @@ const BookList = () => {
           author
           title
           rating
+          coverImage {
+            file {
+              url
+            }
+          }
         }
       }
     }

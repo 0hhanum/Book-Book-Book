@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import Filter from "./Filter";
-import filtersObject from "../../data/filters";
 import { useRecoilState } from "recoil";
 import { filteredAuthorAtom } from "../../atoms";
 import { graphql, useStaticQuery } from "gatsby";

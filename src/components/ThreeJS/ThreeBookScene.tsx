@@ -2,7 +2,7 @@ import { OrbitControls } from "@react-three/drei";
 import React from "react";
 import ThreeLayout from "./ThreeLayout";
 import BookObject from "./ThreeBookObject";
-import { IBook } from "../../data/books";
+import { IBook } from "../../types/book";
 
 interface IThreeBook {
   book: IBook;

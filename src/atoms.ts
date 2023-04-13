@@ -1,5 +1,5 @@
 import { atom, selector } from "recoil";
-import { IBook } from "./data/books";
+import { IBook } from "./types/book";
 
 export const isDefaultThemeAtom = atom<boolean>({
   key: "isDefaultTheme",
