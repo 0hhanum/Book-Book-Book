@@ -49,15 +49,13 @@ const BookObject = React.memo(
         material: bookMaterial,
         callback: () => {
           setIsLoadingTexture(true);
-          // initialize rotate
-          bookSceneRef.current!.rotation.y = 0;
-          bookSceneRef.current!.rotation.z = 0;
         },
       });
     }, [bookSceneRef]);
 
     useFrame((_, delta) => {
-      if (!isZoomedIn && isLoadingTexture) {
+      if (!isLoadingTexture) return;
+      if (!isZoomedIn) {
         // zoom in
         const targetCameraPosition = new Vector3(0, 0, 7);
         const currentPosition = camera.position;
