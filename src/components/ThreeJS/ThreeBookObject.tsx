@@ -22,7 +22,7 @@ interface IBookObject {
 }
 
 const BookObject = React.memo(
-  ({ book: { id: bookId }, data, ...props }: IBookObject) => {
+  ({ book: { coverImage }, ...props }: IBookObject) => {
     const groupRef = useRef<Group>(null);
     const bookMaterialRef = useRef<MeshStandardMaterial>();
     const { scene, animations } = useGLTF("/bookModel/scene.gltf");
@@ -45,7 +45,7 @@ const BookObject = React.memo(
       bookMaterial.metalness = 0.5;
       bookMaterial.roughness = 0.2;
       loadTexture({
-        bookId: "test",
+        bookCoverSrc: coverImage?.file?.url || "",
         material: bookMaterial,
         callback: () => {
           setIsLoadingTexture(true);
