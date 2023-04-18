@@ -18,7 +18,6 @@ interface IBookObject {
   position: [number, number, number];
   rotation: [number, number, number];
   book: IBook;
-  data: any;
 }
 
 const BookObject = React.memo(
