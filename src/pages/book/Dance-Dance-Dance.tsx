@@ -6,4 +6,4 @@ const DanceDanceDance = () => {
 };
 
 export default DanceDanceDance;
-export const Head = () => <Helmet title="testing" />;
+export const Head = () => <Helmet title="Dance Dance Dance" />;

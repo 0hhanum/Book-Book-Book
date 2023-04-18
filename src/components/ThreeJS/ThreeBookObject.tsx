@@ -12,7 +12,7 @@ import {
 import { IBook } from "../../types/book";
 import { convertToKebabCase, loadTexture } from "./ThreeUtils";
 import { useSetRecoilState } from "recoil";
-import { cursorStyleAtom } from "../../atoms";
+import { cursorStyleAtom, selectedBookAtom } from "../../atoms";
 import { navigate } from "gatsby";
 
 interface IBookObject {
@@ -32,7 +32,9 @@ const BookObject = React.memo(
     const [clickAnimation, setClickAnimation] = useState([false, false]);
     const [openAnimation, setOpenAnimation] = useState(false);
     const setIsHover = useSetRecoilState(cursorStyleAtom);
+    const setSelectedBook = useSetRecoilState(selectedBookAtom);
     const { camera } = useThree();
+
     // set initial camera position
     useEffect(() => {
       camera?.position.set(0, 0, 20);
@@ -101,6 +103,10 @@ const BookObject = React.memo(
             if (cameraDistance < 0.5) {
               // move to book detail page if dive animation is done
               navigate(`/book/${convertToKebabCase(title!)}`);
+              setTimeout(() => {
+                // change global state for close preview dialog
+                setSelectedBook(null);
+              }, 500);
             }
           }
         }
