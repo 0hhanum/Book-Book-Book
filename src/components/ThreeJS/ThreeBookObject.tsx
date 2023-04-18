@@ -91,7 +91,7 @@ const BookObject = React.memo(
               setOpenAnimation(true);
             }
           } else if (clickAnimation[1]) {
-            // after zoom
+            // dive to book
             const targetCameraPosition = new Vector3(0, 0, 1);
             camera.position.lerp(targetCameraPosition, 0.04);
           }
@@ -110,7 +110,9 @@ const BookObject = React.memo(
       }
     }, [openAnimation]);
     const onClick = () => {
-      setClickAnimation([true, false]);
+      if (!clickAnimation[1]) {
+        setClickAnimation([true, false]);
+      }
     };
     return (
       <group ref={groupRef}>
