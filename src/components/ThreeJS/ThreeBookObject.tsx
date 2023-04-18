@@ -10,9 +10,10 @@ import {
   Vector3,
 } from "three";
 import { IBook } from "../../types/book";
-import { loadTexture } from "./ThreeUtils";
+import { convertToKebabCase, loadTexture } from "./ThreeUtils";
 import { useSetRecoilState } from "recoil";
 import { cursorStyleAtom } from "../../atoms";
+import { navigate } from "gatsby";
 
 interface IBookObject {
   position: [number, number, number];
@@ -21,7 +22,7 @@ interface IBookObject {
 }
 
 const BookObject = React.memo(
-  ({ book: { coverImage }, ...props }: IBookObject) => {
+  ({ book: { coverImage, title }, ...props }: IBookObject) => {
     const groupRef = useRef<Group>(null);
     const bookMaterialRef = useRef<MeshStandardMaterial>();
     const { scene, animations } = useGLTF("/threeModel/bookModel/scene.gltf");
@@ -94,6 +95,13 @@ const BookObject = React.memo(
             // dive to book
             const targetCameraPosition = new Vector3(0, 0, 1);
             camera.position.lerp(targetCameraPosition, 0.04);
+            const currentPosition = camera.position;
+            const cameraDistance =
+              currentPosition.distanceTo(targetCameraPosition);
+            if (cameraDistance < 0.5) {
+              // move to book detail page if dive animation is done
+              navigate(`/book/${convertToKebabCase(title!)}`);
+            }
           }
         }
       }

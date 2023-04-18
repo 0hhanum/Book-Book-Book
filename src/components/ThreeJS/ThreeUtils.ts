@@ -42,3 +42,7 @@ export const loadTexture = ({
     callback();
   });
 };
+
+export const convertToKebabCase = (str: string): string => {
+  return str.toLowerCase().replaceAll(/[\s_]+/g, "-");
+};
