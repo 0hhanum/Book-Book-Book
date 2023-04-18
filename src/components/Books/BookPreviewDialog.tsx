@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { selectedBookAtom } from "../../atoms";
-import BookCoverLayout from "./Covers/BookCoverLayout";
+import ThreeBookScene from "../ThreeJS/ThreeBookScene";
 import { IBook } from "../../types/book";
 
 const Dimmed = styled.div`
@@ -75,7 +75,7 @@ const BookPreviewDialog = (book: IBook) => {
           </Stars>
         </Header>
         <Content>
-          <BookCoverLayout {...book} />
+          <ThreeBookScene book={book} />;
         </Content>
       </Dialog>
     </Dimmed>
