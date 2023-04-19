@@ -74,11 +74,8 @@ const NavDropdown = (props: INavDropdown) => {
                 </Li>
               </Link>
             ) : (
-              <a
-                href={item.type === "mail" ? `mailto:${item.link}` : item.link}
-                key={item.name}
-                target="_blank"
-              >
+              // external link
+              <a href={item.link} key={item.name} target="_blank">
                 <Li>
                   <img src={item.icon} />
                   <span>{item.name}</span>
