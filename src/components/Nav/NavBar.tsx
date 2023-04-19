@@ -3,9 +3,8 @@ import React, { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { isDefaultThemeAtom } from "../../atoms";
-import { IDropDown } from "../Dropdown";
 import { IThemeProp } from "../Layout";
-import NavDropdown from "./NavDropdown";
+import NavDropdown, { INavDropdown } from "./NavDropdown";
 import ThemeToggle from "./ThemeToggle";
 
 const Header = styled.header<IThemeProp>`
@@ -41,7 +40,7 @@ const Icon = styled.img`
   width: 30px;
   height: 30px;
 `;
-const dropdownItems: IDropDown["items"] = [
+const dropdownItems: INavDropdown["dropdownItems"] = [
   {
     name: "Github",
     icon: "/github_ico.svg",
@@ -51,7 +50,7 @@ const dropdownItems: IDropDown["items"] = [
   {
     name: "Mail",
     icon: "/mail_ico.svg",
-    link: "rntls123@naver.com",
+    link: "/mail",
     type: "mail",
   },
   {
@@ -82,7 +81,10 @@ const NavBar = () => {
         <NavBox>
           <Contact onMouseEnter={onMouseEnter}>
             {isHover && (
-              <NavDropdown onMouseLeave={onMouseLeave} items={dropdownItems} />
+              <NavDropdown
+                onMouseLeave={onMouseLeave}
+                dropdownItems={dropdownItems}
+              />
             )}
             <span>Contact</span>
           </Contact>
