@@ -5,35 +5,40 @@ import styled from "styled-components";
 const Container = styled.div`
   width: 100%;
 `;
-const Header = styled.div`
-  height: ${(props) => `${props.theme.variables.headerHeight}px`};
-  border-bottom: ${(props) => `1px solid ${props.theme.normalColor}`};
-  padding-top: 22px;
-  display: flex;
-  h1 {
-    font-size: 42px;
-  }
-`;
 const ContentLayout = styled.div`
   display: flex;
   width: 100%;
 `;
 const ContentSection = styled.section`
   width: 50%;
-  height: calc(100vh - 120px);
+  height: ${(props) => `calc(100vh - ${props.theme.variables.headerHeight}px)`};
   &:first-child {
     border-right: ${(props) => `1px solid ${props.theme.normalColor}`};
+    display: flex;
+    align-items: flex-end;
+    h1 {
+      font-size: 128px;
+      margin-bottom: 24px;
+    }
+  }
+  &:last-child {
+    h1 {
+      font-size: 64px;
+      letter-spacing: 8px;
+    }
   }
 `;
 const Mail = () => {
   return (
     <Container>
-      <Header>
-        <h1>Get in touch</h1>
-      </Header>
       <ContentLayout>
-        <ContentSection></ContentSection>
-        <ContentSection></ContentSection>
+        <ContentSection>
+          <h1>Get in touch</h1>
+        </ContentSection>
+        <ContentSection>
+          <h1>rntls123@</h1>
+          <h1>naver.com</h1>
+        </ContentSection>
       </ContentLayout>
     </Container>
   );
