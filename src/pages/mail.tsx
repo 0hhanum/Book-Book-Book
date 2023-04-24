@@ -56,7 +56,7 @@ const Subject = styled.input`
   font-size: 24px;
   height: 48px;
   border-radius: 40px;
-  background-color: ${(props) => props.theme.backgroundColor};
+  background-color: transparent;
   border: ${(props) => `1px solid ${props.theme.normalColor}`};
   color: ${(props) => props.theme.fontColor};
   padding: 0 20px;
@@ -72,7 +72,7 @@ const Message = styled.textarea`
   outline: none;
   border: none;
   font-size: 24px;
-  background-color: ${(props) => props.theme.backgroundColor};
+  background-color: transparent;
   color: ${(props) => props.theme.fontColor};
   border: ${(props) => `1px solid ${props.theme.normalColor}`};
   resize: none;
