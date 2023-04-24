@@ -2,6 +2,9 @@ import React, { FormEvent } from "react";
 import Helmet from "../components/Helmet";
 import styled from "styled-components";
 
+interface ILabel {
+  htmlFor: string;
+}
 const Container = styled.div`
   width: 100%;
 `;
@@ -26,16 +29,60 @@ const ContentSection = styled.section`
       font-size: 64px;
       letter-spacing: 12px;
     }
-    h1:last-child {
-      border-bottom: ${(props) => `1px solid ${props.theme.normalColor}`};
-    }
   }
 `;
-const FormContainer = styled.div``;
-const Form = styled.form``;
-const FormButton = styled.button``;
-const Title = styled.input``;
-const Content = styled.textarea``;
+const FormContainer = styled.div`
+  border-top: ${(props) => `1px solid ${props.theme.normalColor}`};
+  height: calc(100% - 128px);
+`;
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+`;
+const FormButton = styled.button`
+  background-color: transparent;
+  border: ${(props) => `1px solid ${props.theme.normalColor}`};
+  border-radius: 40px;
+  outline: none;
+  cursor: pointer;
+  color: ${(props) => props.theme.fontColor};
+  height: 64px;
+  font-size: 24px;
+`;
+const Subject = styled.input`
+  outline: none;
+  border: none;
+  font-size: 24px;
+  height: 48px;
+  border-radius: 40px;
+  background-color: ${(props) => props.theme.backgroundColor};
+  border: ${(props) => `1px solid ${props.theme.normalColor}`};
+  color: ${(props) => props.theme.fontColor};
+  padding: 0 20px;
+`;
+const Label = styled.label.attrs(({ htmlFor }: ILabel) => ({
+  for: htmlFor,
+}))`
+  font-size: 36px;
+  margin-bottom: 10px;
+`;
+
+const Message = styled.textarea`
+  outline: none;
+  border: none;
+  font-size: 24px;
+  background-color: ${(props) => props.theme.backgroundColor};
+  color: ${(props) => props.theme.fontColor};
+  border: ${(props) => `1px solid ${props.theme.normalColor}`};
+  resize: none;
+  flex-grow: 1;
+  border-radius: 40px;
+  padding: 20px;
+  &:focus {
+    border: ${(props) => `1px solid ${props.theme.headerColor}`};
+  }
+`;
 const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
   event.preventDefault();
 };
@@ -52,8 +99,10 @@ const Mail = () => {
           <FormContainer>
             <Form onSubmit={onSubmit}>
               <FormButton>Send</FormButton>
-              <Title />
-              <Content />
+              <Label htmlFor="mail-subject">Subject</Label>
+              <Subject id="mail-subject" autoComplete="off" />
+              <Label htmlFor="mail-message">Subject</Label>
+              <Message id="mail-message" />
             </Form>
           </FormContainer>
         </ContentSection>
