@@ -68,7 +68,9 @@ const Label = styled.label.attrs(({ htmlFor }: ILabel) => ({
   margin-bottom: 10px;
 `;
 
-const Message = styled.textarea`
+const Message = styled.textarea.attrs({
+  placeholder: "Please leave your contact.",
+})`
   outline: none;
   border: none;
   font-size: 24px;
@@ -101,7 +103,7 @@ const Mail = () => {
               <FormButton>Send</FormButton>
               <Label htmlFor="mail-subject">Subject</Label>
               <Subject id="mail-subject" autoComplete="off" />
-              <Label htmlFor="mail-message">Subject</Label>
+              <Label htmlFor="mail-message">Message</Label>
               <Message id="mail-message" />
             </Form>
           </FormContainer>
