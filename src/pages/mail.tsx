@@ -1,4 +1,4 @@
-import React, { FormEvent } from "react";
+import React, { FormEvent, useRef } from "react";
 import Helmet from "../components/Helmet";
 import styled from "styled-components";
 
@@ -62,7 +62,7 @@ const Subject = styled.input`
   padding: 0 20px;
 `;
 const Label = styled.label.attrs(({ htmlFor }: ILabel) => ({
-  for: htmlFor,
+  htmlFor,
 }))`
   font-size: 36px;
   margin-bottom: 10px;
@@ -85,10 +85,34 @@ const Message = styled.textarea.attrs({
     border: ${(props) => `1px solid ${props.theme.headerColor}`};
   }
 `;
-const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-  event.preventDefault();
-};
 const Mail = () => {
+  const subjectRef = useRef<HTMLInputElement>(null);
+  const messageRef = useRef<HTMLTextAreaElement>(null);
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const subject = subjectRef.current?.value;
+    const message = messageRef.current?.value;
+    if (!subject && !message) return;
+    const data = {
+      subject,
+      message,
+    };
+    try {
+      const response = await fetch("/sendmail", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+    } catch (error) {
+      console.log(error);
+      alert("Something goes wrong. Try it again.");
+    }
+  };
   return (
     <Container>
       <ContentLayout>
@@ -102,9 +126,14 @@ const Mail = () => {
             <Form onSubmit={onSubmit}>
               <FormButton>Send</FormButton>
               <Label htmlFor="mail-subject">Subject</Label>
-              <Subject id="mail-subject" autoComplete="off" />
+              <Subject
+                id="mail-subject"
+                autoComplete="off"
+                name="subject"
+                ref={subjectRef}
+              />
               <Label htmlFor="mail-message">Message</Label>
-              <Message id="mail-message" />
+              <Message id="mail-message" name="message" ref={messageRef} />
             </Form>
           </FormContainer>
         </ContentSection>
