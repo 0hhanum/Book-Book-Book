@@ -75,7 +75,7 @@ const BookPreviewDialog = (book: IBook) => {
           </Stars>
         </Header>
         <Content>
-          <ThreeBookScene book={book} />;
+          <ThreeBookScene book={book} />
         </Content>
       </Dialog>
     </Dimmed>

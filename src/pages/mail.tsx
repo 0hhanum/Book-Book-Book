@@ -1,6 +1,7 @@
 import React, { FormEvent, useRef } from "react";
 import Helmet from "../components/Helmet";
 import styled from "styled-components";
+import { sendMail } from "../apis/mailApi";
 
 interface ILabel {
   htmlFor: string;
@@ -85,7 +86,7 @@ const Message = styled.textarea.attrs({
     border: ${(props) => `1px solid ${props.theme.headerColor}`};
   }
 `;
-const Mail = () => {
+const Mail = async () => {
   const subjectRef = useRef<HTMLInputElement>(null);
   const messageRef = useRef<HTMLTextAreaElement>(null);
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -97,21 +98,13 @@ const Mail = () => {
       subject,
       message,
     };
-    try {
-      const response = await fetch("/sendmail", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
+    sendMail(mailData)
+      .then((response) => {
+        console.log("Mail sent successfully:", response);
+      })
+      .catch((error) => {
+        console.error("Error sending mail:", error);
       });
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
-    } catch (error) {
-      console.log(error);
-      alert("Something goes wrong. Try it again.");
-    }
   };
   return (
     <Container>
