@@ -16,7 +16,7 @@ const fetchData = async (url: string, options?: IOptions) => {
     if (!response.ok) {
       throw new Error(response.statusText);
     }
-    return await response.json();
+    return await response;
   } catch (error) {
     console.log(error);
     throw new Error("Something went wrong. Please try again.");

@@ -1,4 +1,4 @@
-import React, { FormEvent, useRef } from "react";
+import React, { useRef } from "react";
 import Helmet from "../components/Helmet";
 import styled from "styled-components";
 import { sendMail } from "../apis/mailApi";
@@ -86,19 +86,16 @@ const Message = styled.textarea.attrs({
     border: ${(props) => `1px solid ${props.theme.headerColor}`};
   }
 `;
-const Mail = async () => {
+
+const Mail = () => {
   const subjectRef = useRef<HTMLInputElement>(null);
   const messageRef = useRef<HTMLTextAreaElement>(null);
-  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const subject = subjectRef.current?.value;
     const message = messageRef.current?.value;
     if (!subject && !message) return;
-    const data = {
-      subject,
-      message,
-    };
-    sendMail(mailData)
+    sendMail({ subject, message })
       .then((response) => {
         console.log("Mail sent successfully:", response);
       })
