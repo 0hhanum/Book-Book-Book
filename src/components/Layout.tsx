@@ -3,7 +3,7 @@ import React from "react";
 import { GlobalStyle } from "../GlobalStyle";
 import styled, { ThemeProvider } from "styled-components";
 import { useRecoilValue } from "recoil";
-import { isDefaultThemeAtom } from "../atoms";
+import { isDefaultThemeAtom, progressDialogAtom } from "../atoms";
 import { defaultTheme, lighterTheme } from "../theme";
 import NavBar from "./Nav/NavBar";
 import { motion } from "framer-motion";
@@ -67,6 +67,7 @@ const NoticeScreen = styled.div`
 `;
 const Layout = ({ children }: ILayout) => {
   const isDefaultTheme = useRecoilValue(isDefaultThemeAtom);
+  const isProgressShow = useRecoilValue(progressDialogAtom);
   return (
     <ThemeProvider theme={isDefaultTheme ? defaultTheme : lighterTheme}>
       <GlobalStyle />
@@ -77,7 +78,7 @@ const Layout = ({ children }: ILayout) => {
         variants={LayerVariants}
         animate={isDefaultTheme ? "defaultTheme" : "lightTheme"}
       />
-      <ProgressDialog />
+      {isProgressShow && <ProgressDialog />}
       <NoticeScreen>
         Sorry, this content is only available on larger screens.
       </NoticeScreen>

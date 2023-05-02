@@ -20,7 +20,7 @@ export const isThreeObjectHoverAtom = atom<boolean>({
 });
 export const progressDialogAtom = atom<TProgress>({
   key: "progressDialog",
-  default: null,
+  default: "dot",
 });
 
 // threeJS doesn't support css style
