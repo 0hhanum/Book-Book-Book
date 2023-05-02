@@ -97,7 +97,10 @@ const Mail = () => {
     if (!subject && !message) return;
     sendMail({ subject, message })
       .then((response) => {
-        console.log("Mail sent successfully:", response);
+        if (response.ok) {
+        } else {
+          throw Error("something went wrong");
+        }
       })
       .catch((error) => {
         console.error("Error sending mail:", error);

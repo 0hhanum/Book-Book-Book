@@ -7,6 +7,7 @@ import { isDefaultThemeAtom } from "../atoms";
 import { defaultTheme, lighterTheme } from "../theme";
 import NavBar from "./Nav/NavBar";
 import { motion } from "framer-motion";
+import ProgressDialog from "./Common/ProgressDialogs/ProgressDialog";
 
 interface ILayout {
   children: any;
@@ -76,6 +77,7 @@ const Layout = ({ children }: ILayout) => {
         variants={LayerVariants}
         animate={isDefaultTheme ? "defaultTheme" : "lightTheme"}
       />
+      <ProgressDialog />
       <NoticeScreen>
         Sorry, this content is only available on larger screens.
       </NoticeScreen>

@@ -1,5 +1,6 @@
 import { atom, selector } from "recoil";
 import { IBook } from "./types/book";
+import { TProgress } from "./types/common";
 
 export const isDefaultThemeAtom = atom<boolean>({
   key: "isDefaultTheme",
@@ -17,6 +18,11 @@ export const isThreeObjectHoverAtom = atom<boolean>({
   key: "isThreeObjectHover",
   default: false,
 });
+export const progressDialogAtom = atom<TProgress>({
+  key: "progressDialog",
+  default: null,
+});
+
 // threeJS doesn't support css style
 export const cursorStyleAtom = selector({
   key: "cursorStyleAtom",
