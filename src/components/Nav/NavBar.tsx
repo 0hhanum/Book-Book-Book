@@ -50,7 +50,7 @@ const dropdownItems: INavDropdown["dropdownItems"] = [
   {
     name: "Mail",
     icon: "/mail_ico.svg",
-    link: "/mail",
+    link: "/mail/send",
     type: "internal",
   },
   {

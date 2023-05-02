@@ -1,9 +1,10 @@
 import React, { useRef } from "react";
-import Helmet from "../components/Helmet";
+import Helmet from "../../components/Helmet";
 import styled from "styled-components";
-import { sendMail } from "../apis/mailApi";
+import { sendMail } from "../../apis/mailApi";
 import { useSetRecoilState } from "recoil";
-import { progressDialogAtom } from "../atoms";
+import { progressDialogAtom } from "../../atoms";
+import { navigate } from "gatsby";
 
 interface ILabel {
   htmlFor: string;
@@ -89,7 +90,7 @@ const Message = styled.textarea.attrs({
   }
 `;
 
-const Mail = () => {
+const SendMail = () => {
   const subjectRef = useRef<HTMLInputElement>(null);
   const messageRef = useRef<HTMLTextAreaElement>(null);
   const setIsShowProgressDialog = useSetRecoilState(progressDialogAtom);
@@ -102,12 +103,14 @@ const Mail = () => {
     sendMail({ subject, message })
       .then((response) => {
         if (response.ok) {
+          navigate("/mail/complete");
         } else {
           throw Error("something went wrong");
         }
       })
       .catch((error) => {
         console.error("Error sending mail:", error);
+        navigate("/");
       })
       .finally(() => {
         setIsShowProgressDialog(null);
@@ -142,5 +145,5 @@ const Mail = () => {
   );
 };
 
-export default Mail;
+export default SendMail;
 export const Head = () => <Helmet title="Mail" />;
