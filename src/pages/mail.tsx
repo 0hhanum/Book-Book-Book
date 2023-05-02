@@ -2,6 +2,8 @@ import React, { useRef } from "react";
 import Helmet from "../components/Helmet";
 import styled from "styled-components";
 import { sendMail } from "../apis/mailApi";
+import { useSetRecoilState } from "recoil";
+import { progressDialogAtom } from "../atoms";
 
 interface ILabel {
   htmlFor: string;
@@ -90,7 +92,9 @@ const Message = styled.textarea.attrs({
 const Mail = () => {
   const subjectRef = useRef<HTMLInputElement>(null);
   const messageRef = useRef<HTMLTextAreaElement>(null);
+  const setIsShowProgressDialog = useSetRecoilState(progressDialogAtom);
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    setIsShowProgressDialog("dot");
     event.preventDefault();
     const subject = subjectRef.current?.value;
     const message = messageRef.current?.value;
@@ -104,6 +108,9 @@ const Mail = () => {
       })
       .catch((error) => {
         console.error("Error sending mail:", error);
+      })
+      .finally(() => {
+        setIsShowProgressDialog(null);
       });
   };
   return (
