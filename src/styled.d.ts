@@ -4,7 +4,6 @@ import { EColors, EVariables } from "./styleVariables";
 declare module "styled-components" {
   interface IAssets {
     starIcon: string;
-    mailSendSuccessSvg: string;
   }
   export interface DefaultTheme {
     backgroundColor: string;

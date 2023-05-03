@@ -8,11 +8,6 @@ const Container = styled.div`
   justify-content: flex-start;
   height: ${(props) => `calc(100vh - ${props.theme.variables.headerHeight}px)`};
 `;
-const MailSendSuccessSvg = styled.img.attrs((props) => ({
-  src: props.theme.assets.mailSendSuccessSvg,
-}))`
-  align-self: center;
-`;
 const TextBox = styled.div``;
 const Text = styled.h1`
   font-size: 64px;
@@ -25,7 +20,6 @@ const SuccessSendMail = () => {
         <Text>Sent Successfully!</Text>
         <Text>Thank you for contact.</Text>
       </TextBox>
-      <MailSendSuccessSvg />
     </Container>
   );
 };
