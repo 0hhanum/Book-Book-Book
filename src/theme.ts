@@ -10,6 +10,7 @@ export const defaultTheme: DefaultTheme = {
   headerColor: "#ff7400",
   assets: {
     starIcon: "/star.svg",
+    mailSuccessSvg: "/mail_success.svg",
   },
   colors: EColors,
   variables: EVariables,
@@ -24,6 +25,7 @@ export const lighterTheme: DefaultTheme = {
   headerColor: "#41f934",
   assets: {
     starIcon: "/star_lighter.svg",
+    mailSuccessSvg: "/mail_success_lighter.svg",
   },
   colors: EColors,
   variables: EVariables,

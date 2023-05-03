@@ -103,7 +103,7 @@ const SendMail = () => {
     sendMail({ subject, message })
       .then((response) => {
         if (response.ok) {
-          navigate("/mail/complete");
+          navigate("/mail/success");
         } else {
           throw Error("something went wrong");
         }
