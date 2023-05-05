@@ -102,7 +102,7 @@ const BookObject = React.memo(
               currentPosition.distanceTo(targetCameraPosition);
             if (cameraDistance < 0.5) {
               // move to book detail page if dive animation is done
-              navigate(`/book/${convertToKebabCase(title!)}`);
+              navigate(`/books/${convertToKebabCase(title!)}`);
               setTimeout(() => {
                 // change global state for close preview dialog
                 setSelectedBook(null);
