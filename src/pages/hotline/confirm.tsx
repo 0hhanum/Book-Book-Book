@@ -44,7 +44,7 @@ const ConfirmButton = styled.div`
 `;
 const HotlineConfirm = () => {
   const onClick = () => {
-    navigate("hotline/call");
+    navigate("/hotline/call");
   };
   return (
     <Container>
