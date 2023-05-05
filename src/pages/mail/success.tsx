@@ -32,13 +32,15 @@ const MovingLine = styled(motion.div)`
 `;
 const movingLineVariants = {
   initial: {
-    left: "0%",
+    left: "-20%",
   },
   animate: {
-    left: "100%",
+    left: "110%",
     transition: {
       duration: 1,
       repeat: 1,
+      repeatType: "reverse",
+      type: "tween",
     },
   },
 };
