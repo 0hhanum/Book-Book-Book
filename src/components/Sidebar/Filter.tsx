@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import React from "react";
 import styled from "styled-components";
 
@@ -13,7 +12,7 @@ interface IFilterDiv {
 const FilterLi = styled.li`
   cursor: pointer;
 `;
-const FilterDiv = styled(motion.div)<IFilterDiv>`
+const FilterDiv = styled.div<IFilterDiv>`
   height: 45px;
   width: 100%;
   text-align: center;
