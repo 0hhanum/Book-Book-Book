@@ -56,7 +56,7 @@ const dropdownItems: INavDropdown["dropdownItems"] = [
   {
     name: "Hotline",
     icon: "/hotline_ico.svg",
-    link: "/hotline",
+    link: "/hotline/confirm",
     type: "internal",
   },
 ];
