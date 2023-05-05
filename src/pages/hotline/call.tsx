@@ -13,6 +13,14 @@ const Container = styled.div`
 const HotlineCall = () => {
   useEffect(() => {
     const peer = new Peer();
+    console.log(peer);
+    peer.on("connection", (conn) => {
+      console.log("onConnection");
+    });
+    peer.on("call", (call) => {
+      console.log("onCall");
+      call.answer();
+    });
   }, []);
   return <Container></Container>;
 };

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Peer } from "peerjs";
 import styled from "styled-components";
 
@@ -13,8 +13,16 @@ const Input = styled.input`
 `;
 const Admin = () => {
   const inputRef = useRef<HTMLInputElement>(null);
+  const [peer, setPeer] = useState<Peer>();
+  useEffect(() => {
+    const peer = new Peer();
+    setPeer(peer);
+  }, []);
   const connect = () => {
-    console.log(inputRef.current?.value);
+    const peerDestId = inputRef.current?.value;
+    if (peerDestId) {
+      peer?.connect(peerDestId);
+    }
   };
   return (
     <div>
