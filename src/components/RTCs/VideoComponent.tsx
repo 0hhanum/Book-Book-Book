@@ -6,7 +6,9 @@ interface IVideo {
   isOwnVideo: boolean;
 }
 const Container = styled.div``;
-const Video = styled.video``;
+const Video = styled.video`
+  border: ${(props) => `1px solid ${props.theme.fontColor}`};
+`;
 const VideoComponent = (props: IVideo) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   useEffect(() => {
