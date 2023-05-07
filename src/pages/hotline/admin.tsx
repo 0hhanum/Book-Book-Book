@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Peer } from "peerjs";
 import styled from "styled-components";
+import { getStream } from "../../components/RTCs/RTCutils";
 
 const Button = styled.button`
   background-color: ${(props) => props.theme.backgroundColor};
@@ -15,6 +16,7 @@ const Admin = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [peer, setPeer] = useState<Peer>();
   useEffect(() => {
+    const myStream = getStream();
     const peer = new Peer();
     setPeer(peer);
   }, []);
