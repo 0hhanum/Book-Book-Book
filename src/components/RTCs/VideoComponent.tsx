@@ -1,16 +1,21 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 
 interface IVideo {
   stream: MediaStream;
-  isOwn: boolean;
+  isOwnVideo: boolean;
 }
 const Container = styled.div``;
 const Video = styled.video``;
 const VideoComponent = (props: IVideo) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    if (!videoRef.current) return;
+    videoRef.current.srcObject = props.stream;
+  }, [videoRef]);
   return (
     <Container>
-      <Video />
+      <Video ref={videoRef} autoPlay playsInline />
     </Container>
   );
 };

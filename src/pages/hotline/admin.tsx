@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Peer } from "peerjs";
 import styled from "styled-components";
-import { getStream } from "../../components/RTCs/RTCutils";
+import { setStream } from "../../components/RTCs/RTCutils";
+import VideoComponent from "../../components/RTCs/VideoComponent";
 
 const Button = styled.button`
   background-color: ${(props) => props.theme.backgroundColor};
@@ -15,8 +16,9 @@ const Input = styled.input`
 const Admin = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [peer, setPeer] = useState<Peer>();
+  const [myStream, setMyStream] = useState<MediaStream>();
   useEffect(() => {
-    const myStream = getStream();
+    setStream(setMyStream);
     const peer = new Peer();
     setPeer(peer);
   }, []);
@@ -30,6 +32,9 @@ const Admin = () => {
     <div>
       <Input ref={inputRef} placeholder="peer id" />
       <Button onClick={connect}>Connect</Button>
+      <div>
+        {myStream && <VideoComponent isOwnVideo={true} stream={myStream} />}
+      </div>
     </div>
   );
 };
