@@ -15,7 +15,7 @@ const VideoComponent = (props: IVideo) => {
   }, [videoRef]);
   return (
     <Container>
-      <Video ref={videoRef} autoPlay playsInline />
+      <Video ref={videoRef} autoPlay playsInline muted={props.isOwnVideo} />
     </Container>
   );
 };
