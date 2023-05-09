@@ -70,14 +70,16 @@ const VideoComponent = (props: IVideo) => {
       {props.stream ? (
         <>
           <Video ref={videoRef} autoPlay playsInline muted={props.isOwnVideo} />
-          <BtnContainer>
-            <Btn isActive={isMuted} onClick={toggleMute}>
-              {isMuted ? "Unmute" : "Mute"}
-            </Btn>
-            <Btn isActive={isCameraOff} onClick={toggleCamera}>
-              {isCameraOff ? "Camera On" : "Camera Off"}
-            </Btn>
-          </BtnContainer>
+          {props.isOwnVideo && (
+            <BtnContainer>
+              <Btn isActive={isMuted} onClick={toggleMute}>
+                {isMuted ? "Unmute" : "Mute"}
+              </Btn>
+              <Btn isActive={isCameraOff} onClick={toggleCamera}>
+                {isCameraOff ? "Camera On" : "Camera Off"}
+              </Btn>
+            </BtnContainer>
+          )}
         </>
       ) : (
         <ProgressDot />
