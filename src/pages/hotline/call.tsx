@@ -12,6 +12,10 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
 `;
+const VideoContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+`;
 const HotlineCall = () => {
   const [myStream, setMyStream] = useState<MediaStream>();
   const [peerStream, setPeerStream] = useState<MediaStream>();
@@ -39,12 +43,10 @@ const HotlineCall = () => {
   }, [myStream]);
   return (
     <Container>
-      <div>
-        {myStream && <VideoComponent isOwnVideo={true} stream={myStream} />}
-        {peerStream && (
-          <VideoComponent isOwnVideo={false} stream={peerStream} />
-        )}
-      </div>
+      <VideoContainer>
+        <VideoComponent isOwnVideo={true} stream={myStream} />
+        <VideoComponent isOwnVideo={false} stream={peerStream} />
+      </VideoContainer>
     </Container>
   );
 };

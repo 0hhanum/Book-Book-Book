@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import ProgressDot from "../Common/ProgressDialogs/ProgressDot";
 
 interface IVideo {
-  stream: MediaStream;
+  stream?: MediaStream;
   isOwnVideo: boolean;
 }
 const Container = styled.div`
@@ -11,6 +12,8 @@ const Container = styled.div`
   width: 640px;
   height: 480px;
   position: relative;
+  justify-content: center;
+  align-items: center;
 `;
 const BtnContainer = styled.div`
   display: flex;
@@ -44,7 +47,7 @@ const VideoComponent = (props: IVideo) => {
   const [isCameraOff, setIsCameraOff] = useState(false);
   const toggleMute = () => {
     setIsMuted((current) => {
-      props.stream.getAudioTracks().forEach((track) => {
+      props.stream?.getAudioTracks().forEach((track) => {
         track.enabled = current;
       });
       return !current;
@@ -52,27 +55,33 @@ const VideoComponent = (props: IVideo) => {
   };
   const toggleCamera = () => {
     setIsCameraOff((current) => {
-      props.stream.getVideoTracks().forEach((track) => {
+      props.stream?.getVideoTracks().forEach((track) => {
         track.enabled = current;
       });
       return !current;
     });
   };
   useEffect(() => {
-    if (!videoRef.current) return;
+    if (!videoRef.current || !props.stream) return;
     videoRef.current.srcObject = props.stream;
-  }, [videoRef]);
+  }, [videoRef, props.stream]);
   return (
     <Container>
-      <Video ref={videoRef} autoPlay playsInline muted={props.isOwnVideo} />
-      <BtnContainer>
-        <Btn isActive={isMuted} onClick={toggleMute}>
-          {isMuted ? "Unmute" : "Mute"}
-        </Btn>
-        <Btn isActive={isCameraOff} onClick={toggleCamera}>
-          {isCameraOff ? "Camera On" : "Camera Off"}
-        </Btn>
-      </BtnContainer>
+      {props.stream ? (
+        <>
+          <Video ref={videoRef} autoPlay playsInline muted={props.isOwnVideo} />
+          <BtnContainer>
+            <Btn isActive={isMuted} onClick={toggleMute}>
+              {isMuted ? "Unmute" : "Mute"}
+            </Btn>
+            <Btn isActive={isCameraOff} onClick={toggleCamera}>
+              {isCameraOff ? "Camera On" : "Camera Off"}
+            </Btn>
+          </BtnContainer>
+        </>
+      ) : (
+        <ProgressDot />
+      )}
     </Container>
   );
 };
