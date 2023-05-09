@@ -1,4 +1,4 @@
-import { motion, useCycle } from "framer-motion";
+import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
@@ -19,20 +19,14 @@ const Text = styled.p`
   line-height: 50px;
 `;
 const TypingAnimations = ({ text }: ITypingAnimations) => {
-  const [isHidden, toggleIsHidden] = useCycle(true, false);
   const [currentText, setCurrentText] = useState("");
   useEffect(() => {
-    let timer: any;
     if (currentText !== text) {
-      timer = setTimeout(() => {
-        setCurrentText((prevText) =>
-          isHidden ? text.slice(0, prevText.length + 1) : prevText
-        );
-        toggleIsHidden();
-      }, 100);
+      setTimeout(() => {
+        setCurrentText((prevText) => text.slice(0, prevText.length + 1));
+      }, 200);
     }
-    return () => clearTimeout(timer);
-  }, [currentText, isHidden, text, toggleIsHidden]);
+  }, [currentText]);
 
   return (
     <Text>
