@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 interface ITypingAnimations {
   text: string;
+  callback: any;
 }
 
 const Pipe = styled(motion.div)`
@@ -18,13 +19,17 @@ const Text = styled.p`
   font-size: 24px;
   line-height: 50px;
 `;
-const TypingAnimations = ({ text }: ITypingAnimations) => {
+const TypingAnimations = ({ text, callback }: ITypingAnimations) => {
   const [currentText, setCurrentText] = useState("");
   useEffect(() => {
     if (currentText !== text) {
       setTimeout(() => {
         setCurrentText((prevText) => text.slice(0, prevText.length + 1));
       }, 200);
+    } else {
+      setTimeout(() => {
+        callback();
+      }, 3500);
     }
   }, [currentText]);
 
