@@ -4,8 +4,9 @@ import styled from "styled-components";
 
 interface ITypingAnimations {
   text: string;
-  callback: any;
 }
+const TYPING_SPEED = 20;
+const CURSOR_FLICKERING_SPEED = 0.8;
 
 const Pipe = styled(motion.div)`
   width: 2px;
@@ -19,17 +20,13 @@ const Text = styled.p`
   font-size: 24px;
   line-height: 50px;
 `;
-const TypingAnimations = ({ text, callback }: ITypingAnimations) => {
+const TypingAnimations = ({ text }: ITypingAnimations) => {
   const [currentText, setCurrentText] = useState("");
   useEffect(() => {
     if (currentText !== text) {
       setTimeout(() => {
         setCurrentText((prevText) => text.slice(0, prevText.length + 1));
-      }, 200);
-    } else {
-      setTimeout(() => {
-        callback();
-      }, 3500);
+      }, TYPING_SPEED);
     }
   }, [currentText]);
 
@@ -39,7 +36,7 @@ const TypingAnimations = ({ text, callback }: ITypingAnimations) => {
       <Pipe
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, repeat: Infinity }}
+        transition={{ duration: CURSOR_FLICKERING_SPEED, repeat: Infinity }}
       />
     </Text>
   );

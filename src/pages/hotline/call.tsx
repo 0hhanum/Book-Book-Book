@@ -17,10 +17,13 @@ const VideoContainer = styled.div`
   display: flex;
   justify-content: space-around;
 `;
+const TextContainer = styled.div`
+  width: 640px;
+  height: 480px;
+`;
 const HotlineCall = () => {
   const [myStream, setMyStream] = useState<MediaStream>();
   const [peerStream, setPeerStream] = useState<MediaStream>();
-  const [isTyping, setIsTyping] = useState(true);
   const initializePeer = () => {
     const peer = new Peer("test");
     peer.on("connection", (connection) => {
@@ -48,19 +51,17 @@ const HotlineCall = () => {
       <VideoContainer>
         <VideoComponent isOwnVideo={true} stream={myStream} />
         {/* Show Admin Video Component when typing animation is done or admin connected */}
-        {peerStream || !isTyping ? (
+        {peerStream ? (
           <VideoComponent isOwnVideo={false} stream={peerStream} />
-        ) : null}
-        {isTyping && (
-          <div style={{ width: "640px", height: "480px" }}>
+        ) : (
+          <TextContainer>
             <TypingAnimations
               text={`Thanks for reaching out! I've received your request and I'm checking
           if I'm available right now. Just give me a moment, and I'll get back
           to you ASAP. If I'm not online, please leave your contacts by MAIL tab
           and I'll contact to you. Thanks!`}
-              callback={setIsTyping}
             />
-          </div>
+          </TextContainer>
         )}
       </VideoContainer>
     </Container>
