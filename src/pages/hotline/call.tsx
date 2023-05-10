@@ -15,7 +15,7 @@ const Container = styled.div`
 `;
 const VideoContainer = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
 `;
 const TextContainer = styled.div`
   width: 640px;
@@ -25,7 +25,10 @@ const HotlineCall = () => {
   const [myStream, setMyStream] = useState<MediaStream>();
   const [peerStream, setPeerStream] = useState<MediaStream>();
   const initializePeer = () => {
-    const peer = new Peer("test");
+    const peer = new Peer();
+    peer.on("open", (open) => {
+      console.log(open);
+    });
     peer.on("connection", (connection) => {
       connection.on("data", (data) => {
         console.log(data);

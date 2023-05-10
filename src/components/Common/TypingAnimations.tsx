@@ -16,7 +16,7 @@ const Pipe = styled(motion.div)`
   margin-left: 5px;
   vertical-align: middle;
 `;
-const Text = styled.p`
+const Text = styled.article`
   font-size: 24px;
   line-height: 50px;
 `;
