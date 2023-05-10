@@ -5,6 +5,7 @@ import { Peer } from "peerjs";
 import { setStream } from "../../components/RTCs/RTCutils";
 import VideoComponent from "../../components/RTCs/VideoComponent";
 import TypingAnimations from "../../components/Common/TypingAnimations";
+import { sendMail } from "../../apis/mailApi";
 
 const Container = styled.div`
   width: 100%;
@@ -26,8 +27,22 @@ const HotlineCall = () => {
   const [peerStream, setPeerStream] = useState<MediaStream>();
   const initializePeer = () => {
     const peer = new Peer();
-    peer.on("open", (open) => {
-      console.log(open);
+    peer.on("open", (id) => {
+      if (process.env.ENVIRONMENT === "dev") {
+        return;
+      }
+      sendMail({ subject: "new hotline request", message: id })
+        .then((response) => {
+          if (response.ok) {
+            // TODO:: make alert component
+          } else {
+            throw Error("something went wrong");
+          }
+        })
+        .catch((error) => {
+          // TODO:: make alert component
+          console.error("Error sending mail:", error);
+        });
     });
     peer.on("connection", (connection) => {
       connection.on("data", (data) => {
