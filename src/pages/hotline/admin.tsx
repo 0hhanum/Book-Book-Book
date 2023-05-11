@@ -19,9 +19,11 @@ const Admin = () => {
   const [myStream, setMyStream] = useState<MediaStream>();
   const [peerStream, setPeerStream] = useState<MediaStream>();
   useEffect(() => {
-    setStream(setMyStream);
-    const peer = new Peer();
-    setPeer(peer);
+    setStream().then((mediaStream) => {
+      setMyStream(mediaStream);
+      const peer = new Peer();
+      setPeer(peer);
+    });
   }, []);
   const connectPeer = () => {
     const peerDestId = inputRef.current?.value;
@@ -38,7 +40,7 @@ const Admin = () => {
     <div>
       <Input ref={inputRef} placeholder="peer id" />
       <Button onClick={connectPeer}>Connect</Button>
-      <div>
+      <div style={{ display: "flex" }}>
         {myStream && <VideoComponent isOwnVideo={true} stream={myStream} />}
         {peerStream && (
           <VideoComponent isOwnVideo={false} stream={peerStream} />

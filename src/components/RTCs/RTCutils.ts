@@ -1,11 +1,15 @@
-export const setStream = async (callback: (stream: MediaStream) => void) => {
-  const stream = await navigator.mediaDevices.getUserMedia({
-    video: {
-      facingMode: "user",
-    },
-    audio: true,
-  });
-  callback(stream);
+export const setStream = async () => {
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video: {
+        facingMode: "user",
+      },
+      audio: true,
+    });
+    return stream;
+  } catch (error) {
+    return;
+  }
 };
 
 export const stopStream = (stream: MediaStream) => {

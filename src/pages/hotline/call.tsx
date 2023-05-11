@@ -31,6 +31,7 @@ const HotlineCall = () => {
     setPeer(peer);
     peer.on("open", (id) => {
       if (process.env.ENVIRONMENT === "dev") {
+        console.log(id);
         return;
       }
       sendMail({ subject: "new hotline request", message: id })
@@ -60,10 +61,11 @@ const HotlineCall = () => {
   };
 
   useEffect(() => {
-    if (myStream) {
-      initializePeer();
-    } else {
-      setStream(setMyStream);
+    if (!myStream) {
+      setStream().then((mediaStream) => {
+        setMyStream(mediaStream);
+        initializePeer();
+      });
     }
     return () => {
       if (myStream) {
