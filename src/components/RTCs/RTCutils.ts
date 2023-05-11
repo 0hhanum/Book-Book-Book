@@ -7,3 +7,9 @@ export const setStream = async (callback: (stream: MediaStream) => void) => {
   });
   callback(stream);
 };
+
+export const stopStream = (stream: MediaStream) => {
+  if (!stream) return;
+  const tracks = stream.getTracks();
+  tracks.forEach((track) => track.stop());
+};
