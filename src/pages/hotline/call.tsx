@@ -26,7 +26,7 @@ const HotlineCall = () => {
   const [myStream, setMyStream] = useState<MediaStream>();
   const [peerStream, setPeerStream] = useState<MediaStream>();
   const [peer, setPeer] = useState<Peer>();
-  const initializePeer = () => {
+  const initializePeer = (mediaStream: MediaStream | undefined) => {
     const peer = new Peer();
     setPeer(peer);
     peer.on("open", (id) => {
@@ -56,7 +56,7 @@ const HotlineCall = () => {
       call.on("stream", (stream) => {
         setPeerStream(stream);
       });
-      call.answer(myStream);
+      call.answer(mediaStream);
     });
   };
 
@@ -64,7 +64,7 @@ const HotlineCall = () => {
     if (!myStream) {
       setStream().then((mediaStream) => {
         setMyStream(mediaStream);
-        initializePeer();
+        initializePeer(mediaStream);
       });
     }
     return () => {
