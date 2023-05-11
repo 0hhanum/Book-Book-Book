@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Helmet from "../../components/Helmet";
 import styled from "styled-components";
 import { Peer } from "peerjs";
-import { setStream } from "../../components/RTCs/RTCutils";
+import { setStream, stopStream } from "../../components/RTCs/RTCutils";
 import VideoComponent from "../../components/RTCs/VideoComponent";
 import TypingAnimations from "../../components/Common/TypingAnimations";
 import { sendMail } from "../../apis/mailApi";
@@ -25,8 +25,10 @@ const TextContainer = styled.div`
 const HotlineCall = () => {
   const [myStream, setMyStream] = useState<MediaStream>();
   const [peerStream, setPeerStream] = useState<MediaStream>();
+  const [peer, setPeer] = useState<Peer>();
   const initializePeer = () => {
     const peer = new Peer();
+    setPeer(peer);
     peer.on("open", (id) => {
       if (process.env.ENVIRONMENT === "dev") {
         return;
@@ -63,6 +65,15 @@ const HotlineCall = () => {
     } else {
       setStream(setMyStream);
     }
+    return () => {
+      if (myStream) {
+        stopStream(myStream);
+      }
+      if (peerStream) {
+        stopStream(peerStream);
+      }
+      peer?.destroy();
+    };
   }, [myStream]);
   return (
     <Container>
