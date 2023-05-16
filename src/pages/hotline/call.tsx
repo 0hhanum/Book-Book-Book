@@ -25,7 +25,9 @@ const TextContainer = styled.div`
 const HotlineCall = () => {
   const [myStream, setMyStream] = useState<MediaStream>();
   const [peerStream, setPeerStream] = useState<MediaStream>();
+  const [isCallEnded, setIsCallEnded] = useState(false);
   const [peer, setPeer] = useState<Peer>();
+
   const initializePeer = (mediaStream: MediaStream | undefined) => {
     const peer = new Peer();
     setPeer(peer);
@@ -51,14 +53,18 @@ const HotlineCall = () => {
       connection.on("data", (data) => {
         console.log(data);
       });
+      setTimeout(() => {
+        connection.on("close", () => {
+          // PeerJS has traditional bugs (eventlistener doesn't work on MediaConnection)
+          setPeerStream(undefined);
+          setIsCallEnded(true);
+        });
+      }, 1000);
     });
     peer.on("call", (call) => {
       call.on("stream", (stream) => {
         setPeerStream(stream);
         // TODO:: play video component for who block autoplay in browser
-      });
-      call.on("close", () => {
-        // TODO:: end call
       });
       call.answer(mediaStream);
     });
@@ -81,6 +87,7 @@ const HotlineCall = () => {
       peer?.destroy();
     };
   }, [myStream]);
+
   return (
     <Container>
       <VideoContainer>
@@ -90,12 +97,18 @@ const HotlineCall = () => {
           <VideoComponent isOwnVideo={false} stream={peerStream} />
         ) : (
           <TextContainer>
-            <TypingAnimations
-              text={`Thanks for reaching out! I've received your request and I'm checking
+            {isCallEnded ? (
+              <TypingAnimations
+                text={`It was a truly meaningful time. Thank you for your conversation. Have a fantastic day ahead!`}
+              />
+            ) : (
+              <TypingAnimations
+                text={`Thanks for reaching out! I've received your request and I'm checking
           if I'm available right now. Just give me a moment, and I'll get back
           to you ASAP. If I'm not available, please leave your contacts by MAIL tab
           and I'll contact to you. Thanks!`}
-            />
+              />
+            )}
           </TextContainer>
         )}
       </VideoContainer>
