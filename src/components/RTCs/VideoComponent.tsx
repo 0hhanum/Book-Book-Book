@@ -41,6 +41,12 @@ const Video = styled.video`
   width: 100%;
   height: 100%;
 `;
+const DotContainer = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
 const VideoComponent = (props: IVideo) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isMuted, setIsMuted] = useState(false);
@@ -82,7 +88,9 @@ const VideoComponent = (props: IVideo) => {
           )}
         </>
       ) : (
-        <ProgressDot />
+        <DotContainer>
+          <ProgressDot />
+        </DotContainer>
       )}
     </Container>
   );
