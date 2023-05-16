@@ -89,7 +89,7 @@ const HotlineCall = () => {
             <TypingAnimations
               text={`Thanks for reaching out! I've received your request and I'm checking
           if I'm available right now. Just give me a moment, and I'll get back
-          to you ASAP. If I'm not online, please leave your contacts by MAIL tab
+          to you ASAP. If I'm not available, please leave your contacts by MAIL tab
           and I'll contact to you. Thanks!`}
             />
           </TextContainer>
