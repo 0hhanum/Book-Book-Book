@@ -55,6 +55,10 @@ const HotlineCall = () => {
     peer.on("call", (call) => {
       call.on("stream", (stream) => {
         setPeerStream(stream);
+        // TODO:: play video component for who block autoplay in browser
+      });
+      call.on("close", () => {
+        // TODO:: end call
       });
       call.answer(mediaStream);
     });
