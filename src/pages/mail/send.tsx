@@ -64,6 +64,9 @@ const Subject = styled.input`
   border: ${(props) => `1px solid ${props.theme.normalColor}`};
   color: ${(props) => props.theme.fontColor};
   padding: 0 20px;
+  &:focus {
+    border: ${(props) => `1px solid ${props.theme.headerColor}`};
+  }
 `;
 const Label = styled.label.attrs(({ htmlFor }: ILabel) => ({
   htmlFor,
