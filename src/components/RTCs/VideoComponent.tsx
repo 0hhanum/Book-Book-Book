@@ -70,6 +70,7 @@ const VideoComponent = (props: IVideo) => {
   useEffect(() => {
     if (!videoRef.current || !props.stream) return;
     videoRef.current.srcObject = props.stream;
+    videoRef.current.play(); // Play video component for who block autoplay in browser settings
   }, [videoRef, props.stream]);
   return (
     <Container>
