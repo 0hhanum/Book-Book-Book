@@ -9,8 +9,11 @@ import NavBar from "./Nav/NavBar";
 import { motion } from "framer-motion";
 import ProgressDialog from "./Common/ProgressDialogs/ProgressDialog";
 
+const ADMIN_ROUTE = "/hotline/admin/";
+
 interface ILayout {
   children: any;
+  location: Location;
 }
 export interface IThemeProp {
   $isDefaultTheme: boolean;
@@ -65,9 +68,10 @@ const NoticeScreen = styled.div`
     z-index: 9999;
   }
 `;
-const Layout = ({ children }: ILayout) => {
+const Layout = ({ children, location }: ILayout) => {
   const isDefaultTheme = useRecoilValue(isDefaultThemeAtom);
   const isProgressShow = useRecoilValue(progressDialogAtom);
+  const isAdminRoute = location.pathname === ADMIN_ROUTE;
   return (
     <ThemeProvider theme={isDefaultTheme ? defaultTheme : lighterTheme}>
       <GlobalStyle />
@@ -79,9 +83,11 @@ const Layout = ({ children }: ILayout) => {
         animate={isDefaultTheme ? "defaultTheme" : "lightTheme"}
       />
       {isProgressShow && <ProgressDialog />}
-      <NoticeScreen>
-        Sorry, this content is only available on larger screens.
-      </NoticeScreen>
+      {!isAdminRoute && (
+        <NoticeScreen>
+          Sorry, this content is only available on larger screens.
+        </NoticeScreen>
+      )}
     </ThemeProvider>
   );
 };

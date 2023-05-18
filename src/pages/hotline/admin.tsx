@@ -27,6 +27,11 @@ const Admin = () => {
   const [myStream, setMyStream] = useState<MediaStream>();
   const [peerStream, setPeerStream] = useState<MediaStream>();
   const [dataConnection, setDataConnection] = useState<DataConnection>();
+  /**
+   * TODO:: URL 쿼리 이용해서 사용자 요청 통해서 들어왔을때 input에 peer ID 바로 들어가도록
+   *        + hotline mailgun request에도 쿼리 추가
+   */
+
   useEffect(() => {
     setStream().then((mediaStream) => {
       setMyStream(mediaStream);
