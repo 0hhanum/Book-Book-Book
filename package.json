@@ -11,7 +11,7 @@
     "develop": "gatsby develop",
     "start": "gatsby develop",
     "build": "gatsby build",
-    "serve": "gatsby serve",
+    "serve": "gatsby develop",
     "clean": "gatsby clean",
     "typecheck": "tsc --noEmit"
   },
