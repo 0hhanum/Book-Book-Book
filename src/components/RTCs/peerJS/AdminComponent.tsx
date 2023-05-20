@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { DataConnection, Peer } from "peerjs";
 import styled from "styled-components";
-import { setStream } from "../RTCutils";
+import { setStream } from "../RTCUtils";
 import VideoComponent from "../VideoComponent";
 
 // ROUGHLY MADE (Admin)
