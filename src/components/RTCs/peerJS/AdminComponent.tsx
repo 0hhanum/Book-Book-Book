@@ -13,13 +13,22 @@ const Button = styled.button`
 `;
 const CloseCallBtn = styled(Button)`
   width: 100%;
-  height: 60px;
   font-size: 40px;
   color: red;
 `;
 const Input = styled.input`
   background-color: ${(props) => props.theme.backgroundColor};
   border: ${(props) => `1px solid ${props.theme.normalColor}`};
+`;
+const VideoContainer = styled.div`
+  display: flex;
+  @media (max-width: 767px) {
+    flex-direction: column;
+    .video-container {
+      width: 100%;
+      height: 300px;
+    }
+  }
 `;
 const AdminComponent = () => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -68,12 +77,10 @@ const AdminComponent = () => {
       <CloseCallBtn onClick={endCall}>
         END CALL - YOU SHOULD USE THIS
       </CloseCallBtn>
-      <div style={{ display: "flex" }}>
-        {myStream && <VideoComponent isOwnVideo={true} stream={myStream} />}
-        {peerStream && (
-          <VideoComponent isOwnVideo={false} stream={peerStream} />
-        )}
-      </div>
+      <VideoContainer>
+        <VideoComponent isOwnVideo={true} stream={myStream} />
+        <VideoComponent isOwnVideo={false} stream={peerStream} />
+      </VideoContainer>
     </div>
   );
 };

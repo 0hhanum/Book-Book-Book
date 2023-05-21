@@ -52,7 +52,6 @@ table {
 body {
     color: ${(props) => props.theme.fontColor};
 	padding-top: ${(props) => `${props.theme.variables.headerHeight}px`};
-	min-width: 1200px;
 }
 canvas{
 	background-color: ${(props) => props.theme.backgroundColor};

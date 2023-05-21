@@ -17,7 +17,7 @@ const Container = styled.div`
 `;
 const BtnContainer = styled.div`
   display: flex;
-  bottom: 0;
+  bottom: 10px;
   position: absolute;
 `;
 const Btn = styled.div<{ isActive: boolean }>`
@@ -73,7 +73,7 @@ const VideoComponent = (props: IVideo) => {
     videoRef.current.play(); // Play video component for who block autoplay in browser settings
   }, [videoRef, props.stream]);
   return (
-    <Container>
+    <Container className="video-container">
       {props.stream ? (
         <>
           <Video ref={videoRef} autoPlay playsInline muted={props.isOwnVideo} />
