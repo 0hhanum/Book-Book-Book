@@ -28,7 +28,10 @@ const CallComponent = () => {
         console.log(id);
         return;
       }
-      sendMail({ subject: "new hotline request", message: id })
+      sendMail({
+        subject: "new hotline request",
+        message: `${process.env.BASE_URL}/hotline/admin?peer=${id}`,
+      })
         .then((response) => {
           if (response.ok) {
             // TODO:: make alert component

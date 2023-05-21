@@ -36,11 +36,6 @@ const AdminComponent = () => {
   const [myStream, setMyStream] = useState<MediaStream>();
   const [peerStream, setPeerStream] = useState<MediaStream>();
   const [dataConnection, setDataConnection] = useState<DataConnection>();
-  /**
-   * TODO:: URL 쿼리 이용해서 사용자 요청 통해서 들어왔을때 input에 peer ID 바로 들어가도록
-   *        + hotline mailgun request에도 쿼리 추가
-   */
-
   useEffect(() => {
     setStream().then((mediaStream) => {
       if (mediaStream === undefined) return;
@@ -49,6 +44,12 @@ const AdminComponent = () => {
       setPeer(peer);
     });
   }, []);
+  useEffect(() => {
+    if (!inputRef.current) return;
+    const queryParams = new URLSearchParams(location.search);
+    const peerId = queryParams.get("peer");
+    inputRef.current.value = peerId || "";
+  }, [inputRef]);
   // PeerJS has traditional bugs (eventlistener doesn't work on MediaConnection)
   const endCall = () => {
     dataConnection?.close();
