@@ -1,17 +1,12 @@
-import React, { Suspense, lazy } from "react";
+import React from "react";
+import ThreeCanvas from "./ThreeCanvas";
 
 interface IThreeLayout {
   children: any;
 }
 
-const ThreeCanvas = lazy(() => import("./ThreeCanvas"));
-
 const ThreeLayout = ({ children }: IThreeLayout) => {
-  return (
-    <Suspense>
-      <ThreeCanvas>{children}</ThreeCanvas>
-    </Suspense>
-  );
+  return <ThreeCanvas>{children}</ThreeCanvas>;
 };
 
 export default ThreeLayout;
