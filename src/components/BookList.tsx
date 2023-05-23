@@ -42,15 +42,15 @@ const BookList = () => {
   const authorFilter = useRecoilValue(filteredAuthorAtom);
   const [selectedBook, setSelectedBook] = useRecoilState(selectedBookAtom);
   const openBookPreview = (book: IBook) => {
-    setSelectedBook((current) => (current?.id === book.id ? null : book));
+    setSelectedBook(book);
   };
   return (
     <div>
       <Books>
-        {books.map((book) =>
+        {books.map((book: IBook) =>
           authorFilter && authorFilter !== book.author ? null : (
             <li key={book.title}>
-              <Book onClick={() => openBookPreview(book as IBook)}>
+              <Book onClick={() => openBookPreview(book)}>
                 {book.title} - {book.author}
               </Book>
             </li>
