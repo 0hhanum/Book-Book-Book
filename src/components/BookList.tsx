@@ -51,7 +51,7 @@ const BookList = () => {
     const imgSrc = book.coverImage?.file?.url || "";
     if (typeof window !== "undefined") {
       if (!checkImageCached(`http:${imgSrc}`)) {
-        setIsShowProgressDialog("dot");
+        setIsShowProgressDialog("square");
       }
     }
     const img = document.createElement("img");

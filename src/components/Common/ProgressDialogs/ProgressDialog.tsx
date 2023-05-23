@@ -1,7 +1,7 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
 import { progressDialogAtom } from "../../../atoms";
-import ProgressCircle from "./ProgressCircle";
+import ProgressSquare from "./ProgressSquare";
 import ProgressDot from "./ProgressDot";
 import styled from "styled-components";
 
@@ -15,8 +15,8 @@ const ProgressDialog = () => {
   const progressDialog = useRecoilValue(progressDialogAtom);
   return (
     <Container>
-      {progressDialog === "circle" ? (
-        <ProgressCircle />
+      {progressDialog === "square" ? (
+        <ProgressSquare />
       ) : progressDialog === "dot" ? (
         <ProgressDot />
       ) : null}

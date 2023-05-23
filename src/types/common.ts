@@ -1,1 +1,1 @@
-export type TProgress = "circle" | "dot" | null;
+export type TProgress = "square" | "dot" | null;
