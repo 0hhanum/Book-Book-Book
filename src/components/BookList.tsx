@@ -42,7 +42,9 @@ const BookList = () => {
   const authorFilter = useRecoilValue(filteredAuthorAtom);
   const [selectedBook, setSelectedBook] = useRecoilState(selectedBookAtom);
   const openBookPreview = (book: IBook) => {
-    setSelectedBook(book);
+    const img = document.createElement("img");
+    img.src = book.coverImage?.file?.url || "";
+    img.onload = () => setSelectedBook(book);
   };
   return (
     <div>
