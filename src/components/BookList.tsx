@@ -1,7 +1,11 @@
 import React from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { filteredAuthorAtom, selectedBookAtom } from "../atoms";
+import {
+  filteredAuthorAtom,
+  progressDialogAtom,
+  selectedBookAtom,
+} from "../atoms";
 import { IBook } from "../types/book";
 import BookPreviewDialog from "./Books/BookPreviewDialog";
 import { graphql, useStaticQuery } from "gatsby";
@@ -41,10 +45,14 @@ const BookList = () => {
   `);
   const authorFilter = useRecoilValue(filteredAuthorAtom);
   const [selectedBook, setSelectedBook] = useRecoilState(selectedBookAtom);
+  const setIsShowProgressDialog = useSetRecoilState(progressDialogAtom);
+
   const openBookPreview = (book: IBook) => {
+    setIsShowProgressDialog("dot");
     const img = document.createElement("img");
     img.src = book.coverImage?.file?.url || "";
-    img.onload = () => setSelectedBook(book);
+    setSelectedBook(book);
+    img.onload = () => setIsShowProgressDialog(null);
   };
   return (
     <div>
