@@ -9,6 +9,7 @@ import {
 import { IBook } from "../types/book";
 import BookPreviewDialog from "./Books/BookPreviewDialog";
 import { graphql, useStaticQuery } from "gatsby";
+import { checkImageCached } from "./utils";
 
 const Books = styled.ul`
   cursor: pointer;
@@ -46,13 +47,15 @@ const BookList = () => {
   const authorFilter = useRecoilValue(filteredAuthorAtom);
   const [selectedBook, setSelectedBook] = useRecoilState(selectedBookAtom);
   const setIsShowProgressDialog = useSetRecoilState(progressDialogAtom);
-
   const openBookPreview = (book: IBook) => {
+    const imgSrc = book.coverImage?.file?.url || "";
     if (typeof window !== "undefined") {
-      setIsShowProgressDialog("dot");
+      if (!checkImageCached(`http:${imgSrc}`)) {
+        setIsShowProgressDialog("dot");
+      }
     }
     const img = document.createElement("img");
-    img.src = book.coverImage?.file?.url || ""; // it makes load texture concurrently using disc cache
+    img.src = imgSrc; // it makes load texture concurrently using disc cache
     setSelectedBook(book);
     img.onload = () => setIsShowProgressDialog(null);
   };
