@@ -50,7 +50,7 @@ const BookList = () => {
   const openBookPreview = (book: IBook) => {
     setIsShowProgressDialog("dot");
     const img = document.createElement("img");
-    img.src = book.coverImage?.file?.url || "";
+    img.src = book.coverImage?.file?.url || ""; // it makes load texture concurrently using disc cache
     setSelectedBook(book);
     img.onload = () => setIsShowProgressDialog(null);
   };
