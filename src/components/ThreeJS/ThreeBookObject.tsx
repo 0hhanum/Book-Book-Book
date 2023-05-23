@@ -9,7 +9,7 @@ import {
   Quaternion,
   Vector3,
 } from "three";
-import { IBook, IBookCover } from "../../types/book";
+import { IBook } from "../../types/book";
 import { convertToKebabCase, loadTexture } from "./ThreeUtils";
 import { useSetRecoilState } from "recoil";
 import { cursorStyleAtom, selectedBookAtom } from "../../atoms";
@@ -20,25 +20,11 @@ interface IBookObject {
   rotation: [number, number, number];
   book: IBook;
 }
-const BookCover = ({ bookCoverSrc, material, callback }: IBookCover) => {
-  const texture = loadTexture({
-    bookCoverSrc,
-    material,
-    callback,
-  });
-
-  if (!texture) {
-    throw new Error("No texture available");
-  }
-
-  return null;
-};
 
 const BookObject = React.memo(
   ({ book: { coverImage, title }, ...props }: IBookObject) => {
     const groupRef = useRef<Group>(null);
     const bookMaterialRef = useRef<MeshStandardMaterial>();
-    const [bookMaterial, setBookMaterial] = useState<MeshStandardMaterial>();
     const { scene, animations } = useGLTF("/threeModel/bookModel/scene.gltf");
     const { actions, ref: bookSceneRef } = useAnimations(animations, groupRef);
     const [isZoomedIn, setIsZoomedIn] = useState(false);
@@ -60,14 +46,13 @@ const BookObject = React.memo(
       bookMaterialRef.current = bookMaterial;
       bookMaterial.metalness = 0.5;
       bookMaterial.roughness = 0.2;
-      setBookMaterial(bookMaterial);
-      // loadTexture({
-      //   bookCoverSrc: coverImage?.file?.url || "",
-      //   material: bookMaterial,
-      //   callback: () => {
-      //     setIsLoadingTexture(true);
-      //   },
-      // });
+      loadTexture({
+        bookCoverSrc: coverImage?.file?.url || "",
+        material: bookMaterial,
+        callback: () => {
+          setIsLoadingTexture(true);
+        },
+      });
     }, [bookSceneRef]);
 
     useFrame((_, delta) => {
@@ -157,15 +142,6 @@ const BookObject = React.memo(
           onPointerOut={() => setIsHover(false)}
           onClick={onClick}
         />
-        {bookMaterial && (
-          <BookCover
-            bookCoverSrc={coverImage?.file?.url || ""}
-            material={bookMaterial}
-            callback={() => {
-              setIsLoadingTexture(true);
-            }}
-          />
-        )}
         <Stars />
       </group>
     );
