@@ -48,7 +48,9 @@ const BookList = () => {
   const setIsShowProgressDialog = useSetRecoilState(progressDialogAtom);
 
   const openBookPreview = (book: IBook) => {
-    setIsShowProgressDialog("dot");
+    if (typeof window !== "undefined") {
+      setIsShowProgressDialog("dot");
+    }
     const img = document.createElement("img");
     img.src = book.coverImage?.file?.url || ""; // it makes load texture concurrently using disc cache
     setSelectedBook(book);
