@@ -1,11 +1,12 @@
 import React, { Suspense, lazy } from "react";
+import { checkIsSSR } from "../../components/utils";
 
 const AdminComponent = lazy(
   () => import("../../components/RTCs/peerJS/AdminComponent")
 );
 const Admin = () => {
   // ROUGHLY MADE (Admin)
-  const isSSR = typeof window === "undefined";
+  const isSSR = checkIsSSR();
   return (
     <>
       {!isSSR && (

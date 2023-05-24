@@ -1,5 +1,5 @@
 export const checkImageCached = (src: string) => {
-  if (typeof window === undefined) return;
+  if (checkIsSSR()) return;
   const imgEntries = window.performance.getEntriesByName(src);
   return imgEntries.length > 0;
 };

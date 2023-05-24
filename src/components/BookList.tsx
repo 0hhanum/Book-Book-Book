@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { filteredAuthorAtom, selectedBookAtom } from "../atoms";
 import { IBook } from "../types/book";
 import BookPreviewDialog from "./Books/BookPreviewDialog";
 import { graphql, useStaticQuery } from "gatsby";
+import { checkIsSSR } from "./utils";
 
 const Books = styled.ul`
   cursor: pointer;
@@ -20,6 +21,7 @@ const Book = styled.a`
   border-bottom: ${(props) => `1px solid ${props.theme.normalColor}`};
 `;
 const preloadBookTextures = (books: IBook[]) => {
+  if (checkIsSSR()) return;
   books.forEach((book) => {
     const imgSrc = book.coverImage?.file?.url || "";
     const img = document.createElement("img");
@@ -46,7 +48,9 @@ const BookList = () => {
       }
     }
   `);
-  preloadBookTextures(books as IBook[]);
+  useEffect(() => {
+    preloadBookTextures(books as IBook[]);
+  }, []);
   const authorFilter = useRecoilValue(filteredAuthorAtom);
   const [selectedBook, setSelectedBook] = useRecoilState(selectedBookAtom);
   const openBookPreview = (book: IBook) => {

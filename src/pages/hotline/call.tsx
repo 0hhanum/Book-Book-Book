@@ -1,6 +1,7 @@
 import React, { Suspense, lazy } from "react";
 import Helmet from "../../components/Helmet";
 import styled from "styled-components";
+import { checkIsSSR } from "../../components/utils";
 
 const Container = styled.div`
   width: 100%;
@@ -14,7 +15,7 @@ const CallComponent = lazy(
   () => import("../../components/RTCs/peerJS/CallComponent")
 );
 const HotlineCall = () => {
-  const isSSR = typeof window === "undefined";
+  const isSSR = checkIsSSR();
   return (
     <Container>
       {!isSSR && (
