@@ -1,15 +1,10 @@
 import React from "react";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import {
-  filteredAuthorAtom,
-  progressDialogAtom,
-  selectedBookAtom,
-} from "../atoms";
+import { filteredAuthorAtom, selectedBookAtom } from "../atoms";
 import { IBook } from "../types/book";
 import BookPreviewDialog from "./Books/BookPreviewDialog";
 import { graphql, useStaticQuery } from "gatsby";
-import { checkImageCached } from "./utils";
 
 const Books = styled.ul`
   cursor: pointer;
@@ -24,6 +19,13 @@ const Book = styled.a`
   padding-top: 20px;
   border-bottom: ${(props) => `1px solid ${props.theme.normalColor}`};
 `;
+const preloadBookTextures = (books: IBook[]) => {
+  books.forEach((book) => {
+    const imgSrc = book.coverImage?.file?.url || "";
+    const img = document.createElement("img");
+    img.src = imgSrc; // it makes load texture concurrently using disc cache
+  });
+};
 const BookList = () => {
   const {
     allContentfulBooks: { nodes: books },
@@ -44,20 +46,11 @@ const BookList = () => {
       }
     }
   `);
+  preloadBookTextures(books as IBook[]);
   const authorFilter = useRecoilValue(filteredAuthorAtom);
   const [selectedBook, setSelectedBook] = useRecoilState(selectedBookAtom);
-  const setIsShowProgressDialog = useSetRecoilState(progressDialogAtom);
   const openBookPreview = (book: IBook) => {
-    const imgSrc = book.coverImage?.file?.url || "";
-    if (typeof window !== "undefined") {
-      if (!checkImageCached(`http:${imgSrc}`)) {
-        setIsShowProgressDialog("square");
-      }
-    }
-    const img = document.createElement("img");
-    img.src = imgSrc; // it makes load texture concurrently using disc cache
     setSelectedBook(book);
-    img.onload = () => setIsShowProgressDialog(null);
   };
   return (
     <div>
