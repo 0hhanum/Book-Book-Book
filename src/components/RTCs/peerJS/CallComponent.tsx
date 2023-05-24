@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { setStream, stopStream } from "../RTCUtils";
+import { setStream, stopStream } from "../RTCUtil";
 import VideoComponent from "../VideoComponent";
 import TypingAnimations from "../../Common/TypingAnimations";
 import { sendMail } from "../../../apis/mailApi";
