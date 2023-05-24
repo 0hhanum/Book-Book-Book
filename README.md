@@ -12,6 +12,10 @@
 
 [2. 프로젝트 세팅 (23/02/18)](https://velog.io/@0hhanum/%EC%B1%85%EC%B1%85%EC%B1%85-%EC%B1%85%EC%9D%84-%EC%9D%BD%EC%9D%8D%EC%8B%9C%EB%8B%A4-2.-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B8%B0%EB%B3%B8-%EC%84%A4%EC%A0%95)
 
+[3. 컨텐츠 관리 (23/04/22)](https://velog.io/@0hhanum/%EC%B1%85%EC%B1%85%EC%B1%85-%EC%B1%85%EC%9D%84-%EC%9D%BD%EC%9D%8D%EC%8B%9C%EB%8B%A4-3.-%EC%BB%A8%ED%85%90%EC%B8%A0-%EA%B4%80%EB%A6%AC)
+
+[4. 메일 서비스 Mailgun 연동 (23/05/20)](https://velog.io/@0hhanum/bookBookBook4)
+
 ## Stack
 
 - TS
@@ -20,6 +24,7 @@
 - Styled-Component
 - Framer-Motion
 - React-three-fiber
+- WebRTC (PeerJS)
 
 <hr>
 
