@@ -4,6 +4,7 @@ interface IOptions {
   body?: any;
 }
 const fetchData = async (url: string, options?: IOptions) => {
+  console.log(`${process.env.BASE_URL}${url}`);
   try {
     const response = await fetch(`${process.env.BASE_URL}${url}`, {
       method: options?.method || "GET",

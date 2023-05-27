@@ -5,10 +5,11 @@ interface ISendMail {
   message?: string;
 }
 const sendMail = async (data: ISendMail) => {
+  const MAIL_ENDPOINT = "sendmail";
   const MAIL_URL =
     process.env.ENVIRONMENT === "dev"
-      ? "/sendmail"
-      : "/.netlify/functions/sendmail";
+      ? `/${MAIL_ENDPOINT}`
+      : `/.netlify/functions/${MAIL_ENDPOINT}`;
 
   const result = await fetchData(MAIL_URL, {
     method: "POST",
