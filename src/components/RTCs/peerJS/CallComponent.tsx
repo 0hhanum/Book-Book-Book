@@ -30,7 +30,7 @@ const CallComponent = () => {
       }
       sendMail({
         subject: "new hotline request",
-        message: `${process.env.BASE_URL}/hotline/admin?peer=${id}`,
+        message: `${process.env.GATSBY_BASE_URL}/hotline/admin?peer=${id}`,
       })
         .then((response) => {
           if (response.ok) {
