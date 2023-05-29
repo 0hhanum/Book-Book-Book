@@ -1,9 +1,10 @@
-import React, { useRef } from "react";
+import React, { Suspense, useRef } from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { selectedBookAtom } from "../../atoms";
 import ThreeBookScene from "../ThreeJS/ThreeBookScene";
 import { IBook } from "../../types/book";
+import ProgressSquare from "../Common/ProgressDialogs/ProgressSquare";
 
 const Dimmed = styled.div`
   position: fixed;
@@ -75,7 +76,9 @@ const BookPreviewDialog = (book: IBook) => {
           </Stars>
         </Header>
         <Content>
-          <ThreeBookScene book={book} />
+          <Suspense fallback={<ProgressSquare />}>
+            <ThreeBookScene book={book} />
+          </Suspense>
         </Content>
       </Dialog>
     </Dimmed>
