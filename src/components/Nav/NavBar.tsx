@@ -64,7 +64,6 @@ const NavBar = () => {
   const isDefaultTheme = useRecoilValue(isDefaultThemeAtom);
   const [isHover, setIsHover] = useState(false);
   useEffect(() => {
-    console.log(123);
     dropdownItems.forEach((dropdownItem) => {
       new Image().src = dropdownItem.icon;
     });
