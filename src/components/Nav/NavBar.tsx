@@ -1,5 +1,5 @@
 import { Link } from "gatsby";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { isDefaultThemeAtom } from "../../atoms";
@@ -63,6 +63,12 @@ const dropdownItems: INavDropdown["dropdownItems"] = [
 const NavBar = () => {
   const isDefaultTheme = useRecoilValue(isDefaultThemeAtom);
   const [isHover, setIsHover] = useState(false);
+  useEffect(() => {
+    console.log(123);
+    dropdownItems.forEach((dropdownItem) => {
+      new Image().src = dropdownItem.icon;
+    });
+  }, []);
   const onMouseEnter = () => {
     setIsHover(true);
   };
