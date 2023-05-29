@@ -5,7 +5,6 @@ import { filteredAuthorAtom, selectedBookAtom } from "../atoms";
 import { IBook } from "../types/book";
 import BookPreviewDialog from "./Books/BookPreviewDialog";
 import { graphql, useStaticQuery } from "gatsby";
-import { checkIsSSR } from "./utils";
 
 const Books = styled.ul`
   cursor: pointer;
@@ -21,11 +20,9 @@ const Book = styled.a`
   border-bottom: ${(props) => `1px solid ${props.theme.normalColor}`};
 `;
 const preloadBookTextures = (books: IBook[]) => {
-  if (checkIsSSR()) return;
   books.forEach((book) => {
     const imgSrc = book.coverImage?.file?.url || "";
-    const img = document.createElement("img");
-    img.src = imgSrc; // it makes load texture concurrently using disc cache
+    new Image().src = imgSrc; // it makes load texture concurrently using disc cache
   });
 };
 const BookList = () => {
