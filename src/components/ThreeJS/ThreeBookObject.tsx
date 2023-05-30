@@ -28,7 +28,7 @@ const BookObject = React.memo(
     const { scene, animations } = useGLTF("/threeModel/bookModel/scene.gltf");
     const { actions, ref: bookSceneRef } = useAnimations(animations, groupRef);
     const [isZoomedIn, setIsZoomedIn] = useState(false);
-    const [isLoadingTexture, setIsLoadingTexture] = useState(false);
+    const [isLoadedTexture, setIsLoadedTexture] = useState(false);
     const [clickAnimation, setClickAnimation] = useState([false, false]);
     const [openAnimation, setOpenAnimation] = useState(false);
     const setIsHover = useSetRecoilState(cursorStyleAtom);
@@ -50,18 +50,18 @@ const BookObject = React.memo(
         bookCoverSrc: coverImage?.file?.url || "",
         material: bookMaterial,
         callback: () => {
-          setIsLoadingTexture(true);
+          setIsLoadedTexture(true);
         },
       });
     }, [bookSceneRef]);
 
     useFrame((_, delta) => {
-      if (!isLoadingTexture) return;
+      if (!isLoadedTexture) return;
       if (!isZoomedIn) {
         // zoom in
         const targetCameraPosition = new Vector3(0, 0, 7);
         const currentPosition = camera.position;
-        camera.position.lerp(targetCameraPosition, 0.05);
+        camera.position.lerp(targetCameraPosition, 0.1);
         const dist = currentPosition.distanceTo(targetCameraPosition);
         if (dist < 0.1) {
           setIsZoomedIn(true);
@@ -79,20 +79,12 @@ const BookObject = React.memo(
             // make distance from the book (camera)
             const targetCameraPosition = new Vector3(0, 0, 10);
             camera.position.lerp(targetCameraPosition, 0.07);
-            const currentPosition = camera.position;
             // rotate book to see forward (book)
             const targetRotation = new Quaternion();
             targetRotation.setFromEuler(new Euler(0, -Math.PI / 2, 0));
             bookRef!.quaternion.slerp(targetRotation, 0.07);
-            const cameraDistance =
-              currentPosition.distanceTo(targetCameraPosition);
-            const rotationDifference =
-              bookRef!.quaternion.angleTo(targetRotation);
-            // if position is set, start next animation(open the book)
-            if (cameraDistance < 0.5 && rotationDifference < 1) {
-              // if use same state, play() of 3d model called every time
-              setOpenAnimation(true);
-            }
+            // Start book open animation
+            setOpenAnimation(true);
           } else if (clickAnimation[1]) {
             // dive to book
             const targetCameraPosition = new Vector3(0, 0, 1);
@@ -116,6 +108,7 @@ const BookObject = React.memo(
     useEffect(() => {
       if (openAnimation) {
         actions["Demo"]!.play();
+        console.log("exec");
         setTimeout(() => {
           actions["Demo"]!.paused = true;
           // dive in to book
@@ -137,7 +130,7 @@ const BookObject = React.memo(
           object={scene}
           {...props}
           ref={bookSceneRef}
-          visible={isLoadingTexture}
+          visible={isLoadedTexture}
           onPointerOver={() => setIsHover(true)}
           onPointerOut={() => setIsHover(false)}
           onClick={onClick}
