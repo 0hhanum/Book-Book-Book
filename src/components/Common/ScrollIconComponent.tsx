@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 const Container = styled(motion.div)`
   position: fixed;
-  bottom: 5vh;
+  bottom: 7vh;
   right: 50%;
   display: flex;
   flex-direction: column;
@@ -38,22 +38,31 @@ const Arrow = styled.div`
 const ScrollComponentVariants = {
   initial: {
     translateY: 0,
+    opacity: 0,
   },
   animate: {
     translateY: 20,
+    opacity: 1,
     transition: {
       repeat: Infinity,
       duration: 1,
       repeatType: "reverse",
     },
   },
+  exit: {
+    opacity: 0,
+    transition: {
+      duration: 1,
+    },
+  },
 };
-const ScrollUIComponent = () => {
+const ScrollIconComponent = () => {
   return (
     <Container
       variants={ScrollComponentVariants}
       initial="initial"
       animate="animate"
+      exit="exit"
     >
       <Mouse>
         <Wheel />
@@ -63,4 +72,4 @@ const ScrollUIComponent = () => {
   );
 };
 
-export default ScrollUIComponent;
+export default ScrollIconComponent;
