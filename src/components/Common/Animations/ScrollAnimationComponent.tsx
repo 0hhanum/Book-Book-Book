@@ -1,5 +1,5 @@
-import { motion } from "framer-motion";
-import React from "react";
+import { motion, useInView } from "framer-motion";
+import React, { useRef } from "react";
 import styled from "styled-components";
 
 type TDirection = "left" | "right";
@@ -8,14 +8,13 @@ export interface IScrollAnimationComponent {
   direction?: TDirection;
 }
 const Container = styled(motion.div)<{ direction: TDirection }>`
-  height: 100vh;
-  height: ${(props) => `calc(100vh - ${props.theme.variables.headerHeight}px)`};
-  border-bottom: 1px solid black;
+  height: 225vh;
   display: flex;
-  align-items: center;
   justify-content: ${(props) => (props.direction === "left" ? "start" : "end")};
 `;
 const TextContainer = styled.div`
+  position: fixed;
+  top: ${(props) => `calc(50% - ${props.theme.variables.headerHeight}px)`};
   display: flex;
   flex-direction: column;
 `;
@@ -23,14 +22,21 @@ const TextContainer = styled.div`
 const Text = styled.span`
   margin-bottom: 40px;
   font-size: 50px;
-  font-weight: lighter;
+  font-weight: bold;
 `;
 const ScrollAnimationComponent = ({
   texts,
   direction = "left",
 }: IScrollAnimationComponent) => {
+  const containerRef = useRef(null);
+  const isInView = useInView(containerRef, { amount: 0.4 });
   return (
-    <Container direction={direction}>
+    <Container
+      direction={direction}
+      ref={containerRef}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: isInView ? 1 : 0 }}
+    >
       <TextContainer>
         {texts.map((text, i) => (
           <Text key={i}>{text}</Text>
