@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { setStream, stopStream } from "../RTCUtil";
 import VideoComponent from "../VideoComponent";
-import TypingAnimations from "../../Common/TypingAnimations";
+import TypingAnimationComponent from "../../Common/TypingAnimationComponent";
 import { sendMail } from "../../../apis/mailApi";
 import { Peer } from "peerjs";
 
@@ -91,11 +91,11 @@ const CallComponent = () => {
       ) : (
         <TextContainer>
           {isCallEnded ? (
-            <TypingAnimations
+            <TypingAnimationComponent
               text={`It was a truly meaningful time. Thank you for your conversation. Have a fantastic day ahead!`}
             />
           ) : (
-            <TypingAnimations
+            <TypingAnimationComponent
               text={`Thanks for reaching out! I've received your request and I'm checking
           if I'm available right now. Just give me a moment, and I'll get back
           to you ASAP. If I'm not available, please leave your contacts by MAIL tab

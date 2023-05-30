@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-interface ITypingAnimations {
+interface ITypingAnimationComponent {
   text: string;
 }
 const TYPING_SPEED = 20;
@@ -20,7 +20,7 @@ const Text = styled.article`
   font-size: 24px;
   line-height: 50px;
 `;
-const TypingAnimations = ({ text }: ITypingAnimations) => {
+const TypingAnimationComponent = ({ text }: ITypingAnimationComponent) => {
   const [currentText, setCurrentText] = useState("");
   useEffect(() => {
     if (currentText !== text) {
@@ -42,4 +42,4 @@ const TypingAnimations = ({ text }: ITypingAnimations) => {
   );
 };
 
-export default TypingAnimations;
+export default TypingAnimationComponent;
