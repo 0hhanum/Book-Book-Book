@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { setStream, stopStream } from "../RTCUtil";
 import VideoComponent from "../VideoComponent";
-import TypingAnimationComponent from "../../Common/TypingAnimationComponent";
+import TypingAnimationComponent from "../../Common/Animations/TypingAnimationComponent";
 import { sendMail } from "../../../apis/mailApi";
 import { Peer } from "peerjs";
 
