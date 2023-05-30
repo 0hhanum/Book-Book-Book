@@ -1,7 +1,11 @@
 import React, { useEffect } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { filteredAuthorAtom, selectedBookAtom } from "../atoms";
+import {
+  filteredAuthorAtom,
+  progressDialogAtom,
+  selectedBookAtom,
+} from "../atoms";
 import { IBook } from "../types/book";
 import BookPreviewDialog from "./Books/BookPreviewDialog";
 import { graphql, useStaticQuery } from "gatsby";
@@ -19,12 +23,22 @@ const Book = styled.a`
   padding-top: 20px;
   border-bottom: ${(props) => `1px solid ${props.theme.normalColor}`};
 `;
-const preloadBookTextures = (books: IBook[]) => {
+
+function preloadBookTextures(books: IBook[], onTextureLoaded: () => void) {
+  let loadedTextureCount = 0;
   books.forEach((book) => {
     const imgSrc = book.coverImage?.file?.url || "";
-    new Image().src = imgSrc; // it makes load texture concurrently using disc cache
+    const virtualImage = new Image();
+    virtualImage.src = imgSrc; // it makes load texture concurrently using disc cache
+    virtualImage.onload = () => {
+      loadedTextureCount++;
+      if (loadedTextureCount === books.length) {
+        onTextureLoaded(); // hide progress bar
+      }
+    };
   });
-};
+}
+
 const BookList = () => {
   const {
     allContentfulBooks: { nodes: books },
@@ -45,11 +59,17 @@ const BookList = () => {
       }
     }
   `);
-  useEffect(() => {
-    preloadBookTextures(books as IBook[]);
-  }, []);
   const authorFilter = useRecoilValue(filteredAuthorAtom);
   const [selectedBook, setSelectedBook] = useRecoilState(selectedBookAtom);
+  const setIsShowProgressDialog = useSetRecoilState(progressDialogAtom);
+
+  useEffect(() => {
+    setIsShowProgressDialog("dot");
+    const hideProgressDialog = () => {
+      setIsShowProgressDialog(null);
+    };
+    preloadBookTextures(books as IBook[], hideProgressDialog);
+  }, []);
   const openBookPreview = (book: IBook) => {
     setSelectedBook(book);
   };

@@ -65,7 +65,7 @@ const NavBar = () => {
   const [isHover, setIsHover] = useState(false);
   useEffect(() => {
     dropdownItems.forEach((dropdownItem) => {
-      new Image().src = dropdownItem.icon;
+      new Image().src = dropdownItem.icon; // preload dropdown svg
     });
   }, []);
   const onMouseEnter = () => {
