@@ -78,12 +78,12 @@ const BookObject = React.memo(
           if (!clickAnimation[1]) {
             // make distance from the book (camera)
             const targetCameraPosition = new Vector3(0, 0, 10);
-            camera.position.lerp(targetCameraPosition, 0.04);
+            camera.position.lerp(targetCameraPosition, 0.07);
             const currentPosition = camera.position;
             // rotate book to see forward (book)
             const targetRotation = new Quaternion();
             targetRotation.setFromEuler(new Euler(0, -Math.PI / 2, 0));
-            bookRef!.quaternion.slerp(targetRotation, 0.05);
+            bookRef!.quaternion.slerp(targetRotation, 0.07);
             const cameraDistance =
               currentPosition.distanceTo(targetCameraPosition);
             const rotationDifference =
@@ -96,7 +96,7 @@ const BookObject = React.memo(
           } else if (clickAnimation[1]) {
             // dive to book
             const targetCameraPosition = new Vector3(0, 0, 1);
-            camera.position.lerp(targetCameraPosition, 0.04);
+            camera.position.lerp(targetCameraPosition, 0.05);
             const currentPosition = camera.position;
             const cameraDistance =
               currentPosition.distanceTo(targetCameraPosition);
