@@ -2,21 +2,20 @@ import { AnimatePresence, motion, useInView } from "framer-motion";
 import React, { useRef } from "react";
 import styled from "styled-components";
 
-type TDirection = "left" | "right";
 export interface IScrollAnimationComponent {
   texts: string[];
-  direction?: TDirection;
 }
 const INTERSECTION_AMOUNT = 0.3;
 
-const Container = styled(motion.div)<{ direction: TDirection }>`
+const Container = styled(motion.div)`
   height: 225vh;
   display: flex;
-  justify-content: ${(props) => (props.direction === "left" ? "start" : "end")};
+  justify-content: center;
 `;
 const TextContainer = styled(motion.div)`
   position: fixed;
-  top: ${(props) => `calc(50% - ${props.theme.variables.headerHeight}px)`};
+  top: ${(props) =>
+    `calc(50% - ${props.theme.variables.headerHeight}px)`}; // Set to middle of the screen
   display: flex;
   flex-direction: column;
   transform: translateX("-50px");
@@ -25,17 +24,15 @@ const Text = styled.span`
   margin-bottom: 40px;
   font-size: 50px;
   font-weight: bold;
+  display: flex;
+  justify-content: center;
 `;
 
-const ScrollAnimationComponent = ({
-  texts,
-  direction = "left",
-}: IScrollAnimationComponent) => {
+const ScrollAnimationComponent = ({ texts }: IScrollAnimationComponent) => {
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, { amount: INTERSECTION_AMOUNT });
   return (
     <Container
-      direction={direction}
       ref={containerRef}
       initial={{ opacity: 0 }}
       animate={{ opacity: isInView ? 1 : 0 }}
@@ -45,7 +42,7 @@ const ScrollAnimationComponent = ({
           <TextContainer
             initial={{ translateY: "50px" }}
             animate={{ translateY: 0 }}
-            transition={{ duration: 1, type: "spring" }}
+            transition={{ duration: 1, ease: [0.17, 0.55, 0.55, 1] }}
             exit={{ translateY: "-50px" }}
           >
             {texts.map((text, i) => (
