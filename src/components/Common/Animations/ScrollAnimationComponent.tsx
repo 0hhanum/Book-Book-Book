@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 export interface IScrollAnimationComponent {
   texts: string[];
+  flashEffect?: boolean;
 }
 const INTERSECTION_AMOUNT = 0.3;
 
@@ -20,6 +21,14 @@ const TextContainer = styled(motion.div)`
   flex-direction: column;
   transform: translateX("-50px");
 `;
+const FlashEffect = styled(motion.div)`
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: gray;
+`;
 const Text = styled.span`
   margin-bottom: 40px;
   font-size: 50px;
@@ -27,8 +36,10 @@ const Text = styled.span`
   display: flex;
   justify-content: center;
 `;
-
-const ScrollAnimationComponent = ({ texts }: IScrollAnimationComponent) => {
+const ScrollAnimationComponent = ({
+  texts,
+  flashEffect = false,
+}: IScrollAnimationComponent) => {
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, { amount: INTERSECTION_AMOUNT });
   return (
@@ -39,16 +50,30 @@ const ScrollAnimationComponent = ({ texts }: IScrollAnimationComponent) => {
     >
       <AnimatePresence>
         {isInView && (
-          <TextContainer
-            initial={{ translateY: "50px" }}
-            animate={{ translateY: 0 }}
-            transition={{ duration: 1, ease: [0.17, 0.55, 0.55, 1] }}
-            exit={{ translateY: "-50px" }}
-          >
-            {texts.map((text, i) => (
-              <Text key={i}>{text}</Text>
-            ))}
-          </TextContainer>
+          <>
+            <TextContainer
+              initial={{ translateY: "50px" }}
+              animate={{ translateY: 0 }}
+              transition={{ duration: 1, ease: [0.17, 0.55, 0.55, 1] }}
+              exit={{ translateY: "-50px" }}
+            >
+              {texts.map((text, i) => (
+                <Text key={i}>{text}</Text>
+              ))}
+            </TextContainer>
+            {flashEffect && (
+              <FlashEffect
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{
+                  repeat: 1,
+                  duration: 0.5,
+                  type: "tween",
+                  repeatType: "reverse",
+                }}
+              />
+            )}
+          </>
         )}
       </AnimatePresence>
     </Container>
