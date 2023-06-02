@@ -7,6 +7,10 @@ export interface IScrollAnimationComponent {
   flashEffect?: boolean;
 }
 const INTERSECTION_AMOUNT = 0.3;
+const FLASH_EFFECT_OPACITY_DELAY = 0.5;
+const FLASH_EFFECT_OPACITY_DURATION = 0.5;
+const FLASH_EFFECT_BROKEN_DELAY = 1.5;
+const FLASH_EFFECT_BROKEN_DURATION = 0.1;
 
 const Container = styled(motion.div)`
   height: 225vh;
@@ -20,6 +24,7 @@ const TextContainer = styled(motion.div)`
   display: flex;
   flex-direction: column;
   transform: translateX("-50px");
+  z-index: 2;
 `;
 const FlashEffect = styled(motion.div)`
   position: fixed;
@@ -27,23 +32,15 @@ const FlashEffect = styled(motion.div)`
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: ${(props) => props.theme.warningColor};
+  background-color: #a70e0e;
+  z-index: 1;
+  opacity: 0;
 `;
-const FlashEffectLeft = styled(motion.div)`
-  position: fixed;
-  top: ${(props) => `${props.theme.variables.headerHeight}px`};
-  bottom: 0;
-  left: 0;
-  right: 0%;
-  clip-path: polygon(26% 0, 76% 100%, 0 100%, 0 0);
+const FlashEffectLeft = styled(FlashEffect)`
+  clip-path: polygon(25% 0, 75% 100%, 0 100%, 0 0);
 `;
 
-const FlashEffectRight = styled(motion.div)`
-  position: fixed;
-  top: ${(props) => `${props.theme.variables.headerHeight}px`};
-  bottom: 0;
-  left: 0%;
-  right: 0;
+const FlashEffectRight = styled(FlashEffect)`
   clip-path: polygon(100% 0, 100% 100%, 75% 100%, 25% 0);
 `;
 
@@ -54,6 +51,49 @@ const Text = styled.span`
   display: flex;
   justify-content: center;
 `;
+
+const FlashEffectVariants = {
+  initial: { x: 0, y: 0 },
+  animate: {
+    opacity: [0, 1],
+    transition: {
+      delay: FLASH_EFFECT_OPACITY_DELAY,
+      duration: FLASH_EFFECT_OPACITY_DURATION,
+      ease: "easeIn",
+      x: {
+        delay: FLASH_EFFECT_BROKEN_DELAY,
+        duration: FLASH_EFFECT_BROKEN_DURATION,
+      },
+      y: {
+        delay: FLASH_EFFECT_BROKEN_DELAY,
+        duration: FLASH_EFFECT_BROKEN_DURATION,
+      },
+      rotate: {
+        delay: FLASH_EFFECT_BROKEN_DELAY,
+        duration: FLASH_EFFECT_BROKEN_DURATION,
+      },
+    },
+  },
+  exit: { display: "none" },
+};
+const FlashEffectLeftVariants = {
+  ...FlashEffectVariants,
+  animate: {
+    ...FlashEffectVariants.animate,
+    x: ["0%", "-5%"],
+    y: ["0%", "-5%"],
+    rotate: ["0deg", "-1deg"],
+  },
+};
+const FlashEffectRightVariants = {
+  ...FlashEffectVariants,
+  animate: {
+    ...FlashEffectVariants.animate,
+    x: ["0%", "5%"],
+    y: ["0%", "5%"],
+    rotate: ["0deg", "2deg"],
+  },
+};
 const ScrollAnimationComponent = ({
   texts,
   flashEffect = false,
@@ -82,34 +122,16 @@ const ScrollAnimationComponent = ({
             {flashEffect && (
               <>
                 <FlashEffectLeft
-                  initial={{ x: 0, y: 0 }}
-                  animate={{
-                    x: "-5%",
-                    y: "-5%",
-                    rotate: "-1deg",
-                    backgroundColor: "red",
-                  }}
-                  exit={{ opacity: 0 }}
-                  transition={{
-                    delay: 0.3,
-                    duration: 0.3,
-                    type: "tween",
-                  }}
+                  variants={FlashEffectLeftVariants}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
                 />
                 <FlashEffectRight
-                  initial={{ x: 0, y: 0 }}
-                  animate={{
-                    x: "5%",
-                    y: "5%",
-                    rotate: "2deg",
-                    backgroundColor: "red",
-                  }}
-                  exit={{ opacity: 0 }}
-                  transition={{
-                    delay: 0.3,
-                    duration: 0.3,
-                    type: "tween",
-                  }}
+                  variants={FlashEffectRightVariants}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
                 />
               </>
             )}

@@ -6,7 +6,7 @@ export const defaultTheme: DefaultTheme = {
   fontColor: "#ffffff",
   accentColor: "#004DFD",
   normalColor: "#767475",
-  warningColor: "#FF3548",
+  warningColor: "#a70e0e",
   headerColor: "#ff7400",
   assets: {
     starIcon: "/star.svg",
@@ -20,7 +20,7 @@ export const lighterTheme: DefaultTheme = {
   fontColor: "#0c0f13",
   accentColor: "#004DFD",
   normalColor: "#767475",
-  warningColor: "#FF3548",
+  warningColor: "#a70e0e",
   headerColor: "#41f934",
   assets: {
     starIcon: "/star_lighter.svg",
