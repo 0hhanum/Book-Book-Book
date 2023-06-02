@@ -23,12 +23,30 @@ const TextContainer = styled(motion.div)`
 `;
 const FlashEffect = styled(motion.div)`
   position: fixed;
-  top: 0;
+  top: ${(props) => `${props.theme.variables.headerHeight}px`};
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: gray;
+  background-color: ${(props) => props.theme.warningColor};
 `;
+const FlashEffectLeft = styled(motion.div)`
+  position: fixed;
+  top: ${(props) => `${props.theme.variables.headerHeight}px`};
+  bottom: 0;
+  left: 0;
+  right: 0%;
+  clip-path: polygon(26% 0, 76% 100%, 0 100%, 0 0);
+`;
+
+const FlashEffectRight = styled(motion.div)`
+  position: fixed;
+  top: ${(props) => `${props.theme.variables.headerHeight}px`};
+  bottom: 0;
+  left: 0%;
+  right: 0;
+  clip-path: polygon(100% 0, 100% 100%, 75% 100%, 25% 0);
+`;
+
 const Text = styled.span`
   margin-bottom: 40px;
   font-size: 50px;
@@ -62,16 +80,38 @@ const ScrollAnimationComponent = ({
               ))}
             </TextContainer>
             {flashEffect && (
-              <FlashEffect
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{
-                  repeat: 1,
-                  duration: 0.5,
-                  type: "tween",
-                  repeatType: "reverse",
-                }}
-              />
+              <>
+                <FlashEffectLeft
+                  initial={{ x: 0, y: 0 }}
+                  animate={{
+                    x: "-5%",
+                    y: "-5%",
+                    rotate: "-1deg",
+                    backgroundColor: "red",
+                  }}
+                  exit={{ opacity: 0 }}
+                  transition={{
+                    delay: 0.3,
+                    duration: 0.3,
+                    type: "tween",
+                  }}
+                />
+                <FlashEffectRight
+                  initial={{ x: 0, y: 0 }}
+                  animate={{
+                    x: "5%",
+                    y: "5%",
+                    rotate: "2deg",
+                    backgroundColor: "red",
+                  }}
+                  exit={{ opacity: 0 }}
+                  transition={{
+                    delay: 0.3,
+                    duration: 0.3,
+                    type: "tween",
+                  }}
+                />
+              </>
             )}
           </>
         )}
