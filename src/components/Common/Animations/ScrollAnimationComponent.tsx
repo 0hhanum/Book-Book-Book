@@ -23,7 +23,6 @@ const TextContainer = styled(motion.div)`
     `calc(50% - ${props.theme.variables.headerHeight}px)`}; // Set to middle of the screen
   display: flex;
   flex-direction: column;
-  transform: translateX("-50px");
   z-index: 2;
 `;
 const FlashEffect = styled(motion.div)`
@@ -110,10 +109,10 @@ const ScrollAnimationComponent = ({
         {isInView && (
           <>
             <TextContainer
-              initial={{ translateY: "50px" }}
-              animate={{ translateY: 0 }}
+              initial={{ translateY: "calc(-35% + 80px)" }}
+              animate={{ translateY: "calc(-50% + 80px)" }}
               transition={{ duration: 1, ease: [0.17, 0.55, 0.55, 1] }}
-              exit={{ translateY: "-50px" }}
+              exit={{ translateY: "calc(-65% + 80px)" }}
             >
               {texts.map((text, i) => (
                 <Text key={i}>{text}</Text>
