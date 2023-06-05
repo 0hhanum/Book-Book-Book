@@ -65,6 +65,9 @@ const ScrollAnimationComponent = ({
                     duration: 5,
                   },
                 },
+                transitionEnd: {
+                  visibility: isVanishingEffect ? "hidden" : "visible",
+                },
               }}
               exit={{
                 translateY: "calc(-70% + 80px)",
