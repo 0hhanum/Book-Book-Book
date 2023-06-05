@@ -2,10 +2,11 @@ import React, { useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import { cursorStyleAtom } from "../../atoms";
 import { useSetRecoilState } from "recoil";
+import { Vector3 } from "three";
 
 interface IThreeCanvas {
   children: any;
-  cameraPosition?: number[];
+  cameraPosition?: Vector3;
 }
 
 const ThreeCanvas = ({ children, cameraPosition }: IThreeCanvas) => {
@@ -21,7 +22,7 @@ const ThreeCanvas = ({ children, cameraPosition }: IThreeCanvas) => {
     <Canvas
       gl={{ antialias: false, alpha: false }}
       camera={{
-        position: cameraPosition && [0, 0, 3],
+        position: cameraPosition || [0, 0, 3],
         focus: 5,
       }}
       dpr={[1, 2]}
