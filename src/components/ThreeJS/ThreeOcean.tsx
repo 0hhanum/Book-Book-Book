@@ -1,7 +1,8 @@
-import React, { useRef, useMemo } from "react";
+import React, { useRef } from "react";
 import { extend, useLoader, useFrame, Object3DNode } from "@react-three/fiber";
 import { Water } from "three-stdlib";
 import { PlaneGeometry, RepeatWrapping, TextureLoader } from "three";
+import { graphql, useStaticQuery } from "gatsby";
 
 extend({ Water });
 declare global {
@@ -16,23 +17,25 @@ const OCEAN_TEXTURE_SIZE = 512;
 const OCEAN_COLOR = 0x001e0f;
 
 function ThreeOcean() {
+  const { contentfulAsset } =
+    useStaticQuery<Queries.getOceanTextureQuery>(graphql`
+      query getOceanTexture {
+        contentfulAsset(title: { eq: "OceanTexture" }) {
+          url
+        }
+      }
+    `);
   const ref = useRef<Water>(null);
-  const waterNormals = useLoader(
-    TextureLoader,
-    "/threeModel/waternormals.jpeg"
-  );
+  const waterNormals = useLoader(TextureLoader, contentfulAsset?.url!);
   waterNormals.wrapS = waterNormals.wrapT = RepeatWrapping;
-  const geom = useMemo(() => new PlaneGeometry(OCEAN_SIZE, OCEAN_SIZE), []);
-  const config = useMemo(
-    () => ({
-      textureWidth: OCEAN_TEXTURE_SIZE,
-      textureHeight: OCEAN_TEXTURE_SIZE,
-      waterNormals,
-      waterColor: OCEAN_COLOR,
-      distortionScale: 3,
-    }),
-    [waterNormals]
-  );
+  const geom = new PlaneGeometry(OCEAN_SIZE, OCEAN_SIZE);
+  const config = {
+    textureWidth: OCEAN_TEXTURE_SIZE,
+    textureHeight: OCEAN_TEXTURE_SIZE,
+    waterNormals,
+    waterColor: OCEAN_COLOR,
+    distortionScale: 3,
+  };
   useFrame((state, delta) => {
     if (!ref.current) return;
     ref.current.material.uniforms.time.value += delta;
