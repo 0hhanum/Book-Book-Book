@@ -1,7 +1,10 @@
 import React from "react";
-import ThreeLayout from "../../ThreeJS/ThreeLayout";
 import styled from "styled-components";
 import { motion } from "framer-motion";
+import { OrbitControls, Sky } from "@react-three/drei";
+import ThreeCanvas from "../../ThreeJS/ThreeCanvas";
+import ThreeOcean from "../../ThreeJS/ThreeOcean";
+import { Vector3 } from "three";
 
 const Container = styled(motion.div)`
   position: fixed;
@@ -9,7 +12,6 @@ const Container = styled(motion.div)`
   right: 0;
   left: 0;
   bottom: 0;
-  background-color: red;
 `;
 
 const MaseratiInOcean = () => {
@@ -19,13 +21,12 @@ const MaseratiInOcean = () => {
       animate={{ opacity: 1 }}
       transition={{ duration: 5 }}
     >
-      <ThreeLayout>
-        <ambientLight intensity={0.8} />
-        <mesh>
-          <boxGeometry />
-          <meshStandardMaterial />
-        </mesh>
-      </ThreeLayout>
+      <ThreeCanvas cameraPosition={new Vector3(100, 5, 0)}>
+        <Sky sunPosition={[0, -1, 0]} turbidity={20} />
+        <ThreeOcean />
+        <boxGeometry />
+        <OrbitControls />
+      </ThreeCanvas>
     </Container>
   );
 };
