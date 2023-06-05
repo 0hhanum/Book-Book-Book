@@ -5,9 +5,10 @@ import { useSetRecoilState } from "recoil";
 
 interface IThreeCanvas {
   children: any;
+  cameraPosition?: number[];
 }
 
-const ThreeCanvas = ({ children }: IThreeCanvas) => {
+const ThreeCanvas = ({ children, cameraPosition }: IThreeCanvas) => {
   const setIsHover = useSetRecoilState(cursorStyleAtom);
   // clear pointer cursor when unmounted
   useEffect(() => {
@@ -20,7 +21,7 @@ const ThreeCanvas = ({ children }: IThreeCanvas) => {
     <Canvas
       gl={{ antialias: false, alpha: false }}
       camera={{
-        position: [0, 0, 3],
+        position: cameraPosition && [0, 0, 3],
         focus: 5,
       }}
       dpr={[1, 2]}
