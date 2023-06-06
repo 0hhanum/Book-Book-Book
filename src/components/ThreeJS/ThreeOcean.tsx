@@ -36,7 +36,7 @@ function ThreeOcean() {
     waterColor: OCEAN_COLOR,
     distortionScale: 3,
   };
-  useFrame((state, delta) => {
+  useFrame((_, delta) => {
     if (!ref.current) return;
     ref.current.material.uniforms.time.value += delta;
   });
