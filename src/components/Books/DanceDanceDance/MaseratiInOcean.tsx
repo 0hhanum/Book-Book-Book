@@ -6,6 +6,7 @@ import ThreeCanvas from "../../ThreeJS/ThreeCanvas";
 import ThreeOcean from "../../ThreeJS/ThreeOcean";
 import { Vector3 } from "three";
 import { ThreeElements, useFrame, useThree } from "@react-three/fiber";
+import { graphql, useStaticQuery } from "gatsby";
 
 const CAMERA_POSITION = new Vector3(-5, 0, 70);
 const CAMERA_ZOOM_SPEED = 0.005;
@@ -45,8 +46,15 @@ const MaseratiInOcean = () => {
   );
 };
 const Maserati = memo(() => {
+  const { contentfulAsset } = useStaticQuery<Queries.getMasiModelQuery>(graphql`
+    query getMasiModel {
+      contentfulAsset(title: { eq: "Maserati" }) {
+        url
+      }
+    }
+  `);
   const [isZoomIn, setIsZoomIn] = useState(false);
-  const { scene } = useGLTF("/threeModel/masi.glb");
+  const { scene } = useGLTF(contentfulAsset?.url!);
   const { camera } = useThree();
   const objectRef = useRef<ThreeElements>(null);
   // bouncng Masi
@@ -76,5 +84,5 @@ const Maserati = memo(() => {
     />
   );
 });
-useGLTF.preload("/threeModel/masi.glb");
+
 export default MaseratiInOcean;
