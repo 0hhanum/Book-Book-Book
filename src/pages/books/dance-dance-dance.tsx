@@ -7,6 +7,8 @@ import { IScrollAnimationComponent } from "../../components/Common/Animations/Sc
 import styled from "styled-components";
 import SlashEffectComponent from "../../components/Common/Animations/SlashEffectComponent";
 import MaseratiInOcean from "../../components/Books/DanceDanceDance/MaseratiInOcean";
+import { graphql, useStaticQuery } from "gatsby";
+import { useGLTF } from "@react-three/drei";
 
 const textObjects: IScrollAnimationComponent[] = [
   {
@@ -48,6 +50,15 @@ const EmptyContainer = styled.div`
   height: 100vh;
 `;
 const DanceDanceDance = () => {
+  const { contentfulAsset } = useStaticQuery<Queries.getMasiModelQuery>(graphql`
+    query getMasiModel {
+      contentfulAsset(title: { eq: "Maserati" }) {
+        url
+      }
+    }
+  `);
+  useGLTF.preload(contentfulAsset?.url!); // preload masi model
+
   const { scrollYProgress } = useScroll();
   const [isShowScrollUI, setIsShowScrollUI] = useState(true);
   useEffect(() => {
