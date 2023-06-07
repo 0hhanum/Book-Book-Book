@@ -29,7 +29,9 @@ const MaseratiInOcean = () => {
         <group>
           <spotLight position={[0, 10, 20]} angle={0.4} penumbra={0.2} />
           <spotLight position={[0, 10, -20]} angle={0.4} penumbra={0.2} />
-          <Maserati />
+          <Suspense fallback={null}>
+            <Maserati />
+          </Suspense>
           <ThreeOcean />
           <boxGeometry />
         </group>
@@ -66,14 +68,13 @@ const Maserati = memo(() => {
     }
   });
   return (
-    <Suspense>
-      <primitive
-        ref={objectRef}
-        object={scene}
-        rotation={[-Math.PI / 6, 0, 0]}
-        position={[0, -Math.PI / 6, 0]}
-      />
-    </Suspense>
+    <primitive
+      ref={objectRef}
+      object={scene}
+      rotation={[-Math.PI / 6, 0, 0]}
+      position={[0, -Math.PI / 6, 0]}
+    />
   );
 });
+useGLTF.preload("/threeModel/masi.glb");
 export default MaseratiInOcean;
