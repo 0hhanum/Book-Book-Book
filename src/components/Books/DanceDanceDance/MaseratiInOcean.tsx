@@ -1,13 +1,14 @@
-import React, { memo, useRef } from "react";
+import React, { Suspense, memo, useRef, useState } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { OrbitControls, Sky, useGLTF } from "@react-three/drei";
 import ThreeCanvas from "../../ThreeJS/ThreeCanvas";
 import ThreeOcean from "../../ThreeJS/ThreeOcean";
 import { Vector3 } from "three";
-import { ThreeElements, useFrame } from "@react-three/fiber";
+import { ThreeElements, useFrame, useThree } from "@react-three/fiber";
 
-const CAMERA_POSITION = new Vector3(Math.PI / 3, Math.PI / 5, Math.PI * 1.5);
+const CAMERA_POSITION = new Vector3(-5, 0, 70);
+const CAMERA_ZOOM_SPEED = 0.005;
 const ANIMATE_DURATION = 5;
 const Container = styled(motion.div)`
   position: fixed;
@@ -42,20 +43,37 @@ const MaseratiInOcean = () => {
   );
 };
 const Maserati = memo(() => {
+  const [isZoomIn, setIsZoomIn] = useState(false);
   const { scene } = useGLTF("/threeModel/masi.glb");
+  const { camera } = useThree();
   const objectRef = useRef<ThreeElements>(null);
+  // bouncng Masi
   useFrame((state, delta) => {
     if (!objectRef.current) return;
     objectRef.current.position.y =
-      Math.sin(state.clock.elapsedTime * 0.2) - Math.PI / 4;
+      Math.sin(state.clock.elapsedTime * 0.5) - Math.PI / 3.5;
+    objectRef.current.rotation.x =
+      Math.sin(state.clock.elapsedTime * 0.1) * 0.5 - Math.PI / 6;
+    if (!isZoomIn && state.clock.elapsedTime > 5) {
+      // initial zoom
+      const targetCameraPosition = new Vector3(5, 0, 10);
+      const currentPosition = camera.position;
+      camera.position.lerp(targetCameraPosition, CAMERA_ZOOM_SPEED);
+      const dist = currentPosition.distanceTo(targetCameraPosition);
+      if (dist < 0.1) {
+        setIsZoomIn(true);
+      }
+    }
   });
   return (
-    <primitive
-      ref={objectRef}
-      object={scene}
-      rotation={[-Math.PI / 6, 0, 0]}
-      position={[0, -Math.PI / 6, 0]}
-    />
+    <Suspense>
+      <primitive
+        ref={objectRef}
+        object={scene}
+        rotation={[-Math.PI / 6, 0, 0]}
+        position={[0, -Math.PI / 6, 0]}
+      />
+    </Suspense>
   );
 });
 export default MaseratiInOcean;
