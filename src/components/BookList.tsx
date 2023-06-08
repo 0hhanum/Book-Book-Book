@@ -9,6 +9,7 @@ import {
 import { IBook } from "../types/book";
 import BookPreviewDialog from "./Books/BookPreviewDialog";
 import { graphql, useStaticQuery } from "gatsby";
+import { preloadImage } from "./utils";
 
 const Books = styled.ul`
   cursor: pointer;
@@ -28,14 +29,12 @@ function preloadBookTextures(books: IBook[], onTextureLoaded: () => void) {
   let loadedTextureCount = 0;
   books.forEach((book) => {
     const imgSrc = book.coverImage?.file?.url || "";
-    const virtualImage = new Image();
-    virtualImage.src = imgSrc; // it makes load texture concurrently using disc cache
-    virtualImage.onload = () => {
+    preloadImage(imgSrc, () => {
       loadedTextureCount++;
       if (loadedTextureCount === books.length) {
         onTextureLoaded(); // hide progress bar
       }
-    };
+    });
   });
 }
 
