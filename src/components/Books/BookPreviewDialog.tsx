@@ -1,4 +1,4 @@
-import React, { Suspense, useRef } from "react";
+import React, { Suspense, useEffect, useRef } from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { selectedBookAtom } from "../../atoms";
@@ -54,6 +54,7 @@ const Content = styled.article`
   align-items: center;
   justify-content: center;
 `;
+
 const BookPreviewDialog = (book: IBook) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const setSelectedBook = useSetRecoilState(selectedBookAtom);
@@ -61,6 +62,12 @@ const BookPreviewDialog = (book: IBook) => {
     dialogRef.current?.close();
     setSelectedBook(null);
   };
+  useEffect(() => {
+    return () => {
+      // cancel select book when component destroyed (move to book detail page)
+      setSelectedBook(null);
+    };
+  }, []);
   return (
     <Dimmed onClick={closeDialog}>
       <Dialog open ref={dialogRef} onClick={(e) => e.stopPropagation()}>

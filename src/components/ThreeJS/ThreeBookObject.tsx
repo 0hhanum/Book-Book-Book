@@ -34,7 +34,6 @@ const BookObject = React.memo(
     const setIsHover = useSetRecoilState(cursorStyleAtom);
     const setSelectedBook = useSetRecoilState(selectedBookAtom);
     const { camera } = useThree();
-
     // set initial camera position
     useEffect(() => {
       camera?.position.set(0, 0, 20);
@@ -54,7 +53,16 @@ const BookObject = React.memo(
         },
       });
     }, [bookSceneRef]);
-
+    useEffect(() => {
+      if (openAnimation) {
+        actions["Demo"]!.play();
+        setTimeout(() => {
+          actions["Demo"]!.paused = true;
+          // dive in to book
+          setClickAnimation([true, true]);
+        }, 1500);
+      }
+    }, [openAnimation]);
     useFrame((_, delta) => {
       if (!isLoadedTexture) return;
       if (!isZoomedIn) {
@@ -95,27 +103,11 @@ const BookObject = React.memo(
             if (cameraDistance < 0.5) {
               // move to book detail page if dive animation is done
               navigate(`/books/${convertToKebabCase(title!)}`);
-              setTimeout(() => {
-                // change global state for close preview dialog
-                setSelectedBook(null);
-              }, 500);
             }
           }
         }
       }
     });
-
-    useEffect(() => {
-      if (openAnimation) {
-        actions["Demo"]!.play();
-        console.log("exec");
-        setTimeout(() => {
-          actions["Demo"]!.paused = true;
-          // dive in to book
-          setClickAnimation([true, true]);
-        }, 1500);
-      }
-    }, [openAnimation]);
     const onClick = () => {
       if (!clickAnimation[1]) {
         setClickAnimation([true, false]);
