@@ -64,7 +64,6 @@ const BookList = () => {
   const setIsShowProgressDialog = useSetRecoilState(progressDialogAtom);
 
   useEffect(() => {
-    setIsShowProgressDialog("dot");
     const hideProgressDialog = () => {
       setIsShowProgressDialog(null);
     };
