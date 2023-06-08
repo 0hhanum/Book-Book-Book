@@ -1,4 +1,3 @@
-import { AnimatePresence, motion } from "framer-motion";
 import React from "react";
 import styled from "styled-components";
 import { Link } from "gatsby";
@@ -13,7 +12,7 @@ interface IDropdownItem {
   link: string;
   type: "mail" | "internal" | "external";
 }
-const Container = styled(motion.div)`
+const Container = styled.div`
   &:after {
     background: ${(
       props
@@ -62,30 +61,28 @@ const Li = styled.li`
 `;
 const NavDropdown = (props: INavDropdown) => {
   return (
-    <AnimatePresence>
-      <Container onMouseLeave={props.onMouseLeave}>
-        <Ul>
-          {props.dropdownItems.map((item) =>
-            item.type === "internal" ? (
-              <Link to={item.link} key={item.name}>
-                <Li>
-                  <img src={item.icon} />
-                  <span>{item.name}</span>
-                </Li>
-              </Link>
-            ) : (
-              // external link
-              <a href={item.link} key={item.name} target="_blank">
-                <Li>
-                  <img src={item.icon} />
-                  <span>{item.name}</span>
-                </Li>
-              </a>
-            )
-          )}
-        </Ul>
-      </Container>
-    </AnimatePresence>
+    <Container onMouseLeave={props.onMouseLeave}>
+      <Ul>
+        {props.dropdownItems.map((item) =>
+          item.type === "internal" ? (
+            <Link to={item.link} key={item.name}>
+              <Li>
+                <img src={item.icon} />
+                <span>{item.name}</span>
+              </Li>
+            </Link>
+          ) : (
+            // external link
+            <a href={item.link} key={item.name} target="_blank">
+              <Li>
+                <img src={item.icon} />
+                <span>{item.name}</span>
+              </Li>
+            </a>
+          )
+        )}
+      </Ul>
+    </Container>
   );
 };
 
