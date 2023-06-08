@@ -15,6 +15,7 @@ const Dimmed = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 2;
 `;
 const Header = styled.header`
   height: 55px;

@@ -16,6 +16,7 @@ const Header = styled.header<IThemeProp>`
   h1 {
     color: ${(props) => props.theme.colors.black};
   }
+  z-index: 2;
 `;
 const Nav = styled.nav`
   padding: 15px;
