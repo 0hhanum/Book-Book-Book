@@ -9,6 +9,7 @@ import SlashEffectComponent from "../../components/Common/Animations/SlashEffect
 import MaseratiInOcean from "../../components/Books/DanceDanceDance/MaseratiInOcean";
 import { graphql, useStaticQuery } from "gatsby";
 import { useGLTF } from "@react-three/drei";
+import { preloadImage } from "../../components/utils";
 
 const textObjects: IScrollAnimationComponent[] = [
   {
@@ -50,18 +51,24 @@ const EmptyContainer = styled.div`
   height: 100vh;
 `;
 const DanceDanceDance = () => {
-  const { contentfulAsset } = useStaticQuery<Queries.getMasiModelQuery>(graphql`
-    query getMasiModel {
-      contentfulAsset(title: { eq: "Maserati" }) {
-        url
-      }
-    }
-  `);
-
+  const { masiModel, oceanTexture } =
+    useStaticQuery<Queries.getBookBookBookAssetQuery>(
+      graphql`
+        query getBookBookBookAsset {
+          masiModel: contentfulAsset(title: { eq: "Maserati" }) {
+            url
+          }
+          oceanTexture: contentfulAsset(title: { eq: "OceanTexture" }) {
+            url
+          }
+        }
+      `
+    );
   const { scrollYProgress } = useScroll();
   const [isShowScrollUI, setIsShowScrollUI] = useState(true);
   useEffect(() => {
-    useGLTF.preload(contentfulAsset?.url!); // preload masi model
+    useGLTF.preload(masiModel?.url!); // preload masi model
+    preloadImage(oceanTexture?.url || ""); // preload ocean texture
     scrollYProgress.onChange((scroll) => {
       if (scroll < 0.1) {
         setIsShowScrollUI(true);
