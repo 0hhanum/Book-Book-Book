@@ -57,11 +57,11 @@ const DanceDanceDance = () => {
       }
     }
   `);
-  useGLTF.preload(contentfulAsset?.url!); // preload masi model
 
   const { scrollYProgress } = useScroll();
   const [isShowScrollUI, setIsShowScrollUI] = useState(true);
   useEffect(() => {
+    useGLTF.preload(contentfulAsset?.url!); // preload masi model
     scrollYProgress.onChange((scroll) => {
       if (scroll < 0.1) {
         setIsShowScrollUI(true);

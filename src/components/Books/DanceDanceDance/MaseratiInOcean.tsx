@@ -63,7 +63,7 @@ const Maserati = memo(() => {
     objectRef.current.position.y =
       Math.sin(state.clock.elapsedTime * 0.5) - Math.PI / 3.5;
     objectRef.current.rotation.x =
-      Math.sin(state.clock.elapsedTime * 0.1) * 0.5 - Math.PI / 6;
+      Math.sin(state.clock.elapsedTime * 0.1) * 0.2 - Math.PI / 6;
     if (!isZoomIn && state.clock.elapsedTime > 5) {
       // initial zoom
       const targetCameraPosition = new Vector3(5, 0, 10);
