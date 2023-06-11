@@ -1,11 +1,10 @@
 import { AnimatePresence, motion, useInView } from "framer-motion";
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 
 export interface IScrollAnimationComponent {
   texts: string[];
   isVanishingEffect?: boolean;
-  vanishingCallback?: () => void;
   children?: JSX.Element;
 }
 const INTERSECTION_AMOUNT = 0.3;
@@ -15,7 +14,6 @@ const TRANSLATE_Y_BEZIER_CONSTANTS = {
     ease: [0.17, 0.55, 0.55, 1],
   },
 };
-
 const Container = styled(motion.div)`
   height: 225vh;
   display: flex;
@@ -29,7 +27,6 @@ const TextContainer = styled(motion.div)`
   flex-direction: column;
   z-index: 2;
 `;
-
 const Text = styled.span`
   margin-bottom: 40px;
   font-size: 50px;
@@ -37,20 +34,13 @@ const Text = styled.span`
   display: flex;
   justify-content: center;
 `;
-
 const ScrollAnimationComponent = ({
   texts,
   children,
   isVanishingEffect = false,
-  vanishingCallback,
 }: IScrollAnimationComponent) => {
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, { amount: INTERSECTION_AMOUNT });
-  useEffect(() => {
-    if (isInView && vanishingCallback) {
-      vanishingCallback();
-    }
-  }, [isInView]);
   return (
     <Container
       ref={containerRef}
@@ -94,5 +84,4 @@ const ScrollAnimationComponent = ({
     </Container>
   );
 };
-
 export default ScrollAnimationComponent;
