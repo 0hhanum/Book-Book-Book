@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Suspense, lazy, useEffect, useState } from "react";
 import Helmet from "../../components/Helmet";
 import ScrollIconComponent from "../../components/Common/ScrollIconComponent";
 import ScrollAnimationComponent from "../../components/Common/Animations/ScrollAnimationComponent";
@@ -6,7 +6,7 @@ import { AnimatePresence, motion, useScroll } from "framer-motion";
 import { IScrollAnimationComponent } from "../../components/Common/Animations/ScrollAnimationComponent";
 import styled from "styled-components";
 import SlashEffectComponent from "../../components/Common/Animations/SlashEffectComponent";
-import MaseratiInOcean from "../../components/Books/DanceDanceDance/MaseratiInOcean";
+import ProgressController from "../../components/Common/ProgressDialogs/ProgressController";
 
 const textObjects: IScrollAnimationComponent[] = [
   {
@@ -53,10 +53,14 @@ const MasiContainer = styled(motion.div)`
   left: 0;
   bottom: 0;
 `;
+
 const DanceDanceDance = () => {
+  const MaseratiInOcean = lazy(
+    () => import("../../components/Books/DanceDanceDance/MaseratiInOcean")
+  );
   const { scrollYProgress } = useScroll();
   const [isShowScrollUI, setIsShowScrollUI] = useState(true);
-  const [masiOpacity, setMasiOpacity] = useState(0);
+  const [isMaseratiVisible, setIsMaseratiVisible] = useState(false);
   useEffect(() => {
     scrollYProgress.onChange((scroll) => {
       if (scroll < 0.1) {
@@ -66,7 +70,7 @@ const DanceDanceDance = () => {
       }
     });
   }, []);
-  const masiEffect = () => setMasiOpacity(1);
+  const masiEffect = () => setIsMaseratiVisible(true);
   return (
     <>
       <EmptyContainer />
@@ -83,10 +87,15 @@ const DanceDanceDance = () => {
       ))}
       <MasiContainer
         initial={{ opacity: 0, zIndex: 0 }}
-        animate={{ opacity: masiOpacity, zIndex: masiOpacity === 1 ? 1 : -1 }}
+        animate={{
+          opacity: isMaseratiVisible ? 1 : 0,
+          zIndex: isMaseratiVisible ? 1 : -1,
+        }}
         transition={{ duration: 5 }}
       >
-        <MaseratiInOcean />
+        <Suspense fallback={<ProgressController type={"dot"} />}>
+          <MaseratiInOcean isMaseratiVisible={isMaseratiVisible} />
+        </Suspense>
       </MasiContainer>
       <AnimatePresence>
         {isShowScrollUI && <ScrollIconComponent />}

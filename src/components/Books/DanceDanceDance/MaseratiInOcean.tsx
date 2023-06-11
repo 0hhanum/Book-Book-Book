@@ -8,8 +8,10 @@ import { graphql, useStaticQuery } from "gatsby";
 
 const CAMERA_POSITION = new Vector3(-5, 0, 70);
 const CAMERA_ZOOM_SPEED = 0.005;
-
-const MaseratiInOcean = () => {
+interface IMaseratiInOcean {
+  isMaseratiVisible: boolean;
+}
+const MaseratiInOcean = ({ isMaseratiVisible }: IMaseratiInOcean) => {
   return (
     <ThreeCanvas cameraPosition={CAMERA_POSITION}>
       <Sky sunPosition={[0, -1, 0]} turbidity={20} />
@@ -17,7 +19,7 @@ const MaseratiInOcean = () => {
         <spotLight position={[0, 10, 20]} angle={0.4} penumbra={0.2} />
         <spotLight position={[0, 10, -20]} angle={0.4} penumbra={0.2} />
         <Suspense fallback={null}>
-          <Maserati />
+          <Maserati isMaseratiVisible={isMaseratiVisible} />
         </Suspense>
         <ThreeOcean />
         <boxGeometry />
@@ -30,7 +32,7 @@ const MaseratiInOcean = () => {
     </ThreeCanvas>
   );
 };
-const Maserati = memo(() => {
+const Maserati = memo(({ isMaseratiVisible }: IMaseratiInOcean) => {
   const { contentfulAsset } = useStaticQuery<Queries.getMasiModelQuery>(graphql`
     query getMasiModel {
       contentfulAsset(title: { eq: "Maserati" }) {
@@ -45,6 +47,7 @@ const Maserati = memo(() => {
   // bouncng Masi
   useFrame((state, delta) => {
     if (!objectRef.current) return;
+    if (!isMaseratiVisible) return;
     objectRef.current.position.y =
       Math.sin(state.clock.elapsedTime * 0.5) - Math.PI / 3.5;
     objectRef.current.rotation.x =
