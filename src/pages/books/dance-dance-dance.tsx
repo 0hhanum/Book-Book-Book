@@ -2,14 +2,11 @@ import React, { useEffect, useState } from "react";
 import Helmet from "../../components/Helmet";
 import ScrollIconComponent from "../../components/Common/ScrollIconComponent";
 import ScrollAnimationComponent from "../../components/Common/Animations/ScrollAnimationComponent";
-import { AnimatePresence, useScroll } from "framer-motion";
+import { AnimatePresence, motion, useScroll } from "framer-motion";
 import { IScrollAnimationComponent } from "../../components/Common/Animations/ScrollAnimationComponent";
 import styled from "styled-components";
 import SlashEffectComponent from "../../components/Common/Animations/SlashEffectComponent";
 import MaseratiInOcean from "../../components/Books/DanceDanceDance/MaseratiInOcean";
-import { graphql, useStaticQuery } from "gatsby";
-import { useGLTF } from "@react-three/drei";
-import { preloadImage } from "../../components/utils";
 
 const textObjects: IScrollAnimationComponent[] = [
   {
@@ -39,36 +36,28 @@ const textObjects: IScrollAnimationComponent[] = [
       "비맞은 모자도, 주차장의 마세라티도 사라져 버렸다.",
       "아이고 맙소사 하고 생각했다. 그리고 고개를 저었다.",
     ],
-    children: "slashEffect",
+    children: <SlashEffectComponent />,
   },
   {
     texts: ["하지만 어쩔 도리가 없었다.", "그는 사라져 버린 것이다."],
     isVanishingEffect: true,
-    children: "maseratiInOcean",
   },
 ];
 const EmptyContainer = styled.div`
   height: 100vh;
 `;
+const MasiContainer = styled(motion.div)`
+  position: fixed;
+  top: ${(props) => `${props.theme.variables.headerHeight}px`};
+  right: 0;
+  left: 0;
+  bottom: 0;
+`;
 const DanceDanceDance = () => {
-  const { masiModel, oceanTexture } =
-    useStaticQuery<Queries.getBookBookBookAssetQuery>(
-      graphql`
-        query getBookBookBookAsset {
-          masiModel: contentfulAsset(title: { eq: "Maserati" }) {
-            url
-          }
-          oceanTexture: contentfulAsset(title: { eq: "OceanTexture" }) {
-            url
-          }
-        }
-      `
-    );
   const { scrollYProgress } = useScroll();
   const [isShowScrollUI, setIsShowScrollUI] = useState(true);
+  const [masiOpacity, setMasiOpacity] = useState(0);
   useEffect(() => {
-    useGLTF.preload(masiModel?.url!); // preload masi model
-    preloadImage(oceanTexture?.url || ""); // preload ocean texture
     scrollYProgress.onChange((scroll) => {
       if (scroll < 0.1) {
         setIsShowScrollUI(true);
@@ -77,22 +66,28 @@ const DanceDanceDance = () => {
       }
     });
   }, []);
+  const masiEffect = () => setMasiOpacity(1);
   return (
     <>
       <EmptyContainer />
       {textObjects.map((textObject, i) => (
         <ScrollAnimationComponent
           key={i}
-          texts={textObject.texts}
-          isVanishingEffect={textObject.isVanishingEffect}
+          {...textObject}
+          vanishingCallback={
+            textObject.isVanishingEffect ? masiEffect : undefined
+          }
         >
-          {textObject.children === "slashEffect" ? (
-            <SlashEffectComponent />
-          ) : textObject.children === "maseratiInOcean" ? (
-            <MaseratiInOcean />
-          ) : undefined}
+          {textObject.children}
         </ScrollAnimationComponent>
       ))}
+      <MasiContainer
+        initial={{ opacity: 0, zIndex: 0 }}
+        animate={{ opacity: masiOpacity, zIndex: masiOpacity === 1 ? 1 : -1 }}
+        transition={{ duration: 5 }}
+      >
+        <MaseratiInOcean />
+      </MasiContainer>
       <AnimatePresence>
         {isShowScrollUI && <ScrollIconComponent />}
       </AnimatePresence>
