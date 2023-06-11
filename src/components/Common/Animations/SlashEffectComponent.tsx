@@ -13,7 +13,7 @@ const FlashEffect = styled(motion.div)`
   left: 0;
   right: 0;
   background-color: #a70e0e;
-  z-index: 1;
+  z-index: 2;
   opacity: 0;
 `;
 const FlashEffectLeft = styled(FlashEffect)`
