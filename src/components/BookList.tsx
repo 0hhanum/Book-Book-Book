@@ -10,6 +10,7 @@ import { IBook } from "../types/book";
 import BookPreviewDialog from "./Books/BookPreviewDialog";
 import { graphql, useStaticQuery } from "gatsby";
 import { preloadImage } from "./utils";
+import { useGLTF } from "@react-three/drei";
 
 const Books = styled.ul`
   cursor: pointer;
@@ -67,6 +68,8 @@ const BookList = () => {
       setIsShowProgressDialog(null);
     };
     preloadBookTextures(books as IBook[], hideProgressDialog);
+    // preload book model
+    useGLTF.preload("/threeModel/bookModel/scene.gltf");
   }, []);
   const openBookPreview = (book: IBook) => {
     setSelectedBook(book);
