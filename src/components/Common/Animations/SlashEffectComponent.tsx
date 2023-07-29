@@ -2,9 +2,9 @@ import { motion } from "framer-motion";
 import React from "react";
 import styled from "styled-components";
 
-const FLASH_EFFECT_OPACITY_DELAY = 0.3;
-const FLASH_EFFECT_OPACITY_DURATION = 0.5;
-const FLASH_EFFECT_BROKEN_DELAY = 1.2;
+const FLASH_EFFECT_OPACITY_DELAY = 0.5;
+const FLASH_EFFECT_OPACITY_DURATION = 1;
+const FLASH_EFFECT_BROKEN_DELAY = 1.8;
 const FLASH_EFFECT_BROKEN_DURATION = 0.1;
 const FlashEffect = styled(motion.div)`
   position: fixed;
