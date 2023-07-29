@@ -757,17 +757,6 @@
       "uri": "scene.bin"
     }
   ],
-  "images": [
-    {
-      "uri": "textures/Base_baseColor.jpeg"
-    },
-    {
-      "uri": "textures/Base_metallicRoughness.png"
-    },
-    {
-      "uri": "textures/Base_normal.png"
-    }
-  ],
   "meshes": [
     {
       "name": "Book",
