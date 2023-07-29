@@ -50,7 +50,7 @@ const CallComponent = () => {
       });
       setTimeout(() => {
         connection.on("close", () => {
-          // PeerJS has traditional bugs (eventlistener doesn't work on MediaConnection)
+          // PeerJS has old bugs (eventlistener doesn't work on MediaConnection)
           setPeerStream(undefined);
           setIsCallEnded(true);
         });
