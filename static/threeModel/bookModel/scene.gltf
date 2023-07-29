@@ -768,27 +768,6 @@
       "uri": "textures/Base_normal.png"
     }
   ],
-  "materials": [
-    {
-      "doubleSided": true,
-      "name": "Base",
-      "normalTexture": {
-        "index": 2
-      },
-      "occlusionTexture": {
-        "index": 1
-      },
-      "pbrMetallicRoughness": {
-        "baseColorTexture": {
-          "index": 0
-        },
-        "metallicRoughnessTexture": {
-          "index": 1
-        },
-        "roughnessFactor": 0.7700076219512195
-      }
-    }
-  ],
   "meshes": [
     {
       "name": "Book",
@@ -803,7 +782,6 @@
             "WEIGHTS_0": 7
           },
           "indices": 4,
-          "material": 0,
           "mode": 4
         }
       ]
