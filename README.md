@@ -18,6 +18,8 @@
 
 [4. 메일 서비스 Mailgun 연동 (23/05/20)](https://velog.io/@0hhanum/bookBookBook4)
 
+[5. 이슈들 (23/07/29)](https://velog.io/@0hhanum/%EC%B1%85%EC%B1%85%EC%B1%85-%EC%B1%85%EC%9D%84-%EC%9D%BD%EC%9D%8D%EC%8B%9C%EB%8B%A4-5.-%EC%9D%B4%EC%8A%88%EB%93%A4)
+
 ## Stack
 
 - TS
