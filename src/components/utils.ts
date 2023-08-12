@@ -15,3 +15,19 @@ export const preloadImage = (src: string, callback?: () => void) => {
     virtualImage.onload = () => callback();
   }
 };
+
+type Debounce = <T extends any[]>(
+  func: (...args: T) => void,
+  delay: number
+) => (...args: T) => void;
+export const debounce: Debounce = (func, delay) => {
+  let timeout: ReturnType<typeof setTimeout> | null = null;
+  return (...args) => {
+    if (timeout) {
+      clearTimeout(timeout);
+    }
+    timeout = setTimeout(() => {
+      func(...args);
+    }, delay);
+  };
+};
