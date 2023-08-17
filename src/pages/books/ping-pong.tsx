@@ -2,7 +2,12 @@ import React, { useEffect, useState } from "react";
 import Helmet from "../../components/Helmet";
 import Ball from "../../components/Books/PingPong/Ball";
 import Racket from "../../components/Books/PingPong/Racket";
-import { animate, useMotionValue } from "framer-motion";
+import {
+    AnimatePresence,
+    animate,
+    useMotionValue,
+    motion,
+} from "framer-motion";
 import styled from "styled-components";
 import ScoreBoard from "../../components/Books/PingPong/ScoreBoard";
 
@@ -14,15 +19,13 @@ const Container = styled.div`
         auto;
 `;
 const PingPong = () => {
-    const score = useState(9);
+    const [score, setScore] = useState(9);
+    const [showScoreBoard, setShowScoreBoard] = useState(false);
     const distance = useMotionValue(0.1);
     const throwBall = () => {
         animate(distance, 1, {
             duration: 0.7,
             type: "tween",
-            onComplete() {
-                console.log(distance.isAnimating());
-            },
         });
     };
     const hitBall = () => {
@@ -38,12 +41,37 @@ const PingPong = () => {
     };
     useEffect(() => {
         throwBall();
+        distance.onChange((value) => {
+            // when miss the ball
+            if (value === 1) {
+                distance.set(0);
+                setScore((curr) => curr + 1);
+                setShowScoreBoard(true);
+                setTimeout(() => {
+                    setShowScoreBoard(false);
+                    throwBall();
+                }, 2000);
+            }
+        });
+        return () => {
+            distance.clearListeners();
+        };
     }, []);
     return (
         <Container>
             <Ball distance={distance} />
             <Racket hitBall={hitBall} ballDistance={distance} />
-            <ScoreBoard score={score} />
+            <AnimatePresence>
+                {showScoreBoard && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                    >
+                        <ScoreBoard score={score} />
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </Container>
     );
 };
