@@ -24,12 +24,24 @@ const PingPong = () => {
     const distance = useMotionValue(0.1);
     const throwBall = () => {
         animate(distance, 1, {
-            duration: 0.7,
+            duration: 2,
             type: "tween",
+            onComplete() {
+                if (distance.getPrevious() > 0.9) {
+                    distance.set(0);
+                    setScore((curr) => curr + 1);
+                    setShowScoreBoard(true);
+                    setTimeout(() => {
+                        setShowScoreBoard(false);
+                        throwBall();
+                    }, 2000);
+                }
+            },
         });
     };
     const hitBall = () => {
         if (distance.get() < 0.8 && distance.get() > 0.5) {
+            distance.stop();
             animate(distance, 0, {
                 duration: 0.4,
                 type: "spring",
@@ -41,21 +53,6 @@ const PingPong = () => {
     };
     useEffect(() => {
         throwBall();
-        distance.onChange((value) => {
-            // when miss the ball
-            if (value === 1) {
-                distance.set(0);
-                setScore((curr) => curr + 1);
-                setShowScoreBoard(true);
-                setTimeout(() => {
-                    setShowScoreBoard(false);
-                    throwBall();
-                }, 2000);
-            }
-        });
-        return () => {
-            distance.clearListeners();
-        };
     }, []);
     return (
         <Container>
