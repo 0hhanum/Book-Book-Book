@@ -26,6 +26,9 @@
 - AWS Lambda를 래핑해 FaaS로 제공하는 Netlify Functions를 통해 메일 서비스 Mailgun 이용
 - 서버리스 환경에서의 WebRTC 커넥션을 위해 PeerJS의 오픈 서버 PeerServer 이용
 
+<img width="467" alt="image" src="https://github.com/0hhanum/Book-Book-Book/assets/79507291/752806a3-96b0-4469-a429-01c8e0569be8">
+
+
 ### 비주얼 시각화
 
 - 정적 페이지 생성 프레임워크 Gatsby를 통해 책 별로 독립된 시각화 페이지 제공
